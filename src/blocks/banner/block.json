@@ -1,0 +1,81 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "block-forge/banner",
+  "title": "Banner",
+  "category": "block-forge",
+  "description": "Fullsize banner with image, text and optional CTA",
+  "keywords": [
+    "banner",
+    "hero",
+    "cta"
+  ],
+  "textdomain": "block-forge",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./editor.css",
+  "style": "block-forge-style",
+  "render": "file:./render.php",
+  "attributes": {
+    "title": {
+      "type": "string",
+      "default": "Häng med i Movendi"
+    },
+    "description": {
+      "type": "string",
+      "default": "För dig som vill ha kul, åka på läger, träffa kompisar och vara med och bestämma"
+    },
+    "backgroundColor": {
+      "type": "string",
+      "default": "blue"
+    },
+    "showDecoration": {
+      "type": "boolean",
+      "default": false
+    },
+    "imageUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "imageAlt": {
+      "type": "string",
+      "default": ""
+    },
+    "imageId": {
+      "type": "number"
+    },
+    "imageType": {
+      "type": "string",
+      "default": "full"
+    },
+    "imagePosition": {
+      "type": "string",
+      "default": "left"
+    },
+    "ctaType": {
+      "type": "string",
+      "default": "none"
+    },
+    "primaryButton": {
+      "type": "object",
+      "default": {
+        "label": "Knapp",
+        "url": ""
+      }
+    },
+    "secondaryButton": {
+      "type": "object",
+      "default": {
+        "label": "Knapp",
+        "url": ""
+      }
+    },
+    "linkLabel": {
+      "type": "string",
+      "default": "Länk kommer här"
+    },
+    "linkUrl": {
+      "type": "string",
+      "default": ""
+    }
+  }
+}
