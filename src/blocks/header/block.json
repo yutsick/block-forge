@@ -1,0 +1,36 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "block-forge/header",
+  "title": "Header",
+  "category": "block-forge",
+  "description": "Site header with logo, navigation and CTA button. Supports 4 background color variants.",
+  "keywords": ["header", "navigation", "nav", "menu"],
+  "textdomain": "block-forge",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./editor.css",
+  "style": "block-forge-style",
+  "render": "file:./render.php",
+  "attributes": {
+    "backgroundColor": {
+      "type": "string",
+      "default": "white"
+    },
+    "ctaLabel": {
+      "type": "string",
+      "default": "Bli medlem"
+    },
+    "ctaUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "utilityLinks": {
+      "type": "array",
+      "default": [
+        { "label": "Press", "url": "" },
+        { "label": "Webbshop", "url": "" },
+        { "label": "För medlemmar", "url": "" }
+      ]
+    }
+  }
+}

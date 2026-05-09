@@ -1,0 +1,43 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "block-forge/hero",
+  "title": "Hero",
+  "category": "block-forge",
+  "description": "Full-width hero section with background image, heading, description and two CTA buttons",
+  "keywords": ["hero", "banner", "cta"],
+  "textdomain": "block-forge",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./editor.css",
+  "style": "block-forge-style",
+  "render": "file:./render.php",
+  "attributes": {
+    "imageUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "imageAlt": {
+      "type": "string",
+      "default": ""
+    },
+    "imageId": {
+      "type": "number"
+    },
+    "title": {
+      "type": "string",
+      "default": "Fri att vara du"
+    },
+    "description": {
+      "type": "string",
+      "default": "Movendi samlar människor i hela Sverige som vill ha gemenskap, stöd och roliga aktiviteter utan alkohol. Häng med och var med och ändra."
+    },
+    "primaryButton": {
+      "type": "object",
+      "default": { "label": "Bli medlem", "url": "" }
+    },
+    "secondaryButton": {
+      "type": "object",
+      "default": { "label": "Uppträck Movendi", "url": "" }
+    }
+  }
+}

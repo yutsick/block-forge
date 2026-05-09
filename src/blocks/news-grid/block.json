@@ -1,0 +1,54 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "block-forge/news-grid",
+  "title": "News Grid",
+  "category": "block-forge",
+  "description": "3-column news article cards with category tag, date, title and excerpt",
+  "keywords": ["news", "articles", "grid", "aktuellt"],
+  "textdomain": "block-forge",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./editor.css",
+  "style": "block-forge-style",
+  "render": "file:./render.php",
+  "attributes": {
+    "sectionTitle": {
+      "type": "string",
+      "default": "Aktuellt i Movendi"
+    },
+    "moreLinkLabel": {
+      "type": "string",
+      "default": "Läs fler artiklar i nyhetsarkivet"
+    },
+    "moreLinkUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "articles": {
+      "type": "array",
+      "default": [
+        {
+          "imageUrl": "", "imageAlt": "", "imageId": 0,
+          "category": "NYHET", "date": "11 Nov 2023",
+          "title": "Vi jul – tillsammans skapar vi trygga högtider",
+          "excerpt": "Tusentals familjer väljer ett liv utan berus. Vi vill stöd och på julens trygg för fler här.",
+          "url": ""
+        },
+        {
+          "imageUrl": "", "imageAlt": "", "imageId": 0,
+          "category": "NYHET", "date": "11 Nov 2023",
+          "title": "Sober Pride – stolthet, gemenskap och nykter fest",
+          "excerpt": "Under Pride skapar vi en plats för alla som vill vara fria, dansa och vara sig själva – utan alkohol.",
+          "url": ""
+        },
+        {
+          "imageUrl": "", "imageAlt": "", "imageId": 0,
+          "category": "NYHET", "date": "11 Nov 2023",
+          "title": "Ny rapport: Alkoholens konsekvenser i samhället",
+          "excerpt": "Vi sprider kunskap om hur alkoholpolitiken påverkar människor, familjer och samhällen.",
+          "url": ""
+        }
+      ]
+    }
+  }
+}

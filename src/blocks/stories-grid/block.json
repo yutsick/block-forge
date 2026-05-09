@@ -1,0 +1,54 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "block-forge/stories-grid",
+  "title": "Stories Grid",
+  "category": "block-forge",
+  "description": "3-column testimonial/story cards with portrait photo, category tag, quote title and excerpt",
+  "keywords": ["stories", "testimonials", "berättelser", "people"],
+  "textdomain": "block-forge",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./editor.css",
+  "style": "block-forge-style",
+  "render": "file:./render.php",
+  "attributes": {
+    "sectionTitle": {
+      "type": "string",
+      "default": "Fri att vara du"
+    },
+    "moreLinkLabel": {
+      "type": "string",
+      "default": "Läs fler berättelser"
+    },
+    "moreLinkUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "stories": {
+      "type": "array",
+      "default": [
+        {
+          "imageUrl": "", "imageAlt": "", "imageId": 0,
+          "category": "JANE DOE NAME", "location": "Medlem",
+          "title": "\"Här känner jag mig hemma\"",
+          "excerpt": "Jag gick med för att det är den råda trygga platformen för gemeninkapen för att möta människorna.",
+          "url": ""
+        },
+        {
+          "imageUrl": "", "imageAlt": "", "imageId": 0,
+          "category": "JANE DOE NAME", "location": "Medlem",
+          "title": "\"Ett nyktert sammanhang gör skillnad\"",
+          "excerpt": "Det är ändå en bättre miljö att möta människor och ha kul utan att alkohol måste vara med.",
+          "url": ""
+        },
+        {
+          "imageUrl": "", "imageAlt": "", "imageId": 0,
+          "category": "JANE DOE NAME", "location": "Medlem",
+          "title": "\"Här fick jag mod att engagera mig\"",
+          "excerpt": "Jag fick äntligen utrymme att växa som människa och hitta mod att ta plats i samhällsdebatten.",
+          "url": ""
+        }
+      ]
+    }
+  }
+}

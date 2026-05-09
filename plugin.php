@@ -56,4 +56,11 @@ add_action( 'init', function() {
         [],
         filemtime( plugin_dir_path( __FILE__ ) . 'build/style.css' )
     );
-});
+} );
+
+add_action( 'after_setup_theme', function() {
+    register_nav_menus( [
+        'block-forge-primary' => __( 'Block Forge – Primary Navigation', 'block-forge' ),
+        'block-forge-utility' => __( 'Block Forge – Utility Bar', 'block-forge' ),
+    ] );
+} );
