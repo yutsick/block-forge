@@ -1,0 +1,55 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "block-forge/text-image",
+  "title": "Text + Image",
+  "category": "block-forge",
+  "description": "Two-column block with text on one side and an image on the other. Image can be full-bleed or boxed. Configurable position, background color and image style.",
+  "keywords": ["text", "image", "two column", "split", "om oss"],
+  "textdomain": "block-forge",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./editor.css",
+  "style": "block-forge-style",
+  "render": "file:./render.php",
+  "attributes": {
+    "title": {
+      "type": "string",
+      "default": "Om oss"
+    },
+    "description": {
+      "type": "string",
+      "default": "Vi påverkar för ett samhälle fritt från alkohol och andra droger, ger stöd till dem som behöver och bygger gemenskap genom roliga och meningsfulla aktiviteter."
+    },
+    "linkLabel": {
+      "type": "string",
+      "default": ""
+    },
+    "linkUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "imageUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "imageAlt": {
+      "type": "string",
+      "default": ""
+    },
+    "imageId": {
+      "type": "number"
+    },
+    "imageType": {
+      "type": "string",
+      "default": "boxed"
+    },
+    "imagePosition": {
+      "type": "string",
+      "default": "right"
+    },
+    "backgroundColor": {
+      "type": "string",
+      "default": "white"
+    }
+  }
+}
