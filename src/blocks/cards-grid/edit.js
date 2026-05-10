@@ -38,9 +38,10 @@ export default function Edit( { attributes, setAttributes } ) {
                         <MediaUploadCheck>
                             <MediaUpload
                                 onSelect={ ( media ) => {
-                                    updateCard( i, 'imageUrl', media.url );
-                                    updateCard( i, 'imageAlt', media.alt );
-                                    updateCard( i, 'imageId', media.id );
+                                    const updated = cards.map( ( c, idx ) =>
+                                        idx === i ? { ...c, imageUrl: media.url, imageAlt: media.alt, imageId: media.id } : c
+                                    );
+                                    setAttributes( { cards: updated } );
                                 } }
                                 allowedTypes={ [ 'image' ] }
                                 value={ card.imageId }
