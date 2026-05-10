@@ -1,8 +1,17 @@
 <?php
-$section_title = $attributes['sectionTitle'] ?? '';
-$more_label    = $attributes['moreLinkLabel'] ?? '';
-$more_url      = $attributes['moreLinkUrl'] ?? '';
-$stories       = $attributes['stories'] ?? [];
+$section_title   = $attributes['sectionTitle'] ?? '';
+$more_label      = $attributes['moreLinkLabel'] ?? '';
+$more_url        = $attributes['moreLinkUrl'] ?? '';
+$number_of_posts = intval( $attributes['numberOfPosts'] ?? 3 );
+$post_type       = sanitize_key( $attributes['postType'] ?? 'post' );
+
+$query = new WP_Query( [
+    'post_type'      => $post_type,
+    'posts_per_page' => $number_of_posts,
+    'post_status'    => 'publish',
+    'orderby'        => 'date',
+    'order'          => 'DESC',
+] );
 ?>
 
 <div <?php echo get_block_wrapper_attributes(); ?>>
@@ -23,49 +32,58 @@ $stories       = $attributes['stories'] ?? [];
             </div>
 
             <!-- Stories grid -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <?php foreach ( $stories as $story ) : ?>
+            <?php if ( $query->have_posts() ) : ?>
+            <div class="grid grid-cols-1 md:grid-cols-<?php echo esc_attr( $number_of_posts ); ?> gap-6">
+                <?php while ( $query->have_posts() ) : $query->the_post(); ?>
+                <?php
+                    $thumbnail_url = get_the_post_thumbnail_url( get_the_ID(), 'large' );
+                    $categories    = get_the_category();
+                    $category_name = ! empty( $categories ) ? $categories[0]->name : '';
+                    $author_name   = get_the_author_meta( 'display_name', get_the_author_meta( 'ID' ) );
+                ?>
                 <article class="flex flex-col gap-4">
 
-                    <!-- Portrait image -->
-                    <?php if ( ! empty( $story['imageUrl'] ) ) : ?>
-                    <a href="<?php echo esc_url( $story['url'] ?? '' ); ?>"
-                        class="block overflow-hidden rounded-2xl aspect-[4/3]">
+                    <!-- Image -->
+                    <a href="<?php the_permalink(); ?>" class="block overflow-hidden rounded-2xl aspect-[4/3]">
+                        <?php if ( $thumbnail_url ) : ?>
                         <img
-                            src="<?php echo esc_url( $story['imageUrl'] ); ?>"
-                            alt="<?php echo esc_attr( $story['imageAlt'] ?? '' ); ?>"
+                            src="<?php echo esc_url( $thumbnail_url ); ?>"
+                            alt="<?php echo esc_attr( get_the_title() ); ?>"
                             class="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
                         />
+                        <?php else : ?>
+                        <div class="w-full h-full bg-banner-blue flex items-center justify-center">
+                            <span class="type-label text-banner-heading">movendi</span>
+                        </div>
+                        <?php endif; ?>
                     </a>
-                    <?php endif; ?>
 
                     <!-- Meta -->
                     <div class="flex items-center gap-2">
-                        <?php if ( ! empty( $story['category'] ) ) : ?>
-                        <span class="type-label text-banner-text"><?php echo esc_html( $story['category'] ); ?></span>
+                        <?php if ( $category_name ) : ?>
+                        <span class="type-label text-banner-text"><?php echo esc_html( $category_name ); ?></span>
                         <?php endif; ?>
-                        <?php if ( ! empty( $story['location'] ) ) : ?>
-                        <span class="type-caption text-banner-text">· <?php echo esc_html( $story['location'] ); ?></span>
-                        <?php endif; ?>
+                        <span class="type-caption text-banner-text">· <?php echo get_the_date( 'j M Y' ); ?></span>
                     </div>
 
-                    <!-- Quote title -->
-                    <?php if ( ! empty( $story['title'] ) ) : ?>
+                    <!-- Title -->
                     <h3 class="type-h3 text-banner-heading leading-snug">
-                        <a href="<?php echo esc_url( $story['url'] ?? '' ); ?>" class="hover:underline">
-                            <?php echo esc_html( $story['title'] ); ?>
+                        <a href="<?php the_permalink(); ?>" class="hover:underline">
+                            <?php the_title(); ?>
                         </a>
                     </h3>
-                    <?php endif; ?>
 
                     <!-- Excerpt -->
-                    <?php if ( ! empty( $story['excerpt'] ) ) : ?>
-                    <p class="type-body text-banner-text"><?php echo esc_html( $story['excerpt'] ); ?></p>
-                    <?php endif; ?>
+                    <p class="type-body text-banner-text"><?php echo wp_trim_words( get_the_excerpt(), 20 ); ?></p>
 
                 </article>
-                <?php endforeach; ?>
+                <?php endwhile; ?>
             </div>
+            <?php else : ?>
+            <p class="type-body text-banner-text"><?php esc_html_e( 'No posts found.', 'block-forge' ); ?></p>
+            <?php endif; ?>
+
+            <?php wp_reset_postdata(); ?>
 
         </div>
     </section>

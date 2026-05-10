@@ -1,16 +1,31 @@
-import { InspectorControls, MediaUpload, MediaUploadCheck, useBlockProps } from '@wordpress/block-editor';
-import { Button, PanelBody, TextControl, TextareaControl } from '@wordpress/components';
+import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
+import { PanelBody, RangeControl, SelectControl, TextControl, Spinner } from '@wordpress/components';
+import { useSelect } from '@wordpress/data';
+import { store as coreStore } from '@wordpress/core-data';
 import { __ } from '@wordpress/i18n';
 
 export default function Edit( { attributes, setAttributes } ) {
-    const { sectionTitle, moreLinkLabel, moreLinkUrl, stories } = attributes;
+    const { sectionTitle, moreLinkLabel, moreLinkUrl, numberOfPosts, postType } = attributes;
 
     const blockProps = useBlockProps();
 
-    const updateStory = ( index, field, value ) => {
-        const updated = stories.map( ( s, i ) => i === index ? { ...s, [ field ]: value } : s );
-        setAttributes( { stories: updated } );
-    };
+    const postTypes = useSelect( ( select ) => {
+        const types = select( coreStore ).getPostTypes( { per_page: -1 } );
+        if ( ! types ) return [];
+        return types
+            .filter( ( t ) => t.viewable && t.slug !== 'attachment' )
+            .map( ( t ) => ( { label: t.name, value: t.slug } ) );
+    }, [] );
+
+    const posts = useSelect( ( select ) => {
+        return select( coreStore ).getEntityRecords( 'postType', postType, {
+            per_page: numberOfPosts,
+            _embed: true,
+            status: 'publish',
+        } );
+    }, [ postType, numberOfPosts ] );
+
+    const isLoading = ! posts;
 
     return (
         <>
@@ -32,81 +47,91 @@ export default function Edit( { attributes, setAttributes } ) {
                         onChange={ ( value ) => setAttributes( { moreLinkUrl: value } ) }
                     />
                 </PanelBody>
-
-                { stories.map( ( story, i ) => (
-                    <PanelBody key={ i } title={ `${ __( 'Story', 'block-forge' ) } ${ i + 1 }` } initialOpen={ i === 0 }>
-                        <MediaUploadCheck>
-                            <MediaUpload
-                                onSelect={ ( media ) => {
-                                    const updated = stories.map( ( s, idx ) =>
-                                        idx === i ? { ...s, imageUrl: media.url, imageAlt: media.alt, imageId: media.id } : s
-                                    );
-                                    setAttributes( { stories: updated } );
-                                } }
-                                allowedTypes={ [ 'image' ] }
-                                value={ story.imageId }
-                                render={ ( { open } ) => (
-                                    <Button onClick={ open } variant="secondary" style={ { marginBottom: '8px' } }>
-                                        { story.imageUrl ? __( 'Replace Image', 'block-forge' ) : __( 'Select Image', 'block-forge' ) }
-                                    </Button>
-                                ) }
-                            />
-                        </MediaUploadCheck>
-                        <TextControl
-                            label={ __( 'Name', 'block-forge' ) }
-                            value={ story.category }
-                            onChange={ ( value ) => updateStory( i, 'category', value ) }
+                <PanelBody title={ __( 'Query', 'block-forge' ) }>
+                    <RangeControl
+                        label={ __( 'Number of posts', 'block-forge' ) }
+                        value={ numberOfPosts }
+                        onChange={ ( value ) => setAttributes( { numberOfPosts: value } ) }
+                        min={ 1 }
+                        max={ 12 }
+                    />
+                    { postTypes.length > 0 && (
+                        <SelectControl
+                            label={ __( 'Post type', 'block-forge' ) }
+                            value={ postType }
+                            options={ postTypes }
+                            onChange={ ( value ) => setAttributes( { postType: value } ) }
                         />
-                        <TextControl
-                            label={ __( 'Role / Location', 'block-forge' ) }
-                            value={ story.location }
-                            onChange={ ( value ) => updateStory( i, 'location', value ) }
-                        />
-                        <TextControl
-                            label={ __( 'Quote Title', 'block-forge' ) }
-                            value={ story.title }
-                            onChange={ ( value ) => updateStory( i, 'title', value ) }
-                        />
-                        <TextareaControl
-                            label={ __( 'Excerpt', 'block-forge' ) }
-                            value={ story.excerpt }
-                            onChange={ ( value ) => updateStory( i, 'excerpt', value ) }
-                        />
-                        <TextControl
-                            label={ __( 'URL', 'block-forge' ) }
-                            value={ story.url }
-                            onChange={ ( value ) => updateStory( i, 'url', value ) }
-                        />
-                    </PanelBody>
-                ) ) }
+                    ) }
+                </PanelBody>
             </InspectorControls>
 
             <div { ...blockProps }>
                 <section className="w-full py-10 px-8 bg-white">
                     <div className="max-w-6xl mx-auto">
+
                         <div className="flex items-center justify-between mb-6">
-                            <span className="text-[11px] font-semibold tracking-widest uppercase text-banner-text">{ sectionTitle }</span>
+                            <span className="text-[11px] font-semibold tracking-widest uppercase text-banner-text">
+                                { sectionTitle }
+                            </span>
                             { moreLinkLabel && (
-                                <span className="text-xs font-semibold text-banner-heading">{ moreLinkLabel } →</span>
+                                <span className="text-xs font-semibold text-banner-heading">
+                                    { moreLinkLabel } →
+                                </span>
                             ) }
                         </div>
-                        <div className="grid grid-cols-3 gap-5">
-                            { stories.map( ( story, i ) => (
-                                <div key={ i } className="flex flex-col gap-2">
-                                    <div className="bg-gray-100 rounded-xl aspect-[4/3] overflow-hidden">
-                                        { story.imageUrl && (
-                                            <img src={ story.imageUrl } alt={ story.imageAlt } className="w-full h-full object-cover" />
-                                        ) }
-                                    </div>
-                                    <div className="flex items-center gap-1.5">
-                                        <span className="text-[10px] font-bold tracking-wider text-banner-text uppercase">{ story.category }</span>
-                                        { story.location && <span className="text-[10px] text-banner-text">· { story.location }</span> }
-                                    </div>
-                                    <p className="text-[13px] font-semibold text-banner-heading leading-snug">{ story.title }</p>
-                                    <p className="text-[11px] text-banner-text leading-relaxed">{ story.excerpt }</p>
-                                </div>
-                            ) ) }
-                        </div>
+
+                        { isLoading && (
+                            <div className="flex justify-center py-10">
+                                <Spinner />
+                            </div>
+                        ) }
+
+                        { ! isLoading && posts && posts.length === 0 && (
+                            <p className="text-sm text-banner-text">
+                                { __( 'No posts found for the selected post type.', 'block-forge' ) }
+                            </p>
+                        ) }
+
+                        { ! isLoading && posts && posts.length > 0 && (
+                            <div className={ `grid gap-5 grid-cols-${ Math.min( numberOfPosts, 3 ) }` }>
+                                { posts.map( ( post ) => {
+                                    const featuredMedia = post._embedded?.[ 'wp:featuredmedia' ]?.[ 0 ];
+                                    const imgUrl = featuredMedia?.media_details?.sizes?.medium_large?.source_url
+                                        ?? featuredMedia?.source_url
+                                        ?? '';
+                                    const terms = post._embedded?.[ 'wp:term' ]?.[ 0 ] ?? [];
+                                    const category = terms[ 0 ]?.name ?? '';
+
+                                    return (
+                                        <div key={ post.id } className="flex flex-col gap-2">
+                                            <div className="bg-banner-blue rounded-xl aspect-[4/3] overflow-hidden">
+                                                { imgUrl && (
+                                                    <img src={ imgUrl } alt={ post.title?.rendered ?? '' } className="w-full h-full object-cover" />
+                                                ) }
+                                            </div>
+                                            <div className="flex items-center gap-1.5">
+                                                { category && (
+                                                    <span className="text-[10px] font-bold tracking-wider text-banner-text uppercase">{ category }</span>
+                                                ) }
+                                                <span className="text-[10px] text-banner-text">
+                                                    · { new Date( post.date ).toLocaleDateString( 'sv-SE', { day: 'numeric', month: 'short', year: 'numeric' } ) }
+                                                </span>
+                                            </div>
+                                            <p
+                                                className="text-[13px] font-semibold text-banner-heading leading-snug"
+                                                dangerouslySetInnerHTML={ { __html: post.title?.rendered ?? '' } }
+                                            />
+                                            <p
+                                                className="text-[11px] text-banner-text leading-relaxed"
+                                                dangerouslySetInnerHTML={ { __html: post.excerpt?.rendered ?? '' } }
+                                            />
+                                        </div>
+                                    );
+                                } ) }
+                            </div>
+                        ) }
+
                     </div>
                 </section>
             </div>
