@@ -4,10 +4,12 @@ $more_label      = $attributes['moreLinkLabel'] ?? '';
 $more_url        = $attributes['moreLinkUrl'] ?? '';
 $number_of_posts = intval( $attributes['numberOfPosts'] ?? 3 );
 $post_type       = sanitize_key( $attributes['postType'] ?? 'post' );
+$offset          = intval( $attributes['offset'] ?? 0 );
 
 $query = new WP_Query( [
     'post_type'      => $post_type,
     'posts_per_page' => $number_of_posts,
+    'offset'         => $offset,
     'post_status'    => 'publish',
     'orderby'        => 'date',
     'order'          => 'DESC',

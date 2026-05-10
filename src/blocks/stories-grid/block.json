@@ -31,6 +31,10 @@
     "postType": {
       "type": "string",
       "default": "post"
+    },
+    "offset": {
+      "type": "number",
+      "default": 0
     }
   }
 }

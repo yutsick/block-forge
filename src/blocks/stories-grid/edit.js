@@ -5,7 +5,7 @@ import { store as coreStore } from '@wordpress/core-data';
 import { __ } from '@wordpress/i18n';
 
 export default function Edit( { attributes, setAttributes } ) {
-    const { sectionTitle, moreLinkLabel, moreLinkUrl, numberOfPosts, postType } = attributes;
+    const { sectionTitle, moreLinkLabel, moreLinkUrl, numberOfPosts, postType, offset } = attributes;
 
     const blockProps = useBlockProps();
 
@@ -20,10 +20,11 @@ export default function Edit( { attributes, setAttributes } ) {
     const posts = useSelect( ( select ) => {
         return select( coreStore ).getEntityRecords( 'postType', postType, {
             per_page: numberOfPosts,
+            offset,
             _embed: true,
             status: 'publish',
         } );
-    }, [ postType, numberOfPosts ] );
+    }, [ postType, numberOfPosts, offset ] );
 
     const isLoading = ! posts;
 
@@ -54,6 +55,13 @@ export default function Edit( { attributes, setAttributes } ) {
                         onChange={ ( value ) => setAttributes( { numberOfPosts: value } ) }
                         min={ 1 }
                         max={ 12 }
+                    />
+                    <RangeControl
+                        label={ __( 'Offset (skip first N posts)', 'block-forge' ) }
+                        value={ offset }
+                        onChange={ ( value ) => setAttributes( { offset: value } ) }
+                        min={ 0 }
+                        max={ 50 }
                     />
                     { postTypes.length > 0 && (
                         <SelectControl
