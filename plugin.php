@@ -40,22 +40,21 @@ function block_forge_register_category( $categories ) {
 }
 add_filter( 'block_categories_all', 'block_forge_register_category' );
 
-add_action( 'wp_enqueue_scripts', function() {
-    wp_enqueue_style(
-        'block-forge-style',
-        plugins_url( 'build/style.css', __FILE__ ),
-        [],
-        filemtime( plugin_dir_path( __FILE__ ) . 'build/style.css' )
-    );
-});
-
 add_action( 'init', function() {
+    $css_file = plugin_dir_path( __FILE__ ) . 'build/style.css';
+    $version  = file_exists( $css_file ) ? filemtime( $css_file ) : '1.0.0';
+
     wp_register_style(
         'block-forge-style',
         plugins_url( 'build/style.css', __FILE__ ),
         [],
-        filemtime( plugin_dir_path( __FILE__ ) . 'build/style.css' )
+        $version
     );
+} );
+
+// Loads on both frontend AND block editor.
+add_action( 'enqueue_block_assets', function() {
+    wp_enqueue_style( 'block-forge-style' );
 } );
 
 add_action( 'after_setup_theme', function() {
