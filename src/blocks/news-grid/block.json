@@ -26,6 +26,19 @@
     },
     "articles": {
       "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "imageUrl":  { "type": "string" },
+          "imageAlt":  { "type": "string" },
+          "imageId":   { "type": "number" },
+          "category":  { "type": "string" },
+          "date":      { "type": "string" },
+          "title":     { "type": "string" },
+          "excerpt":   { "type": "string" },
+          "url":       { "type": "string" }
+        }
+      },
       "default": [
         {
           "imageUrl": "", "imageAlt": "", "imageId": 0,

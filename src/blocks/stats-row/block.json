@@ -18,6 +18,15 @@
     },
     "stats": {
       "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "icon":        { "type": "string" },
+          "value":       { "type": "string" },
+          "label":       { "type": "string" },
+          "description": { "type": "string" }
+        }
+      },
       "default": [
         {
           "icon": "person",

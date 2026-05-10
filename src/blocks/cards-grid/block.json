@@ -22,6 +22,18 @@
     },
     "cards": {
       "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "imageUrl":     { "type": "string" },
+          "imageAlt":     { "type": "string" },
+          "imageId":      { "type": "number" },
+          "title":        { "type": "string" },
+          "description":  { "type": "string" },
+          "linkUrl":      { "type": "string" },
+          "colorVariant": { "type": "string" }
+        }
+      },
       "default": [
         {
           "imageUrl": "", "imageAlt": "", "imageId": 0,

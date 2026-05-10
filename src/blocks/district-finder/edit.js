@@ -56,18 +56,16 @@ export default function Edit( { attributes, setAttributes } ) {
             <div { ...blockProps }>
                 <section className="w-full flex min-h-[240px]">
                     <div
-                        className="flex-1 relative overflow-hidden bg-gray-200"
+                        className="flex-[3] relative overflow-hidden bg-banner-blue min-h-[200px]"
                         style={ imageUrl ? { backgroundImage: `url(${ imageUrl })`, backgroundSize: 'cover', backgroundPosition: 'center' } : {} }
-                    >
-                        <div className="absolute inset-0 bg-black/20" />
-                    </div>
-                    <div className="flex-1 bg-banner-heading flex items-center px-8 py-10">
+                    />
+                    <div className="flex-[2] bg-banner-peach flex items-center px-8 py-10">
                         <div className="max-w-xs">
-                            <h2 className="text-white font-semibold text-[20px] leading-snug mb-3">{ rightTitle }</h2>
-                            <p className="text-white/80 text-[12px] leading-relaxed mb-5">{ rightDescription }</p>
+                            <h2 className="text-banner-heading font-semibold text-[20px] leading-snug mb-3">{ rightTitle }</h2>
+                            <p className="text-banner-text text-[12px] leading-relaxed mb-5">{ rightDescription }</p>
                             { buttonLabel && (
-                                <span className="inline-flex items-center px-5 py-2 bg-white text-banner-heading rounded-full text-xs font-semibold">
-                                    { buttonLabel }
+                                <span className="inline-flex items-center gap-1 text-banner-heading text-xs font-semibold">
+                                    { buttonLabel } →
                                 </span>
                             ) }
                         </div>
