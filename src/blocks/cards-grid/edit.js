@@ -89,13 +89,13 @@ export default function Edit( { attributes, setAttributes } ) {
                         </div>
                         <div className="grid grid-cols-2 gap-4">
                             { cards.map( ( card, i ) => (
-                                <div key={ i } className="relative overflow-hidden rounded-xl min-h-[180px] flex flex-col justify-end">
-                                    { card.imageUrl ? (
-                                        <img src={ card.imageUrl } alt={ card.imageAlt } className="absolute inset-0 w-full h-full object-cover" />
-                                    ) : (
-                                        <div className="absolute inset-0 bg-gray-200" />
-                                    ) }
-                                    <div className={ `relative ${ OVERLAY_CLASSES[ card.colorVariant ] ?? 'bg-banner-peach' } px-4 py-3 flex items-start justify-between gap-2` }>
+                                <div key={ i } className="rounded-xl overflow-hidden">
+                                    <div className="aspect-[4/3] overflow-hidden bg-gray-200">
+                                        { card.imageUrl && (
+                                            <img src={ card.imageUrl } alt={ card.imageAlt } className="w-full h-full object-cover" />
+                                        ) }
+                                    </div>
+                                    <div className={ `${ OVERLAY_CLASSES[ card.colorVariant ] ?? 'bg-banner-peach' } px-4 py-3 flex items-start justify-between gap-2` }>
                                         <div>
                                             <p className="text-[13px] font-semibold text-banner-heading">{ card.title }</p>
                                             <p className="text-[10px] text-banner-text mt-0.5">{ card.description }</p>
