@@ -8,16 +8,13 @@ $button_url        = $attributes['buttonUrl'] ?? '';
 ?>
 
 <div <?php echo get_block_wrapper_attributes(); ?>>
-    <section class="w-full flex flex-col md:flex-row min-h-[360px]">
+    <section class="w-full mx-auto max-w-[1400px] flex flex-col md:flex-row min-h-[360px]">
 
         <!-- Left: photo -->
         <div class="relative flex-[3] min-h-[260px] overflow-hidden">
             <?php if ( $image_url ) : ?>
-            <img
-                src="<?php echo esc_url( $image_url ); ?>"
-                alt="<?php echo esc_attr( $image_alt ); ?>"
-                class="absolute inset-0 w-full h-full object-cover"
-            />
+            <img src="<?php echo esc_url( $image_url ); ?>" alt="<?php echo esc_attr( $image_alt ); ?>"
+                class="absolute inset-0 w-full h-full object-cover" />
             <?php else : ?>
             <div class="absolute inset-0 bg-banner-blue"></div>
             <?php endif; ?>

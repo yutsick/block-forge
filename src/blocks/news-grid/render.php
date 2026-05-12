@@ -27,18 +27,18 @@ $articles       = $attributes['articles'] ?? [];
                 <?php foreach ( $articles as $article ) : ?>
                 <article class="flex flex-col gap-3">
                     <?php if ( ! empty( $article['imageUrl'] ) ) : ?>
-                    <a href="<?php echo esc_url( $article['url'] ); ?>" class="block overflow-hidden rounded-xl aspect-[4/3]">
-                        <img
-                            src="<?php echo esc_url( $article['imageUrl'] ); ?>"
+                    <a href="<?php echo esc_url( $article['url'] ); ?>"
+                        class="block overflow-hidden rounded-xl aspect-[4/3]">
+                        <img src="<?php echo esc_url( $article['imageUrl'] ); ?>"
                             alt="<?php echo esc_attr( $article['imageAlt'] ); ?>"
-                            class="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-                        />
+                            class="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
                     </a>
                     <?php endif; ?>
 
                     <div class="flex items-center gap-2">
                         <?php if ( ! empty( $article['category'] ) ) : ?>
-                        <span class="type-label text-banner-heading"><?php echo esc_html( $article['category'] ); ?></span>
+                        <span
+                            class="type-label text-banner-heading"><?php echo esc_html( $article['category'] ); ?></span>
                         <?php endif; ?>
                         <?php if ( ! empty( $article['date'] ) ) : ?>
                         <span class="type-caption text-banner-text">· <?php echo esc_html( $article['date'] ); ?></span>

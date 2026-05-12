@@ -26,16 +26,13 @@ $row_class = $image_position === 'right' ? 'md:flex-row-reverse' : 'md:flex-row'
 
     <?php if ( $image_type === 'full' ) : ?>
     <!-- ── FULL bleed layout ──────────────────────────────── -->
-    <section class="w-full flex flex-col <?php echo $row_class; ?> min-h-[400px]">
+    <section class="w-full max-w-6xl mx-auto flex flex-col <?php echo $row_class; ?> min-h-[400px]">
 
         <!-- Image column (full bleed) -->
         <div class="relative flex-[3] min-h-[280px] overflow-hidden">
             <?php if ( $image_url ) : ?>
-            <img
-                src="<?php echo esc_url( $image_url ); ?>"
-                alt="<?php echo esc_attr( $image_alt ); ?>"
-                class="absolute inset-0 w-full h-full object-cover"
-            />
+            <img src="<?php echo esc_url( $image_url ); ?>" alt="<?php echo esc_attr( $image_alt ); ?>"
+                class="absolute inset-0 w-full h-full object-cover" />
             <?php else : ?>
             <div class="absolute inset-0 bg-banner-blue"></div>
             <?php endif; ?>
@@ -69,11 +66,8 @@ $row_class = $image_position === 'right' ? 'md:flex-row-reverse' : 'md:flex-row'
             <!-- Image column (boxed, rounded) -->
             <div class="w-full md:flex-1 shrink-0">
                 <?php if ( $image_url ) : ?>
-                <img
-                    src="<?php echo esc_url( $image_url ); ?>"
-                    alt="<?php echo esc_attr( $image_alt ); ?>"
-                    class="w-full h-full max-h-[480px] object-cover rounded-2xl"
-                />
+                <img src="<?php echo esc_url( $image_url ); ?>" alt="<?php echo esc_attr( $image_alt ); ?>"
+                    class="w-full h-full max-h-[480px] object-cover rounded-2xl" />
                 <?php else : ?>
                 <div class="w-full aspect-[4/3] bg-banner-blue rounded-2xl"></div>
                 <?php endif; ?>

@@ -35,17 +35,16 @@ $overlay_classes = [
 
                     <!-- Background image -->
                     <?php if ( ! empty( $card['imageUrl'] ) ) : ?>
-                    <img
-                        src="<?php echo esc_url( $card['imageUrl'] ); ?>"
+                    <img src="<?php echo esc_url( $card['imageUrl'] ); ?>"
                         alt="<?php echo esc_attr( $card['imageAlt'] ?? '' ); ?>"
-                        class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
+                        class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                     <?php else : ?>
                     <div class="absolute inset-0 bg-gray-200"></div>
                     <?php endif; ?>
 
                     <!-- Colored label overlay at bottom -->
-                    <div class="relative <?php echo esc_attr( $overlay ); ?> px-6 py-5 flex items-start justify-between gap-4">
+                    <div
+                        class="relative <?php echo esc_attr( $overlay ); ?> px-6 py-5 flex items-start justify-between gap-4">
                         <div>
                             <?php if ( ! empty( $card['title'] ) ) : ?>
                             <h3 class="type-h3 text-banner-heading mb-1"><?php echo esc_html( $card['title'] ); ?></h3>
