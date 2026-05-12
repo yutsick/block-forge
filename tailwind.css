@@ -14,6 +14,109 @@
     --color-banner-pink: #fad2c9;
     --color-banner-heading: #27348b;
     --color-banner-text: #4e4e4e;
+
+    --color-movendi-navy: #162042;
+    --color-movendi-card-peach: #fee4cb;
+    --color-movendi-card-blue: #d9ecf4;
+    --color-movendi-district-blue: #27348b;
 }
 
 @import "tailwindcss/utilities";
+
+/* ─── Typography utilities ─────────────────────────────────── */
+
+@utility type-display {
+    font-size: 68px;
+    font-weight: 600;
+    line-height: 74px;
+    letter-spacing: -0.68px;
+}
+
+@utility type-h1 {
+    font-size: 48px;
+    font-weight: 600;
+    line-height: 54px;
+    letter-spacing: -0.48px;
+}
+
+@utility type-h2 {
+    font-size: 36px;
+    font-weight: 600;
+    line-height: 42px;
+    letter-spacing: -0.36px;
+}
+
+@utility type-h3 {
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 30px;
+    letter-spacing: -0.24px;
+}
+
+@utility type-body-lg {
+    font-size: 20px;
+    line-height: 28px;
+    letter-spacing: -0.3px;
+}
+
+@utility type-body {
+    font-size: 16px;
+    line-height: 24px;
+}
+
+@utility type-label {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+}
+
+@utility type-caption {
+    font-size: 12px;
+    line-height: 18px;
+}
+
+/* ─── Classic Gutenberg block typography ───────────────────── */
+
+.entry-content h1,
+.wp-block-post-content h1 {
+    font-size: 48px;
+    font-weight: 600;
+    line-height: 54px;
+    letter-spacing: -0.48px;
+    color: #27348b;
+}
+
+.entry-content h2,
+.wp-block-post-content h2 {
+    font-size: 36px;
+    font-weight: 600;
+    line-height: 42px;
+    letter-spacing: -0.36px;
+    color: #27348b;
+}
+
+.entry-content h3,
+.wp-block-post-content h3 {
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 30px;
+    letter-spacing: -0.24px;
+    color: #27348b;
+}
+
+.entry-content p,
+.wp-block-paragraph {
+    font-size: 16px;
+    line-height: 24px;
+    color: #4e4e4e;
+}
+
+.entry-content ul,
+.wp-block-list {
+    font-size: 16px;
+    line-height: 24px;
+    color: #4e4e4e;
+    padding-left: 1.5rem;
+    list-style: disc;
+}

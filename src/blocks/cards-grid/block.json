@@ -1,0 +1,69 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "block-forge/cards-grid",
+  "title": "Cards Grid",
+  "category": "block-forge",
+  "description": "2x2 image cards with colored overlay, title, description and arrow link",
+  "keywords": ["cards", "grid", "gemenskap", "categories"],
+  "textdomain": "block-forge",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./editor.css",
+  "style": "block-forge-style",
+  "render": "file:./render.php",
+  "attributes": {
+    "sectionTitle": {
+      "type": "string",
+      "default": "Gemenskap, stöd & engagemang"
+    },
+    "sectionDescription": {
+      "type": "string",
+      "default": "Movendi är en plats för människor som vill leva nyktra, utveckla tillsammans och göra skillnad. Här finns både gemenskap och möjligheten att påverka samhället."
+    },
+    "cards": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "imageUrl":     { "type": "string" },
+          "imageAlt":     { "type": "string" },
+          "imageId":      { "type": "number" },
+          "title":        { "type": "string" },
+          "description":  { "type": "string" },
+          "linkUrl":      { "type": "string" },
+          "colorVariant": { "type": "string" }
+        }
+      },
+      "default": [
+        {
+          "imageUrl": "", "imageAlt": "", "imageId": 0,
+          "title": "För barn och unga",
+          "description": "Roliga, trygga och meningsfulla aktiviteter för barn och unga som främjar gemenskap, hälsa och deras frihet.",
+          "linkUrl": "",
+          "colorVariant": "peach"
+        },
+        {
+          "imageUrl": "", "imageAlt": "", "imageId": 0,
+          "title": "Stöd när livet är svårt",
+          "description": "Genom föreningslivet, kamratstöd och friluftsliv stärker vi människor som söker förändring och ett bättre liv.",
+          "linkUrl": "",
+          "colorVariant": "blue"
+        },
+        {
+          "imageUrl": "", "imageAlt": "", "imageId": 0,
+          "title": "Kampanjer och engagemang",
+          "description": "Engagera dig och arbeta för att fler ska kunna leva fria från Sober Pride och det frivilliga alkoholfria samhälle.",
+          "linkUrl": "",
+          "colorVariant": "peach"
+        },
+        {
+          "imageUrl": "", "imageAlt": "", "imageId": 0,
+          "title": "Om Movendi",
+          "description": "Läs mer om oss på Movendi – en rörelses möjligheter röst för att stärka människor i hela landet.",
+          "linkUrl": "",
+          "colorVariant": "blue"
+        }
+      ]
+    }
+  }
+}

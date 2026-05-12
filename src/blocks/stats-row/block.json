@@ -1,0 +1,58 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "block-forge/stats-row",
+  "title": "Stats Row",
+  "category": "block-forge",
+  "description": "4-column row of statistics with icon, large number, label and description",
+  "keywords": ["stats", "numbers", "statistics", "folkrörelse"],
+  "textdomain": "block-forge",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./editor.css",
+  "style": "block-forge-style",
+  "render": "file:./render.php",
+  "attributes": {
+    "sectionTitle": {
+      "type": "string",
+      "default": "En folkrörelse över hela landet"
+    },
+    "stats": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "icon":        { "type": "string" },
+          "value":       { "type": "string" },
+          "label":       { "type": "string" },
+          "description": { "type": "string" }
+        }
+      },
+      "default": [
+        {
+          "icon": "person",
+          "value": "10 000+",
+          "label": "medlemmar",
+          "description": "Aktiva medlemmar i Movendi runt om i Sverige"
+        },
+        {
+          "icon": "group",
+          "value": "200+",
+          "label": "Lokala föreningar i hela Sverige",
+          "description": "Hitta din närmaste förening och bli en del av gemenskapen."
+        },
+        {
+          "icon": "calendar",
+          "value": "500+",
+          "label": "Hundratals aktiviteter varje år",
+          "description": "Läger, resor, utbildningar och festivaler."
+        },
+        {
+          "icon": "megaphone",
+          "value": "",
+          "label": "En stark röst i samhälls-debatten",
+          "description": "Vi påverkar politiken och arbetar för ett alkoholfritt och nyktert samhälle för alla."
+        }
+      ]
+    }
+  }
+}

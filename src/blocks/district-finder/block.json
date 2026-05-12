@@ -1,0 +1,43 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "block-forge/district-finder",
+  "title": "District Finder",
+  "category": "block-forge",
+  "description": "Two-column split section: photo with overlay text on the left, colored panel with CTA on the right",
+  "keywords": ["district", "distrikt", "split", "finder"],
+  "textdomain": "block-forge",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./editor.css",
+  "style": "block-forge-style",
+  "render": "file:./render.php",
+  "attributes": {
+    "imageUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "imageAlt": {
+      "type": "string",
+      "default": ""
+    },
+    "imageId": {
+      "type": "number"
+    },
+    "rightTitle": {
+      "type": "string",
+      "default": "Hitta ditt distrikt"
+    },
+    "rightDescription": {
+      "type": "string",
+      "default": "Som medlem eller förenade medlem kan du kontakta ditt distrikt för information om aktiviteter nära dig, den närmaste lokalförening eller hur du kan engagera dig."
+    },
+    "buttonLabel": {
+      "type": "string",
+      "default": "Visa distrikt"
+    },
+    "buttonUrl": {
+      "type": "string",
+      "default": ""
+    }
+  }
+}
