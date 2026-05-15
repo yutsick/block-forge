@@ -18,7 +18,7 @@ $query = new WP_Query( [
 
 <div <?php echo get_block_wrapper_attributes(); ?>>
     <section class="w-full py-14 px-8 bg-white">
-        <div class="max-w-6xl mx-auto">
+        <div class="max-w-[1120px] mx-auto">
 
             <!-- Section header -->
             <div class="flex items-center justify-between mb-8">
@@ -48,11 +48,9 @@ $query = new WP_Query( [
                     <!-- Image -->
                     <a href="<?php the_permalink(); ?>" class="block overflow-hidden rounded-2xl aspect-[4/3]">
                         <?php if ( $thumbnail_url ) : ?>
-                        <img
-                            src="<?php echo esc_url( $thumbnail_url ); ?>"
+                        <img src="<?php echo esc_url( $thumbnail_url ); ?>"
                             alt="<?php echo esc_attr( get_the_title() ); ?>"
-                            class="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-                        />
+                            class="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
                         <?php else : ?>
                         <div class="w-full h-full bg-banner-blue flex items-center justify-center">
                             <span class="type-label text-banner-heading">movendi</span>

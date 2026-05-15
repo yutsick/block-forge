@@ -32,6 +32,10 @@
       "type": "boolean",
       "default": false
     },
+    "showDecorationMobile": {
+      "type": "boolean",
+      "default": false
+    },
     "imageUrl": {
       "type": "string",
       "default": ""
@@ -46,6 +50,10 @@
     "imageType": {
       "type": "string",
       "default": "full"
+    },
+    "imageTypeMobile": {
+      "type": "string",
+      "default": "boxed"
     },
     "imagePosition": {
       "type": "string",

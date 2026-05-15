@@ -42,12 +42,18 @@ add_filter( 'block_categories_all', 'block_forge_register_category' );
 
 add_action( 'init', function() {
     $css_file = plugin_dir_path( __FILE__ ) . 'build/style.css';
-    $version  = file_exists( $css_file ) ? filemtime( $css_file ) : '1.0.0';
+
+    if ( file_exists( $css_file ) ) {
+        clearstatcache( true, $css_file );
+        $version = (string) filemtime( $css_file );
+    } else {
+        $version = '1.0.0';
+    }
 
     wp_register_style(
         'block-forge-style',
         plugins_url( 'build/style.css', __FILE__ ),
-        [],
+        is_admin() ? [] : [ 'movendi-theme-style' ],
         $version
     );
 } );
@@ -55,6 +61,12 @@ add_action( 'init', function() {
 // Loads on both frontend AND block editor.
 add_action( 'enqueue_block_assets', function() {
     wp_enqueue_style( 'block-forge-style' );
+    wp_enqueue_style(
+        'block-forge-fonts',
+        'https://fonts.googleapis.com/css2?family=Ancizar+Serif:ital,wght@0,400;0,700;1,400;1,700&family=Barlow+Semi+Condensed:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap',
+        [],
+        null
+    );
 } );
 
 add_action( 'after_setup_theme', function() {

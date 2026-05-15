@@ -20,16 +20,17 @@ $bg_class = $bg_classes[ $bg_color ] ?? 'bg-white';
 // On desktop: flex-row-reverse puts image on the right when it's first in DOM.
 // On mobile: flex-col always shows image first (it's first in DOM).
 $row_class = $image_position === 'right' ? 'md:flex-row-reverse' : 'md:flex-row';
+$is_image_left = $image_position === 'left';
 ?>
 
 <div <?php echo get_block_wrapper_attributes(); ?>>
 
     <?php if ( $image_type === 'full' ) : ?>
     <!-- ── FULL bleed layout ──────────────────────────────── -->
-    <section class="w-full max-w-6xl mx-auto flex flex-col <?php echo $row_class; ?> min-h-[400px]">
+    <section class="w-full  mx-auto flex flex-col <?php echo $row_class; ?> min-h-[500px]" data-aos="fade-up">
 
         <!-- Image column (full bleed) -->
-        <div class="relative flex-[3] min-h-[280px] overflow-hidden">
+        <div class="relative flex-[3] min-h-[280px] overflow-hidden lg:max-w-[47%]">
             <?php if ( $image_url ) : ?>
             <img src="<?php echo esc_url( $image_url ); ?>" alt="<?php echo esc_attr( $image_alt ); ?>"
                 class="absolute inset-0 w-full h-full object-cover" />
@@ -39,7 +40,8 @@ $row_class = $image_position === 'right' ? 'md:flex-row-reverse' : 'md:flex-row'
         </div>
 
         <!-- Text column -->
-        <div class="flex-[2] <?php echo $bg_class; ?> flex items-center px-14 py-14">
+        <div
+            class="flex-[2] <?php echo $bg_class; ?> <?php echo $is_image_left ? 'md:mr-auto' : 'md:ml-auto';?> flex items-center px-14 py-14">
             <div class="max-w-sm">
                 <?php if ( $title ) : ?>
                 <h2 class="type-h1 text-banner-heading mb-5"><?php echo wp_kses_post( $title ); ?></h2>
@@ -49,8 +51,15 @@ $row_class = $image_position === 'right' ? 'md:flex-row-reverse' : 'md:flex-row'
                 <?php endif; ?>
                 <?php if ( $link_label && $link_url ) : ?>
                 <a href="<?php echo esc_url( $link_url ); ?>"
-                    class="inline-flex items-center gap-1 type-body font-semibold text-banner-heading hover:underline">
-                    <?php echo esc_html( $link_label ); ?> →
+                    class="inline-flex items-center gap-1 type-regular-link hover:underline">
+                    <?php echo esc_html( $link_label ); ?>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 12.375L19.25 12.375" stroke="#27348B" stroke-width="1.8" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                        <path d="M12.5 19.125L19.25 12.375L12.5 5.625" stroke="#27348B" stroke-width="1.8"
+                            stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+
                 </a>
                 <?php endif; ?>
             </div>
@@ -61,10 +70,10 @@ $row_class = $image_position === 'right' ? 'md:flex-row-reverse' : 'md:flex-row'
     <?php else : ?>
     <!-- ── BOXED layout ──────────────────────────────────── -->
     <section class="w-full <?php echo $bg_class; ?> py-14 px-8">
-        <div class="max-w-6xl mx-auto flex flex-col <?php echo $row_class; ?> items-center gap-10 md:gap-16">
+        <div class="max-w-[1120px] mx-auto flex flex-col <?php echo $row_class; ?> items-center gap-10 md:gap-16">
 
             <!-- Image column (boxed, rounded) -->
-            <div class="w-full md:flex-1 shrink-0">
+            <div class="w-full md:flex-1 md:max-w-[48%] shrink-0">
                 <?php if ( $image_url ) : ?>
                 <img src="<?php echo esc_url( $image_url ); ?>" alt="<?php echo esc_attr( $image_alt ); ?>"
                     class="w-full h-full max-h-[480px] object-cover rounded-2xl" />

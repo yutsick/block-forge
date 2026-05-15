@@ -4,14 +4,18 @@
   "name": "block-forge/hero",
   "title": "Hero",
   "category": "block-forge",
-  "description": "Full-width hero section with background image, heading, description and two CTA buttons",
-  "keywords": ["hero", "banner", "cta"],
+  "description": "Full-width hero section with video or image background, heading, description and CTA buttons",
+  "keywords": ["hero", "banner", "cta", "video"],
   "textdomain": "block-forge",
   "editorScript": "file:./index.js",
   "editorStyle": "file:./editor.css",
   "style": "block-forge-style",
   "render": "file:./render.php",
   "attributes": {
+    "bgType": {
+      "type": "string",
+      "default": "image"
+    },
     "imageUrl": {
       "type": "string",
       "default": ""
@@ -21,6 +25,13 @@
       "default": ""
     },
     "imageId": {
+      "type": "number"
+    },
+    "videoUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "videoId": {
       "type": "number"
     },
     "title": {

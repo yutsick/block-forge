@@ -3,6 +3,8 @@
 @source "./src";
 
 @theme {
+    --font-ancizar-serif: "Ancizar Serif", serif;
+    --font-barlow-semicondensed: "Barlow Semi Condensed", sans-serif;
     --color-background: var(--wp--preset--color--background);
     --color-foreground: var(--wp--preset--color--foreground);
     --color-primary: var(--wp--preset--color--primary);
@@ -11,7 +13,9 @@
 
     --color-banner-blue: #d9ecf4;
     --color-banner-peach: #fee4cb;
-    --color-banner-pink: #fad2c9;
+    --color-banner-pink: #F49F92;
+    --color-black: #2f2f2f;
+    --color-grey: #4E4E4E;
     --color-banner-heading: #27348b;
     --color-banner-text: #4e4e4e;
 
@@ -19,17 +23,43 @@
     --color-movendi-card-peach: #fee4cb;
     --color-movendi-card-blue: #d9ecf4;
     --color-movendi-district-blue: #27348b;
+
 }
 
 @import "tailwindcss/utilities";
 
 /* ─── Typography utilities ─────────────────────────────────── */
+@utility type-regular-link {
+    font-size: 19px;
+    color: var(--color-banner-heading);
+    text-decoration: none;
+    font-family: var(--font-barlow-semicondensed);
+    font-weight: 600;
+    letter-spacing: 0.01em;
+
+    @media (max-width: 768px) {
+        font-size: 16px;
+
+        svg {
+            width: 22px;
+            height: 22px;
+        }
+    }
+
+}
 
 @utility type-display {
-    font-size: 68px;
-    font-weight: 600;
-    line-height: 74px;
-    letter-spacing: -0.68px;
+    font-size: 120px;
+    font-weight: 700;
+    line-height: 120px;
+    letter-spacing: -0.02em;
+    font-family: var(--font-barlow-semicondensed);
+
+    @media (max-width: 768px) {
+        font-size: 70px;
+        line-height: 90px;
+
+    }
 }
 
 @utility type-h1 {
@@ -37,6 +67,7 @@
     font-weight: 600;
     line-height: 54px;
     letter-spacing: -0.48px;
+    font-family: var(--font-barlow-semicondensed);
 }
 
 @utility type-h2 {
@@ -44,6 +75,7 @@
     font-weight: 600;
     line-height: 42px;
     letter-spacing: -0.36px;
+    font-family: var(--font-barlow-semicondensed);
 }
 
 @utility type-h3 {
@@ -51,35 +83,61 @@
     font-weight: 600;
     line-height: 30px;
     letter-spacing: -0.24px;
+    font-family: var(--font-barlow-semicondensed);
+
+    @media (max-width: 768px) {
+        font-size: 22px;
+        line-height: 28px;
+
+    }
+}
+
+@utility type-block-heading {
+    font-size: 28px;
+    line-height: 1.2em;
+    font-family: var(--font-barlow-semicondensed);
 }
 
 @utility type-body-lg {
     font-size: 20px;
     line-height: 28px;
     letter-spacing: -0.3px;
+    font-family: var(--font-ancizar-serif);
+
+    @media (max-width:768px) {
+        font-size: 18px;
+    }
 }
 
 @utility type-body {
     font-size: 16px;
     line-height: 24px;
+    font-family: var(--font-ancizar-serif);
 }
 
 @utility type-label {
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 0.6px;
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: 1.96px;
     text-transform: uppercase;
+    font-family: var(--font-barlow-semicondensed);
+
+    @media (max-width:768px) {
+        font-size: 24px;
+    }
 }
 
 @utility type-caption {
     font-size: 12px;
     line-height: 18px;
+    font-family: var(--font-ancizar-serif);
 }
 
 /* ─── Classic Gutenberg block typography ───────────────────── */
 
 .entry-content h1,
 .wp-block-post-content h1 {
+    font-family: var(--font-barlow-semicondensed);
     font-size: 48px;
     font-weight: 600;
     line-height: 54px;
@@ -89,6 +147,7 @@
 
 .entry-content h2,
 .wp-block-post-content h2 {
+    font-family: var(--font-barlow-semicondensed);
     font-size: 36px;
     font-weight: 600;
     line-height: 42px;
@@ -98,6 +157,7 @@
 
 .entry-content h3,
 .wp-block-post-content h3 {
+    font-family: var(--font-barlow-semicondensed);
     font-size: 24px;
     font-weight: 600;
     line-height: 30px;
@@ -105,8 +165,20 @@
     color: #27348b;
 }
 
+.entry-content h4,
+.entry-content h5,
+.entry-content h6,
+.wp-block-post-content h4,
+.wp-block-post-content h5,
+.wp-block-post-content h6 {
+    font-family: var(--font-barlow-semicondensed);
+    font-weight: 600;
+    color: #27348b;
+}
+
 .entry-content p,
 .wp-block-paragraph {
+    font-family: var(--font-ancizar-serif);
     font-size: 16px;
     line-height: 24px;
     color: #4e4e4e;
@@ -114,9 +186,23 @@
 
 .entry-content ul,
 .wp-block-list {
+    font-family: var(--font-ancizar-serif);
     font-size: 16px;
     line-height: 24px;
     color: #4e4e4e;
     padding-left: 1.5rem;
     list-style: disc;
+}
+
+.entry-content a,
+.wp-block-post-content a {
+    color: #27348b;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    transition: opacity 0.15s ease;
+}
+
+.entry-content a:hover,
+.wp-block-post-content a:hover {
+    opacity: 0.7;
 }

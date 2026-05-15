@@ -14,10 +14,12 @@ export default function Edit({ attributes, setAttributes }) {
         description,
         backgroundColor,
         showDecoration,
+        showDecorationMobile,
         imageUrl,
         imageAlt,
         imageId,
         imageType,
+        imageTypeMobile,
         imagePosition,
         ctaType,
         primaryButton,
@@ -48,21 +50,35 @@ export default function Edit({ attributes, setAttributes }) {
                         onChange={(value) => setAttributes({ backgroundColor: value })}
                     />
                     <ToggleControl
-                        label={__('Show Decoration', 'block-forge')}
+                        label={__('Show Decoration (desktop)', 'block-forge')}
                         checked={showDecoration}
                         onChange={(value) => setAttributes({ showDecoration: value })}
                     />
+                    <ToggleControl
+                        label={__('Show Decoration (mobile)', 'block-forge')}
+                        checked={showDecorationMobile}
+                        onChange={(value) => setAttributes({ showDecorationMobile: value })}
+                    />
                     <SelectControl
-                        label={__('Image Type', 'block-forge')}
+                        label={__('Image Style (desktop)', 'block-forge')}
                         value={imageType}
                         options={[
                             { label: 'Full', value: 'full' },
-                            { label: 'Wrapped', value: 'wrapped' },
+                            { label: 'Boxed', value: 'boxed' },
                         ]}
                         onChange={(value) => setAttributes({ imageType: value })}
                     />
                     <SelectControl
-                        label={__('Image Position', 'block-forge')}
+                        label={__('Image Style (mobile)', 'block-forge')}
+                        value={imageTypeMobile}
+                        options={[
+                            { label: 'Full', value: 'full' },
+                            { label: 'Boxed', value: 'boxed' },
+                        ]}
+                        onChange={(value) => setAttributes({ imageTypeMobile: value })}
+                    />
+                    <SelectControl
+                        label={__('Image Position (desktop)', 'block-forge')}
                         value={imagePosition}
                         options={[
                             { label: 'Left', value: 'left' },

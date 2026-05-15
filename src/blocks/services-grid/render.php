@@ -22,7 +22,7 @@ $btn_border_class  = $is_dark ? 'border-gray-600 text-gray-300 hover:border-gray
 
 <div <?php echo get_block_wrapper_attributes(); ?>>
     <section class="w-full <?php echo $bg_class; ?> py-14 px-8">
-        <div class="max-w-6xl mx-auto">
+        <div class="max-w-[1120px] mx-auto">
 
             <!-- Section header -->
             <?php if ( $section_title || $section_description ) : ?>
