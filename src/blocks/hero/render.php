@@ -10,26 +10,40 @@ $secondary_btn = $attributes['secondaryButton'] ?? [ 'label' => '', 'url' => '' 
 
 $is_video  = $bg_type === 'video';
 $video_id  = 'hero-video-' . wp_unique_id();
+$anchor_id = $attributes['anchorId'] ?? '';
 ?>
 
 <div <?php echo get_block_wrapper_attributes(); ?>>
-    <section class="relative w-full min-h-[600px] flex items-center overflow-hidden bg-transparent">
+    <section <?php if ( $anchor_id ) echo 'id="' . esc_attr( $anchor_id ) . '"'; ?>
+        class="relative w-full <?php echo $is_video ? 'md:min-h-[760px] min-h-[600px]' : 'md:min-h-[440px]'; ?>  flex items-center overflow-hidden bg-transparent">
 
         <?php if ( $is_video && $video_url ) : ?>
         <video id="<?php echo esc_attr( $video_id ); ?>" class="absolute inset-0 w-full h-full object-cover" autoplay
             muted loop playsinline>
             <source src="<?php echo esc_url( $video_url ); ?>" />
         </video>
+
         <?php elseif ( $image_url ) : ?>
         <img src="<?php echo esc_url( $image_url ); ?>" alt="<?php echo esc_attr( $image_alt ); ?>"
             class="absolute inset-0 w-full h-full object-cover" />
         <?php endif; ?>
 
         <?php if ( $is_video && $video_url ) : ?>
-        <div class="absolute inset-0 bg-gradient-to-r from-black/65 via-black/30 to-transparent"></div>
+        <div
+            class="absolute inset-0 bg-[linear-gradient(0deg,rgba(0,0,0,0.3),rgba(0,0,0,0.3)),linear-gradient(180deg,rgba(0,0,0,0.4)_0%,rgba(0,0,0,0)_39.74%)]">
+        </div>
         <?php endif; ?>
 
-        <div class="relative z-10 w-full max-w-[1120px] mx-auto px-8 py-16 text-center flex flex-col items-center">
+        <?php if ( $image_url ) : ?>
+        <div
+            class="absolute inset-0 bg-[linear-gradient(180deg,#000000_0%,rgba(0,0,0,0)_26.4%,rgba(0,0,0,0)_75%,#000000_100%),linear-gradient(0deg,rgba(0,0,0,0.3),rgba(0,0,0,0.3))]">
+        </div>
+        <?php endif; ?>
+
+
+
+
+        <div class="relative z-10 w-full max-w-[1120px] mx-auto px-8 pt-16 text-center flex flex-col items-center">
 
             <?php if ( $title ) : ?>
             <h1 class="<?php echo $is_video ? 'type-display text-[#AED9E9]' : 'type-h1 text-white'; ?> mb-8 max-w-2xl">
@@ -64,8 +78,8 @@ $video_id  = 'hero-video-' . wp_unique_id();
 
         <?php if ( $is_video ) : ?>
         <!-- Rounded clip -->
-        <div class="absolute bottom-0 left-0 w-full overflow-hidden leading-none pointer-events-none"
-            style="line-height:0">
+        <div class="absolute bottom-0 left-0 w-full overflow-hidden leading-none pointer-events-none h-5 md:h-auto"
+            style="line-height:0; margin-bottom:-1px; width: calc(100% + 10px); margin-left: -5px;">
             <svg viewBox="0 0 1440 72" fill="white" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"
                 class="w-full block">
                 <path d="M0,72 Q720,-72 1440,72 L1440,72 L0,72 Z" />
@@ -75,7 +89,7 @@ $video_id  = 'hero-video-' . wp_unique_id();
         <!-- Pause / Play button -->
         <?php if ( $video_url ) : ?>
         <button type="button" aria-label="<?php esc_attr_e( 'Pause video', 'block-forge' ); ?>"
-            class="absolute bottom-8 right-8 z-20 w-12 h-12 rounded-full border-2 border-white/80 flex items-center justify-center text-white bg-black/20 hover:bg-black/40 transition"
+            class="absolute bottom-4 right-4 w-7 h-7 md:bottom-8 md:right-8 z-20 md:w-12 md:h-12 rounded-full border-2 border-white/80 flex items-center justify-center text-white bg-black/20 hover:bg-black/40 transition"
             onclick="(function(btn){
                 var v = document.getElementById('<?php echo esc_js( $video_id ); ?>');
                 if (!v) return;

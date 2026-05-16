@@ -15,7 +15,14 @@
   "editorStyle": "file:./editor.css",
   "style": "block-forge-style",
   "render": "file:./render.php",
+  "supports": {
+    "align": ["full"]
+  },
   "attributes": {
+    "align": {
+      "type": "string",
+      "default": "full"
+    },
     "title": {
       "type": "string",
       "default": "Häng med i Movendi"
@@ -35,6 +42,20 @@
     "showDecorationMobile": {
       "type": "boolean",
       "default": false
+    },
+    "decorationUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "decorationId": {
+      "type": "number"
+    },
+    "decorationMobileUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "decorationMobileId": {
+      "type": "number"
     },
     "imageUrl": {
       "type": "string",
@@ -82,6 +103,10 @@
       "default": "Länk kommer här"
     },
     "linkUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "anchorId": {
       "type": "string",
       "default": ""
     }

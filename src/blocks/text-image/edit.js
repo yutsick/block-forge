@@ -14,6 +14,7 @@ export default function Edit({ attributes, setAttributes }) {
         title, description, linkLabel, linkUrl,
         imageUrl, imageAlt, imageId,
         imageType, imagePosition, backgroundColor,
+        anchorId,
     } = attributes;
 
     const blockProps = useBlockProps();
@@ -23,8 +24,8 @@ export default function Edit({ attributes, setAttributes }) {
 
     const imageColumn = (
         <div className={isFull
-            ? 'flex-[3] relative min-h-[200px] overflow-hidden bg-banner-blue'
-            : 'flex-1'
+            ? 'flex-[3] relative min-h-[280px] overflow-hidden max-w-[47%] bg-banner-blue'
+            : 'w-full md:flex-1 md:max-w-[48%] shrink-0'
         }>
             <MediaUploadCheck>
                 <MediaUpload
@@ -39,7 +40,7 @@ export default function Edit({ attributes, setAttributes }) {
                                 onClick={open}
                                 className={isFull
                                     ? 'absolute inset-0 w-full h-full object-cover cursor-pointer'
-                                    : 'w-full object-cover rounded-2xl cursor-pointer max-h-[360px]'
+                                    : 'w-full h-full max-h-[440px] object-cover rounded-2xl cursor-pointer'
                                 }
                             />
                         ) : (
@@ -61,26 +62,35 @@ export default function Edit({ attributes, setAttributes }) {
 
     const textColumn = (
         <div className={isFull
-            ? `flex-[2] ${bgClass} flex items-center px-10 py-10`
-            : `flex-1 flex flex-col justify-center ${bgClass} ${isFull ? '' : 'py-4'}`
+            ? `flex-[2] ${bgClass} flex items-center px-14 py-12`
+            : `flex-1 flex flex-col justify-center ${bgClass}`
         }>
-            <div className={isFull ? 'max-w-xs' : ''}>
+            <div className={isFull ? 'max-w-sm' : ''}>
                 <RichText
                     tagName="h2"
-                    className={`font-semibold text-banner-heading mb-3 ${isFull ? 'text-[22px] leading-snug' : 'text-[26px] leading-tight'}`}
+                    className={`font-semibold text-banner-heading mb-4 ${isFull ? 'text-[22px] leading-snug' : 'text-[26px] leading-tight'}`}
                     value={title}
                     onChange={(value) => setAttributes({ title: value })}
                     placeholder={__('Title…', 'block-forge')}
                 />
                 <RichText
                     tagName="p"
-                    className="text-[13px] text-banner-text leading-relaxed mb-4"
+                    className="type-body text-banner-text leading-relaxed mb-5"
                     value={description}
                     onChange={(value) => setAttributes({ description: value })}
                     placeholder={__('Description…', 'block-forge')}
                 />
-                {linkLabel && (
-                    <span className="text-xs font-semibold text-banner-heading">
+                {linkLabel && isFull && (
+                    <a href={linkUrl} className="inline-flex items-center gap-1 type-regular-link hover:underline">
+                        {linkLabel}
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M4 12.375L19.25 12.375" stroke="#27348B" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                            <path d="M12.5 19.125L19.25 12.375L12.5 5.625" stroke="#27348B" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                    </a>
+                )}
+                {linkLabel && !isFull && (
+                    <span className="inline-flex items-center gap-1 type-body font-semibold text-banner-heading">
                         {linkLabel} →
                     </span>
                 )}
@@ -145,10 +155,19 @@ export default function Edit({ attributes, setAttributes }) {
                         </Button>
                     )}
                 </PanelBody>
+                <PanelBody title={__('Anchor', 'block-forge')} initialOpen={false}>
+                    <TextControl
+                        label={__('Section ID', 'block-forge')}
+                        value={anchorId}
+                        onChange={(value) => setAttributes({ anchorId: value })}
+                        placeholder="e.g. about-us"
+                        help={__('Used for one-page navigation links (#id).', 'block-forge')}
+                    />
+                </PanelBody>
             </InspectorControls>
 
             <div {...blockProps}>
-                <section className={`w-full flex ${isFull ? 'min-h-[220px]' : `${bgClass} py-8 px-8`}`}>
+                <section id={anchorId || undefined} className={`w-full flex ${isFull ? 'min-h-[360px]' : `${bgClass} py-14 px-8`}`}>
                     <div className={`w-full flex ${isFull ? '' : 'max-w-[1120px] mx-auto'} items-center gap-8 ${imgRight ? 'flex-row-reverse' : 'flex-row'}`}>
                         {imageColumn}
                         {textColumn}

@@ -49,6 +49,10 @@
     "secondaryButton": {
       "type": "object",
       "default": { "label": "Uppträck Movendi", "url": "" }
+    },
+    "anchorId": {
+      "type": "string",
+      "default": ""
     }
   }
 }

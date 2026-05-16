@@ -50,6 +50,10 @@
     "backgroundColor": {
       "type": "string",
       "default": "white"
+    },
+    "anchorId": {
+      "type": "string",
+      "default": ""
     }
   }
 }

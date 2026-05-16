@@ -2,6 +2,7 @@
 $section_title       = $attributes['sectionTitle'] ?? '';
 $section_description = $attributes['sectionDescription'] ?? '';
 $cards               = $attributes['cards'] ?? [];
+$anchor_id           = $attributes['anchorId'] ?? '';
 
 $overlay_classes = [
     'peach' => 'bg-banner-peach',
@@ -10,7 +11,7 @@ $overlay_classes = [
 ?>
 
 <div <?php echo get_block_wrapper_attributes(); ?>>
-    <section class="w-full py-16 px-4 md:px-8 bg-[#F8F8F8]" data-aos="fade-up">
+    <section <?php if ( $anchor_id ) echo 'id="' . esc_attr( $anchor_id ) . '"'; ?> class="w-full py-16 px-4 md:px-8 bg-[#F8F8F8]" data-aos="fade-up">
         <div class="max-w-[1120px] mx-auto">
 
             <!--

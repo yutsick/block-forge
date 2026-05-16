@@ -2,6 +2,7 @@
 $section_title    = $attributes['sectionTitle'] ?? '';
 $more_label       = $attributes['moreLinkLabel'] ?? '';
 $more_url         = $attributes['moreLinkUrl'] ?? '';
+$anchor_id        = $attributes['anchorId'] ?? '';
 $number_of_posts  = intval( $attributes['numberOfPosts'] ?? 3 );
 $post_type        = sanitize_key( $attributes['postType'] ?? 'post' );
 $offset           = intval( $attributes['offset'] ?? 0 );
@@ -27,7 +28,7 @@ $query = new WP_Query( $query_args );
 ?>
 
 <div <?php echo get_block_wrapper_attributes(); ?>>
-    <section class="w-full py-14 px-8" data-aos="fade-up">
+    <section <?php if ( $anchor_id ) echo 'id="' . esc_attr( $anchor_id ) . '"'; ?> class="w-full py-14 px-8" data-aos="fade-up">
         <div class="max-w-[1120px] mx-auto">
 
             <!-- Section header -->

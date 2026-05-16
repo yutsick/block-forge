@@ -8,7 +8,7 @@ const OVERLAY_CLASSES = {
 };
 
 export default function Edit({ attributes, setAttributes }) {
-    const { sectionTitle, sectionDescription, cards } = attributes;
+    const { sectionTitle, sectionDescription, cards, anchorId } = attributes;
 
     const blockProps = useBlockProps();
 
@@ -78,29 +78,45 @@ export default function Edit({ attributes, setAttributes }) {
                         />
                     </PanelBody>
                 ))}
+                <PanelBody title={__('Anchor', 'block-forge')} initialOpen={false}>
+                    <TextControl
+                        label={__('Section ID', 'block-forge')}
+                        value={anchorId}
+                        onChange={(value) => setAttributes({ anchorId: value })}
+                        placeholder="e.g. about-us"
+                        help={__('Used for one-page navigation links (#id).', 'block-forge')}
+                    />
+                </PanelBody>
             </InspectorControls>
 
             <div {...blockProps}>
-                <section className="w-full py-10 px-8 bg-white">
+                <section id={anchorId || undefined} className="w-full py-16 px-8 bg-[#F8F8F8]">
                     <div className="max-w-[1120px] mx-auto">
-                        <div className="mb-6">
-                            <h2 className="text-[20px] font-semibold text-banner-heading mb-2">{sectionTitle}</h2>
-                            <p className="text-[12px] text-banner-text max-w-xl">{sectionDescription}</p>
+                        <div className="mb-8">
+                            <h2 className="type-label !text-black mb-4">{sectionTitle}</h2>
+                            <p className="type-body-lg !text-black max-w-2xl">{sectionDescription}</p>
                         </div>
-                        <div className="grid grid-cols-2 gap-4">
+                        <div className="grid grid-cols-2 gap-x-6 gap-y-12">
                             {cards.map((card, i) => (
-                                <div key={i} className="rounded-xl overflow-hidden">
-                                    <div className="aspect-[4/3] overflow-hidden bg-gray-200">
-                                        {card.imageUrl && (
-                                            <img src={card.imageUrl} alt={card.imageAlt} className="w-full h-full object-cover" />
+                                <div key={i} className="relative overflow-hidden rounded-2xl flex flex-col">
+                                    <div className="h-[265px] overflow-hidden rounded-[8px]">
+                                        {card.imageUrl ? (
+                                            <img src={card.imageUrl} alt={card.imageAlt} className="w-full h-full object-cover rounded-[8px]" />
+                                        ) : (
+                                            <div className="w-full h-full bg-gray-200 rounded-[8px]" />
                                         )}
                                     </div>
-                                    <div className={`${OVERLAY_CLASSES[card.colorVariant] ?? 'bg-banner-peach'} px-4 py-3 flex items-start justify-between gap-2`}>
+                                    <div className={`relative ${OVERLAY_CLASSES[card.colorVariant] ?? 'bg-banner-peach'} mx-[50px] px-8 pt-6 pb-8 flex flex-col items-start gap-4 -mt-[36px] rounded-[8px]`}>
                                         <div>
-                                            <p className="text-[13px] font-semibold text-banner-heading">{card.title}</p>
-                                            <p className="text-[10px] text-banner-text mt-0.5">{card.description}</p>
+                                            <h3 className="font-barlow-semicondensed text-[28px] tracking-[-0.02em] !text-black mb-1 font-semibold leading-snug">{card.title}</h3>
+                                            <p className="type-body-lg text-[#212121]">{card.description}</p>
                                         </div>
-                                        <span className="text-banner-heading font-bold text-sm mt-0.5">→</span>
+                                        <div className="shrink-0 mt-1">
+                                            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M5 18L27 18" stroke="#2F2F2F" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+                                                <path d="M18 27L27 18L18 9" stroke="#2F2F2F" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+                                            </svg>
+                                        </div>
                                     </div>
                                 </div>
                             ))}

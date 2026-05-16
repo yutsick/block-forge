@@ -18,10 +18,12 @@ lg:top-full
 lg:grid-cols-3
 lg:group-hover:block
 lg:group-focus-within:block
+lg:border-0
 
 md:grid-cols-2
 md:text-
 md:block
+md:w-[calc(25%-15px)]
 
 sm:inline-flex
 sm:text-base

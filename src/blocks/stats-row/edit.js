@@ -1,10 +1,11 @@
 import { InspectorControls, MediaUpload, MediaUploadCheck, useBlockProps } from '@wordpress/block-editor';
-import { Button, PanelBody, TextControl, TextareaControl } from '@wordpress/components';
+import { Button, PanelBody, TextControl, TextareaControl, ToggleControl } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 
 export default function Edit({ attributes, setAttributes }) {
-    const { sectionTitle, stats } = attributes;
+    const { sectionTitle, stats, anchorId } = attributes;
     const blockProps = useBlockProps();
+
 
     const updateStat = (index, fields) => {
         const updated = stats.map((s, i) => i === index ? { ...s, ...fields } : s);
@@ -24,6 +25,11 @@ export default function Edit({ attributes, setAttributes }) {
 
                 {stats.map((stat, i) => (
                     <PanelBody key={i} title={`${__('Stat', 'block-forge')} ${i + 1}`} initialOpen={i === 0}>
+                        <ToggleControl
+                            label={__('Show card', 'block-forge')}
+                            checked={stat.isEnabled !== false}
+                            onChange={(value) => updateStat(i, { isEnabled: value })}
+                        />
 
                         <div style={{ marginBottom: '12px' }}>
                             <p style={{ marginBottom: '6px', fontWeight: 600, fontSize: '11px' }}>
@@ -62,11 +68,6 @@ export default function Edit({ attributes, setAttributes }) {
                         </div>
 
                         <TextControl
-                            label={__('Value (e.g. 10 000+)', 'block-forge')}
-                            value={stat.value}
-                            onChange={(value) => updateStat(i, { value })}
-                        />
-                        <TextControl
                             label={__('Label', 'block-forge')}
                             value={stat.label}
                             onChange={(value) => updateStat(i, { label: value })}
@@ -78,34 +79,39 @@ export default function Edit({ attributes, setAttributes }) {
                         />
                     </PanelBody>
                 ))}
+                <PanelBody title={__('Anchor', 'block-forge')} initialOpen={false}>
+                    <TextControl
+                        label={__('Section ID', 'block-forge')}
+                        value={anchorId}
+                        onChange={(value) => setAttributes({ anchorId: value })}
+                        placeholder="e.g. about-us"
+                        help={__('Used for one-page navigation links (#id).', 'block-forge')}
+                    />
+                </PanelBody>
             </InspectorControls>
 
             <div {...blockProps}>
-                <section className="w-full py-10 px-8 bg-white">
+                <section id={anchorId || undefined} className="w-full py-14 px-8 bg-[#F8F8F8]">
                     <div className="max-w-[1120px] mx-auto">
                         {sectionTitle && (
-                            <p className="text-[11px] font-semibold tracking-widest uppercase text-banner-text text-center mb-8">
-                                {sectionTitle}
-                            </p>
+                            <h2 className="type-label text-banner-text mb-10">{sectionTitle}</h2>
                         )}
-                        <div className="grid grid-cols-4 gap-6">
+                        <div className="flex justify-center gap-5">
                             {stats.map((stat, i) => (
-                                <div key={i} className="flex flex-col items-center text-center gap-2">
-                                    {stat.iconUrl ? (
-                                        <img
-                                            src={stat.iconUrl}
-                                            alt=""
-                                            style={{ width: '40px', height: '40px', objectFit: 'contain' }}
-                                        />
-                                    ) : (
-                                        <div style={{ width: '40px', height: '40px', background: '#eee', borderRadius: '4px' }} />
-                                    )}
-                                    {stat.value && (
-                                        <span className="text-[20px] font-semibold text-banner-heading">{stat.value}</span>
-                                    )}
-                                    <span className="text-[12px] font-semibold text-banner-heading">{stat.label}</span>
-                                    <p className="text-[10px] text-banner-text leading-relaxed">{stat.description}</p>
-                                </div>
+                                stat.isEnabled === false ? null :
+                                    <div key={i} className="w-[calc(25%-15px)] bg-white rounded-[16px] p-6 flex flex-col items-center text-center gap-3 min-h-[220px] shadow-[0_4px_4px_rgb(0_0_0/_0.25)]">
+                                        {stat.iconUrl ? (
+                                            <img
+                                                src={stat.iconUrl}
+                                                alt=""
+                                                className="w-14 h-14 mx-auto object-contain"
+                                            />
+                                        ) : (
+                                            <div className="w-14 h-14 bg-gray-100 rounded-md" />
+                                        )}
+                                        <span className="type-h3 font-semibold !text-black leading-snug">{stat.label}</span>
+                                        <p className="type-body-lg text-grey">{stat.description}</p>
+                                    </div>
                             ))}
                         </div>
                     </div>

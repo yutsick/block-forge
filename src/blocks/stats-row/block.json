@@ -23,41 +23,45 @@
         "properties": {
           "iconId":      { "type": "integer" },
           "iconUrl":     { "type": "string" },
-          "value":       { "type": "string" },
           "label":       { "type": "string" },
-          "description": { "type": "string" }
+          "description": { "type": "string" },
+          "isEnabled":   { "type": "boolean" }
         }
       },
       "default": [
         {
           "iconId": 0,
           "iconUrl": "",
-          "value": "10 000+",
           "label": "medlemmar",
-          "description": "Aktiva medlemmar i Movendi runt om i Sverige"
+          "description": "Aktiva medlemmar i Movendi runt om i Sverige",
+          "isEnabled": true
         },
         {
           "iconId": 0,
           "iconUrl": "",
-          "value": "200+",
           "label": "Lokala föreningar i hela Sverige",
-          "description": "Hitta din närmaste förening och bli en del av gemenskapen."
+          "description": "Hitta din närmaste förening och bli en del av gemenskapen.",
+          "isEnabled": true
         },
         {
           "iconId": 0,
           "iconUrl": "",
-          "value": "500+",
           "label": "Hundratals aktiviteter varje år",
-          "description": "Läger, resor, utbildningar och festivaler."
+          "description": "Läger, resor, utbildningar och festivaler.",
+          "isEnabled": true
         },
         {
           "iconId": 0,
           "iconUrl": "",
-          "value": "",
           "label": "En stark röst i samhälls-debatten",
-          "description": "Vi påverkar politiken och arbetar för ett alkoholfritt och nyktert samhälle för alla."
+          "description": "Vi påverkar politiken och arbetar för ett alkoholfritt och nyktert samhälle för alla.",
+          "isEnabled": true
         }
       ]
+    },
+    "anchorId": {
+      "type": "string",
+      "default": ""
     }
   }
 }

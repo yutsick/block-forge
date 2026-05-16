@@ -8,6 +8,7 @@ $image_alt      = $attributes['imageAlt'] ?? '';
 $image_type     = $attributes['imageType'] ?? 'boxed';   // full | boxed
 $image_position = $attributes['imagePosition'] ?? 'right'; // left | right
 $bg_color       = $attributes['backgroundColor'] ?? 'white';
+$anchor_id      = $attributes['anchorId'] ?? '';
 
 $bg_classes = [
     'white' => 'bg-white',
@@ -27,7 +28,7 @@ $is_image_left = $image_position === 'left';
 
     <?php if ( $image_type === 'full' ) : ?>
     <!-- ── FULL bleed layout ──────────────────────────────── -->
-    <section class="w-full  mx-auto flex flex-col <?php echo $row_class; ?> min-h-[500px]" data-aos="fade-up">
+    <section <?php if ( $anchor_id ) echo 'id="' . esc_attr( $anchor_id ) . '"'; ?> class="w-full  mx-auto flex flex-col <?php echo $row_class; ?> min-h-[500px]" data-aos="fade-up">
 
         <!-- Image column (full bleed) -->
         <div class="relative flex-[3] min-h-[280px] overflow-hidden lg:max-w-[47%]">
@@ -69,7 +70,7 @@ $is_image_left = $image_position === 'left';
 
     <?php else : ?>
     <!-- ── BOXED layout ──────────────────────────────────── -->
-    <section class="w-full <?php echo $bg_class; ?> py-14 px-8">
+    <section <?php if ( $anchor_id ) echo 'id="' . esc_attr( $anchor_id ) . '"'; ?> class="w-full <?php echo $bg_class; ?> py-14 px-8">
         <div class="max-w-[1120px] mx-auto flex flex-col <?php echo $row_class; ?> items-center gap-10 md:gap-16">
 
             <!-- Image column (boxed, rounded) -->

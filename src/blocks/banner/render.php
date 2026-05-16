@@ -12,8 +12,11 @@ $primary_button         = $attributes['primaryButton'] ?? [ 'label' => '', 'url'
 $secondary_button       = $attributes['secondaryButton'] ?? [ 'label' => '', 'url' => '' ];
 $link_label             = $attributes['linkLabel'] ?? '';
 $link_url               = $attributes['linkUrl'] ?? '';
-$show_decoration        = $attributes['showDecoration'] ?? false;        // desktop
-$show_decoration_mobile = $attributes['showDecorationMobile'] ?? false;  // mobile
+$show_decoration        = $attributes['showDecoration'] ?? false;
+$show_decoration_mobile = $attributes['showDecorationMobile'] ?? false;
+$decoration_url         = $attributes['decorationUrl'] ?? '';
+$decoration_mobile_url  = $attributes['decorationMobileUrl'] ?? '';
+$anchor_id              = $attributes['anchorId'] ?? '';
 
 $bg_colors = [
 	'blue'  => 'bg-banner-blue',
@@ -21,38 +24,11 @@ $bg_colors = [
 	'pink'  => 'bg-banner-pink/60',
 ];
 
-$bg_images = [
-	'blue-left'  => 'bg-blue-left.png',
-	'blue-right' => 'bg-blue-right.png',
-	'peach-right' => 'bg-peach-right.png',
-	'peach-left' => 'bg-peach-left.png',
-	'pink-left'  => 'bg-pink-left.png',
-];
-
-$bg_class       = $bg_colors[ $background_color ] ?? 'bg-banner-blue';
-$is_image_left  = $image_position === 'left';
+$bg_class        = $bg_colors[ $background_color ] ?? 'bg-banner-blue';
+$is_image_left   = $image_position === 'left';
 $is_full_desktop = $image_type_desktop === 'full';
 $is_full_mobile  = $image_type_mobile === 'full';
-
-// Decoration image (single asset; visibility toggled per viewport).
 $decoration_side = $is_image_left ? 'left' : 'right';
-$decoration_key  = $background_color . '-' . $decoration_side;
-$decoration_file = $bg_images[ $decoration_key ] ?? '';
-$decoration_url  = $decoration_file ? plugin_dir_url( __FILE__ ) . 'images/' . $decoration_file : '';
-
-// Decoration responsive visibility.
-$decoration_visibility = '';
-if ( $decoration_url ) {
-	if ( $show_decoration && $show_decoration_mobile ) {
-		$decoration_visibility = 'block';
-	} elseif ( $show_decoration && ! $show_decoration_mobile ) {
-		$decoration_visibility = 'hidden md:block';
-	} elseif ( ! $show_decoration && $show_decoration_mobile ) {
-		$decoration_visibility = 'block md:hidden';
-	} else {
-		$decoration_visibility = ''; // not rendered.
-	}
-}
 
 // Mobile flex direction: keep the desktop-visually-first element on top.
 // image-left desktop  → image first (source) + flex-col          → image on top mobile
@@ -61,12 +37,18 @@ $mobile_dir  = $is_image_left ? 'flex-col' : 'flex-col-reverse';
 $desktop_dir = $is_image_left ? 'md:flex-row' : 'md:flex-row-reverse';
 ?>
 
-<section class="w-full mx-auto" data-aos="fade-up">
+<section <?php if ( $anchor_id ) echo 'id="' . esc_attr( $anchor_id ) . '"'; ?> class="w-full mx-auto"
+    data-aos="fade-up">
     <div <?php echo get_block_wrapper_attributes( [ 'class' => 'relative overflow-hidden ' . $bg_class ] ); ?>>
 
-        <?php if ( $decoration_visibility ) : ?>
+        <?php if ( $decoration_url && $show_decoration ) : ?>
         <img src="<?php echo esc_url( $decoration_url ); ?>" alt="" aria-hidden="true"
-            class="absolute bottom-0 <?php echo $is_image_left ? 'left-0' : 'right-0'; ?> h-full object-cover md:object-contain pointer-events-none select-none z-0 <?php echo esc_attr( $decoration_visibility ); ?>" />
+            class="absolute bottom-0 <?php echo $is_image_left ? 'left-0' : 'right-0'; ?> h-full object-contain pointer-events-none select-none z-0 hidden md:block" />
+        <?php endif; ?>
+
+        <?php if ( $decoration_mobile_url && $show_decoration_mobile ) : ?>
+        <img src="<?php echo esc_url( $decoration_mobile_url ); ?>" alt="" aria-hidden="true"
+            class="absolute bottom-0 right-0 h-full object-contain pointer-events-none select-none z-0 block md:hidden" />
         <?php endif; ?>
 
         <div
@@ -122,11 +104,11 @@ $desktop_dir = $is_image_left ? 'md:flex-row' : 'md:flex-row-reverse';
                 <?php if ( $cta_type === 'buttons' ) : ?>
                 <div class="flex gap-4">
                     <a href="<?php echo esc_url( $primary_button['url'] ); ?>"
-                        class="inline-flex items-center px-6 py-3 bg-banner-heading text-white rounded-full text-sm font-semibold">
+                        class="inline-flex items-center px-6 py-3 bg-banner-heading text-white rounded-full text-sm font-semibold no-underline">
                         <?php echo esc_html( $primary_button['label'] ); ?>
                     </a>
                     <a href="<?php echo esc_url( $secondary_button['url'] ); ?>"
-                        class="inline-flex items-center px-6 py-3 border-2 border-banner-heading text-banner-heading rounded-full text-sm font-semibold">
+                        class="inline-flex items-center px-6 py-3 border-2 border-banner-heading text-banner-heading rounded-full text-sm font-semibold no-underline">
                         <?php echo esc_html( $secondary_button['label'] ); ?>
                     </a>
                 </div>

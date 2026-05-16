@@ -40,6 +40,10 @@
       "type": "array",
       "items": { "type": "number" },
       "default": []
+    },
+    "anchorId": {
+      "type": "string",
+      "default": ""
     }
   }
 }

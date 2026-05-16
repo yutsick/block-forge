@@ -53,7 +53,9 @@ add_action( 'init', function() {
     wp_register_style(
         'block-forge-style',
         plugins_url( 'build/style.css', __FILE__ ),
-        is_admin() ? [] : [ 'movendi-theme-style' ],
+        is_admin()
+            ? [ 'wp-components', 'wp-block-editor', 'wp-edit-blocks' ]
+            : [ 'movendi-theme-style' ],
         $version
     );
 } );

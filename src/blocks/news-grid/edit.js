@@ -23,6 +23,7 @@ export default function Edit({ attributes, setAttributes }) {
         postType,
         offset,
         selectedPostIds,
+        anchorId,
     } = attributes;
 
     const blockProps = useBlockProps();
@@ -195,17 +196,24 @@ export default function Edit({ attributes, setAttributes }) {
                         </>
                     )}
                 </PanelBody>
+                <PanelBody title={__('Anchor', 'block-forge')} initialOpen={false}>
+                    <TextControl
+                        label={__('Section ID', 'block-forge')}
+                        value={anchorId}
+                        onChange={(value) => setAttributes({ anchorId: value })}
+                        placeholder="e.g. about-us"
+                        help={__('Used for one-page navigation links (#id).', 'block-forge')}
+                    />
+                </PanelBody>
             </InspectorControls>
 
             <div {...blockProps}>
-                <section className="w-full py-10 px-8 bg-white">
+                <section id={anchorId || undefined} className="w-full py-14 px-8">
                     <div className="max-w-[1120px] mx-auto">
-                        <div className="flex items-center justify-between mb-6">
-                            <span className="text-[11px] font-semibold tracking-widest uppercase text-banner-text">
-                                {sectionTitle}
-                            </span>
+                        <div className="flex items-center justify-between mb-8">
+                            <h2 className="type-label !text-black">{sectionTitle}</h2>
                             {moreLinkLabel && (
-                                <span className="text-xs font-semibold text-banner-heading">
+                                <span className="type-regular-link text-banner-heading text-sm font-semibold">
                                     {moreLinkLabel} →
                                 </span>
                             )}
@@ -218,13 +226,13 @@ export default function Edit({ attributes, setAttributes }) {
                         )}
 
                         {!isLoading && previewPosts && previewPosts.length === 0 && (
-                            <p className="text-sm text-banner-text">
+                            <p className="type-body text-banner-text">
                                 {__('No posts found.', 'block-forge')}
                             </p>
                         )}
 
                         {!isLoading && previewPosts && previewPosts.length > 0 && (
-                            <div className="grid grid-cols-3 gap-5">
+                            <div className="grid grid-cols-3 gap-6">
                                 {previewPosts.map((post) => {
                                     const featuredMedia = post._embedded?.['wp:featuredmedia']?.[0];
                                     const imgUrl = featuredMedia?.media_details?.sizes?.medium_large?.source_url
@@ -234,7 +242,7 @@ export default function Edit({ attributes, setAttributes }) {
                                     const category = terms[0]?.name ?? '';
 
                                     return (
-                                        <div key={post.id} className="flex flex-col gap-2">
+                                        <article key={post.id} className="flex flex-col gap-3">
                                             <div className="bg-gray-100 rounded-xl aspect-[4/3] overflow-hidden">
                                                 {imgUrl && (
                                                     <img
@@ -244,25 +252,25 @@ export default function Edit({ attributes, setAttributes }) {
                                                     />
                                                 )}
                                             </div>
-                                            <div className="flex items-center gap-1.5">
+                                            <div className="flex items-center gap-2">
                                                 {category && (
-                                                    <span className="text-[10px] font-bold tracking-wider text-banner-heading uppercase">
+                                                    <span className="uppercase font-semibold text-sm text-grey font-barlow-semicondensed tracking-[0.11em]">
                                                         {category}
                                                     </span>
                                                 )}
-                                                <span className="text-[10px] text-banner-text">
-                                                    · {new Date(post.date).toLocaleDateString('sv-SE', { day: 'numeric', month: 'short', year: 'numeric' })}
+                                                <span className="type-body text-grey">
+                                                    | {new Date(post.date).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}
                                                 </span>
                                             </div>
-                                            <p
-                                                className="text-[13px] font-semibold text-banner-heading leading-snug"
+                                            <h3
+                                                className="font-barlow-semicondensed text-[24px] !text-black font-semibold leading-snug tracking-[-0.01em]"
                                                 dangerouslySetInnerHTML={{ __html: post.title?.rendered ?? '' }}
                                             />
                                             <p
-                                                className="text-[11px] text-banner-text leading-relaxed"
+                                                className="type-body-lg text-banner-text"
                                                 dangerouslySetInnerHTML={{ __html: post.excerpt?.rendered ?? '' }}
                                             />
-                                        </div>
+                                        </article>
                                     );
                                 })}
                             </div>

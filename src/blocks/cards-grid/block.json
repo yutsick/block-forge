@@ -64,6 +64,10 @@
           "colorVariant": "blue"
         }
       ]
+    },
+    "anchorId": {
+      "type": "string",
+      "default": ""
     }
   }
 }
