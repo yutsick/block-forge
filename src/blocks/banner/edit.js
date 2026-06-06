@@ -1,6 +1,9 @@
 import { InspectorControls, MediaUpload, MediaUploadCheck, RichText, useBlockProps } from '@wordpress/block-editor';
 import { Button, PanelBody, SelectControl, TextControl, ToggleControl } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
+import ElementStylePanel from '../../components/ElementStylePanel';
+import LinkPicker from '../../components/LinkPicker';
+import { toInlineStyle } from '../../components/typeStyles';
 
 const BG_COLORS = {
     blue: 'bg-banner-blue',
@@ -19,6 +22,7 @@ export default function Edit({ attributes, setAttributes }) {
         decorationId,
         decorationMobileUrl,
         decorationMobileId,
+        decorationPosition,
         imageUrl,
         imageAlt,
         imageId,
@@ -31,6 +35,11 @@ export default function Edit({ attributes, setAttributes }) {
         linkLabel,
         linkUrl,
         anchorId,
+        titleStyle,
+        descriptionStyle,
+        primaryButtonStyle,
+        secondaryButtonStyle,
+        linkStyle,
     } = attributes;
 
     const blockProps = useBlockProps({
@@ -88,46 +97,30 @@ export default function Edit({ attributes, setAttributes }) {
                             { label: 'None', value: 'none' },
                             { label: 'Buttons', value: 'buttons' },
                             { label: 'Link', value: 'link' },
+                            { label: 'Buttons + Link', value: 'both' },
                         ]}
                         onChange={(value) => setAttributes({ ctaType: value })}
                     />
-                    {ctaType === 'buttons' && (
+                    {(ctaType === 'buttons' || ctaType === 'both') && (
                         <>
-                            <TextControl
-                                label={__('Primary Button Label', 'block-forge')}
-                                value={primaryButton.label}
-                                onChange={(value) => setAttributes({ primaryButton: { ...primaryButton, label: value } })}
-                            />
-                            <TextControl
+                            <LinkPicker
                                 label={__('Primary Button URL', 'block-forge')}
-                                value={primaryButton.url}
+                                url={primaryButton.url}
                                 onChange={(value) => setAttributes({ primaryButton: { ...primaryButton, url: value } })}
                             />
-                            <TextControl
-                                label={__('Secondary Button Label', 'block-forge')}
-                                value={secondaryButton.label}
-                                onChange={(value) => setAttributes({ secondaryButton: { ...secondaryButton, label: value } })}
-                            />
-                            <TextControl
+                            <LinkPicker
                                 label={__('Secondary Button URL', 'block-forge')}
-                                value={secondaryButton.url}
+                                url={secondaryButton.url}
                                 onChange={(value) => setAttributes({ secondaryButton: { ...secondaryButton, url: value } })}
                             />
                         </>
                     )}
-                    {ctaType === 'link' && (
-                        <>
-                            <TextControl
-                                label={__('Link Label', 'block-forge')}
-                                value={linkLabel}
-                                onChange={(value) => setAttributes({ linkLabel: value })}
-                            />
-                            <TextControl
-                                label={__('Link URL', 'block-forge')}
-                                value={linkUrl}
-                                onChange={(value) => setAttributes({ linkUrl: value })}
-                            />
-                        </>
+                    {(ctaType === 'link' || ctaType === 'both') && (
+                        <LinkPicker
+                            label={__('Link URL', 'block-forge')}
+                            url={linkUrl}
+                            onChange={(value) => setAttributes({ linkUrl: value })}
+                        />
                     )}
                 </PanelBody>
 
@@ -139,6 +132,15 @@ export default function Edit({ attributes, setAttributes }) {
                         label={__('Show on desktop', 'block-forge')}
                         checked={showDecoration}
                         onChange={(value) => setAttributes({ showDecoration: value })}
+                    />
+                    <SelectControl
+                        label={__('Desktop decoration position', 'block-forge')}
+                        value={decorationPosition || 'left'}
+                        options={[
+                            { label: __('Left', 'block-forge'), value: 'left' },
+                            { label: __('Right', 'block-forge'), value: 'right' },
+                        ]}
+                        onChange={(value) => setAttributes({ decorationPosition: value })}
                     />
                     {decorationUrl && (
                         <img src={decorationUrl} alt="" style={{ display: 'block', maxHeight: '60px', objectFit: 'contain', marginBottom: '8px' }} />
@@ -191,6 +193,42 @@ export default function Edit({ attributes, setAttributes }) {
                     )}
                 </PanelBody>
 
+                <ElementStylePanel
+                    title={__('Title style', 'block-forge')}
+                    value={titleStyle}
+                    onChange={(v) => setAttributes({ titleStyle: v })}
+                />
+                <ElementStylePanel
+                    title={__('Description style', 'block-forge')}
+                    value={descriptionStyle}
+                    onChange={(v) => setAttributes({ descriptionStyle: v })}
+                />
+                {(ctaType === 'buttons' || ctaType === 'both') && (
+                    <>
+                        <ElementStylePanel
+                            title={__('Primary button style', 'block-forge')}
+                            value={primaryButtonStyle}
+                            onChange={(v) => setAttributes({ primaryButtonStyle: v })}
+                            includeBackground
+                            includeBorder
+                        />
+                        <ElementStylePanel
+                            title={__('Secondary button style', 'block-forge')}
+                            value={secondaryButtonStyle}
+                            onChange={(v) => setAttributes({ secondaryButtonStyle: v })}
+                            includeBackground
+                            includeBorder
+                        />
+                    </>
+                )}
+                {(ctaType === 'link' || ctaType === 'both') && (
+                    <ElementStylePanel
+                        title={__('Link style', 'block-forge')}
+                        value={linkStyle}
+                        onChange={(v) => setAttributes({ linkStyle: v })}
+                    />
+                )}
+
                 <PanelBody title={__('Anchor', 'block-forge')} initialOpen={false}>
                     <TextControl
                         label={__('Section ID', 'block-forge')}
@@ -203,27 +241,29 @@ export default function Edit({ attributes, setAttributes }) {
             </InspectorControls>
 
             <div {...blockProps}>
-                <div id={anchorId || undefined} className={`
-                    relative flex items-stretch min-h-[500px]
-                    ${BG_COLORS[backgroundColor]}
-                    ${isImageLeft ? 'flex-row' : 'flex-row-reverse'}
-                `}>
+                <div id={anchorId || undefined} className={`relative w-full overflow-hidden ${BG_COLORS[backgroundColor]}`}>
 
-                    {/* Desktop decoration — bottom, image side */}
-                    {decorationUrl && showDecoration && (
-                        <img
-                            src={decorationUrl}
-                            alt=""
-                            aria-hidden="true"
-                            className={`absolute bottom-0 !m-0 ${isImageLeft ? 'left-0' : 'right-0'} h-full object-contain pointer-events-none select-none z-0`}
-                        />
-                    )}
+                {/* Desktop decoration — positioned against the full-bleed bg wrapper. */}
+                {decorationUrl && showDecoration && (
+                    <img
+                        src={decorationUrl}
+                        alt=""
+                        aria-hidden="true"
+                        className={`absolute bottom-0 !m-0 ${decorationPosition === 'right' ? 'right-0' : 'left-0'} h-full object-contain pointer-events-none select-none z-0`}
+                    />
+                )}
+
+                <div className={`
+                    relative z-10 flex items-stretch min-h-[500px] mx-auto
+                    ${isImageLeft ? 'flex-row' : 'flex-row-reverse'}
+                    ${!isImageFull ? 'max-w-[1120px] px-8' : ''}
+                `}>
 
                     {/* Image column */}
                     <div className={`
-                        flex items-center justify-center
+                        relative z-20 flex items-center justify-center
                         ${isImageFull
-                            ? 'relative flex-[3] max-w-[47%] overflow-hidden'
+                            ? 'flex-[3] max-w-[47%] overflow-hidden'
                             : 'flex-[3] max-w-[47%] items-center justify-center mx-[48px]'
                         }
                     `}>
@@ -263,40 +303,61 @@ export default function Edit({ attributes, setAttributes }) {
                         <RichText
                             tagName="h2"
                             className="banner__title font-barlow-semicondensed text-banner-heading text-[28px] font-semibold leading-[34px] tracking-[-0.01em]"
+                            style={toInlineStyle(titleStyle)}
                             value={title}
                             onChange={(value) => setAttributes({ title: value })}
                             placeholder={__('Title…', 'block-forge')}
                         />
                         <RichText
                             tagName="p"
-                            className="banner__description type-body-lg text-grey"
+                            className="banner__description type-body text-grey"
+                            style={toInlineStyle(descriptionStyle)}
                             value={description}
                             onChange={(value) => setAttributes({ description: value })}
                             placeholder={__('Description…', 'block-forge')}
                         />
 
-                        {ctaType === 'buttons' && (
+                        {(ctaType === 'buttons' || ctaType === 'both') && (
                             <div className="flex gap-4">
-                                <a href={primaryButton.url} className="!no-underline inline-flex items-center px-6 py-3 bg-banner-heading !text-white rounded-full text-sm font-semibold">
-                                    {primaryButton.label}
-                                </a>
-                                <a href={secondaryButton.url} className="!no-underline inline-flex items-center px-6 py-3 border-2 border-banner-heading text-banner-heading rounded-full text-sm font-semibold">
-                                    {secondaryButton.label}
-                                </a>
+                                <RichText
+                                    tagName="span"
+                                    className="!no-underline inline-flex items-center px-6 py-3 bg-banner-heading !text-white rounded-full text-sm font-semibold"
+                                    style={toInlineStyle(primaryButtonStyle)}
+                                    value={primaryButton.label}
+                                    onChange={(value) => setAttributes({ primaryButton: { ...primaryButton, label: value } })}
+                                    placeholder={__('Primary button…', 'block-forge')}
+                                    allowedFormats={[]}
+                                />
+                                <RichText
+                                    tagName="span"
+                                    className="!no-underline inline-flex items-center px-6 py-3 border-2 border-banner-heading text-banner-heading rounded-full text-sm font-semibold"
+                                    style={toInlineStyle(secondaryButtonStyle)}
+                                    value={secondaryButton.label}
+                                    onChange={(value) => setAttributes({ secondaryButton: { ...secondaryButton, label: value } })}
+                                    placeholder={__('Secondary button…', 'block-forge')}
+                                    allowedFormats={[]}
+                                />
                             </div>
                         )}
 
-                        {ctaType === 'link' && (
-                            <a href={linkUrl} className="flex items-center gap-2 type-regular-link !no-underline">
-                                {linkLabel}
+                        {(ctaType === 'link' || ctaType === 'both') && (
+                            <div className="flex items-center gap-2 type-regular-link" style={toInlineStyle(linkStyle)}>
+                                <RichText
+                                    tagName="span"
+                                    value={linkLabel}
+                                    onChange={(value) => setAttributes({ linkLabel: value })}
+                                    placeholder={__('Link label…', 'block-forge')}
+                                    allowedFormats={[]}
+                                />
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M4 12.375L19.25 12.375" stroke="#27348B" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
                                     <path d="M12.5 19.125L19.25 12.375L12.5 5.625" stroke="#27348B" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
                                 </svg>
-                            </a>
+                            </div>
                         )}
                     </div>
 
+                </div>
                 </div>
             </div>
         </>

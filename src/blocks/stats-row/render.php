@@ -1,7 +1,13 @@
 <?php
-$section_title = $attributes['sectionTitle'] ?? '';
-$stats         = array_values( array_filter( $attributes['stats'] ?? [], function( $s ) { return $s['isEnabled'] ?? true; } ) );
-$anchor_id     = $attributes['anchorId'] ?? '';
+$section_title       = $attributes['sectionTitle'] ?? '';
+$section_description = $attributes['sectionDescription'] ?? '';
+$stats               = array_values( array_filter( $attributes['stats'] ?? [], function( $s ) { return $s['isEnabled'] ?? true; } ) );
+$anchor_id           = $attributes['anchorId'] ?? '';
+
+$section_title_style       = block_forge_inline_style( $attributes['sectionTitleStyle'] ?? [] );
+$section_description_style = block_forge_inline_style( $attributes['sectionDescriptionStyle'] ?? [] );
+$stat_label_style          = block_forge_inline_style( $attributes['statLabelStyle'] ?? [] );
+$stat_description_style    = block_forge_inline_style( $attributes['statDescriptionStyle'] ?? [] );
 
 ?>
 
@@ -11,7 +17,17 @@ $anchor_id     = $attributes['anchorId'] ?? '';
         <div class="max-w-[1120px] mx-auto">
 
             <?php if ( $section_title ) : ?>
-            <h2 class="type-label text-black mb-10"><?php echo esc_html( $section_title ); ?></h2>
+            <h2 class="type-label text-black <?php echo $section_description ? 'mb-4' : 'mb-10'; ?>"
+                <?php if ( $section_title_style ) echo 'style="' . esc_attr( $section_title_style ) . '"'; ?>>
+                <?php echo wp_kses( $section_title, [] ); ?>
+            </h2>
+            <?php endif; ?>
+
+            <?php if ( $section_description ) : ?>
+            <p class="type-body font-ancizar-serif text-grey max-w-[760px] mb-10"
+                <?php if ( $section_description_style ) echo 'style="' . esc_attr( $section_description_style ) . '"'; ?>>
+                <?php echo wp_kses( $section_description, [ 'strong' => [], 'em' => [], 'b' => [], 'i' => [] ] ); ?>
+            </p>
             <?php endif; ?>
 
             <div class="flex flex-wrap justify-center gap-5">
@@ -25,8 +41,14 @@ $anchor_id     = $attributes['anchorId'] ?? '';
                         aria-hidden="true" />
                     <?php endif; ?>
                     <span
-                        class="type-h3 font-semibold text-black leading-snug"><?php echo esc_html( $stat['label'] ?? '' ); ?></span>
-                    <p class="type-body-lg text-grey"><?php echo esc_html( $stat['description'] ?? '' ); ?></p>
+                        class="type-h3 font-semibold text-black leading-snug"
+                        <?php if ( $stat_label_style ) echo 'style="' . esc_attr( $stat_label_style ) . '"'; ?>>
+                        <?php echo wp_kses( $stat['label'] ?? '', [] ); ?>
+                    </span>
+                    <p class="type-body text-grey"
+                        <?php if ( $stat_description_style ) echo 'style="' . esc_attr( $stat_description_style ) . '"'; ?>>
+                        <?php echo wp_kses( $stat['description'] ?? '', [ 'strong' => [], 'em' => [], 'b' => [], 'i' => [] ] ); ?>
+                    </p>
                 </div>
                 <?php endforeach; ?>
             </div>

@@ -21,6 +21,11 @@ lg:group-focus-within:block
 lg:border-0
 
 md:grid-cols-2
+md:col-span-7
+md:col-span-5
+md:w-5/12
+md:w-4/12
+md:w-7/12
 md:text-
 md:block
 md:w-[calc(25%-15px)]
@@ -28,6 +33,7 @@ md:w-[calc(25%-15px)]
 sm:inline-flex
 sm:text-base
 sm:border-primary
+sm:block
 
 hover:text-white/80
 hover:text-primary/80
@@ -44,3 +50,4 @@ h-fit
 my-8
 mb-4
 !border-b-1
+mt-12

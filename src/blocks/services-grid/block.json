@@ -2,10 +2,18 @@
   "$schema": "https://schemas.wp.org/trunk/block.json",
   "apiVersion": 3,
   "name": "block-forge/services-grid",
-  "title": "Services Grid",
+  "title": "Informationspuffar",
+  "icon": "screenoptions",
+  "example": { "viewportWidth": 1200 },
   "category": "block-forge",
   "description": "2x2 grid of service cards with image, title, description, multiple links and an expandable 'show more' toggle.",
-  "keywords": ["services", "stöd", "grid", "cards", "links"],
+  "keywords": [
+    "services",
+    "stöd",
+    "grid",
+    "cards",
+    "links"
+  ],
   "textdomain": "block-forge",
   "editorScript": "file:./index.js",
   "editorStyle": "file:./editor.css",
@@ -25,6 +33,10 @@
       "type": "string",
       "default": "white"
     },
+    "verticalSpacing": {
+      "type": "string",
+      "default": "both"
+    },
     "visibleLinks": {
       "type": "number",
       "default": 3
@@ -34,19 +46,38 @@
       "items": {
         "type": "object",
         "properties": {
-          "imageUrl":      { "type": "string" },
-          "imageAlt":      { "type": "string" },
-          "imageId":       { "type": "number" },
-          "title":         { "type": "string" },
-          "description":   { "type": "string" },
-          "showMoreLabel": { "type": "string" },
+          "imageUrl": {
+            "type": "string"
+          },
+          "imageAlt": {
+            "type": "string"
+          },
+          "imageId": {
+            "type": "number"
+          },
+          "title": {
+            "type": "string"
+          },
+          "titleUrl": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "showMoreLabel": {
+            "type": "string"
+          },
           "links": {
             "type": "array",
             "items": {
               "type": "object",
               "properties": {
-                "label": { "type": "string" },
-                "url":   { "type": "string" }
+                "label": {
+                  "type": "string"
+                },
+                "url": {
+                  "type": "string"
+                }
               }
             }
           }
@@ -54,50 +85,114 @@
       },
       "default": [
         {
-          "imageUrl": "", "imageAlt": "", "imageId": 0,
+          "imageUrl": "",
+          "imageAlt": "",
+          "imageId": 0,
           "title": "Stöd till familj och anhöriga",
           "description": "Lorem ipsum dolor sit amet consectetur. Et ut lacus quisque consequat dolor lectus.",
           "showMoreLabel": "Visa fler",
           "links": [
-            { "label": "Medboende och anhörigstöd", "url": "" },
-            { "label": "Föräldrar tillsammans",      "url": "" },
-            { "label": "Föräldrastöd",               "url": "" }
+            {
+              "label": "Medboende och anhörigstöd",
+              "url": ""
+            },
+            {
+              "label": "Föräldrar tillsammans",
+              "url": ""
+            },
+            {
+              "label": "Föräldrastöd",
+              "url": ""
+            }
           ]
         },
         {
-          "imageUrl": "", "imageAlt": "", "imageId": 0,
+          "imageUrl": "",
+          "imageAlt": "",
+          "imageId": 0,
           "title": "Stöd till barn och unga",
           "description": "Lorem ipsum dolor sit amet consectetur. Et ut lacus quisque consequat dolor lectus.",
           "showMoreLabel": "Visa fler",
           "links": [
-            { "label": "Medboende och anhörigstöd", "url": "" },
-            { "label": "Föräldrar tillsammans",      "url": "" },
-            { "label": "Föräldrastöd",               "url": "" }
+            {
+              "label": "Medboende och anhörigstöd",
+              "url": ""
+            },
+            {
+              "label": "Föräldrar tillsammans",
+              "url": ""
+            },
+            {
+              "label": "Föräldrastöd",
+              "url": ""
+            }
           ]
         },
         {
-          "imageUrl": "", "imageAlt": "", "imageId": 0,
+          "imageUrl": "",
+          "imageAlt": "",
+          "imageId": 0,
           "title": "Stöd och gemenskap",
           "description": "Lorem ipsum dolor sit amet consectetur. Et ut lacus quisque consequat dolor lectus.",
           "showMoreLabel": "Visa fler",
           "links": [
-            { "label": "Medboende och anhörigstöd", "url": "" },
-            { "label": "Föräldrar tillsammans",      "url": "" },
-            { "label": "Föräldrastöd",               "url": "" }
+            {
+              "label": "Medboende och anhörigstöd",
+              "url": ""
+            },
+            {
+              "label": "Föräldrar tillsammans",
+              "url": ""
+            },
+            {
+              "label": "Föräldrastöd",
+              "url": ""
+            }
           ]
         },
         {
-          "imageUrl": "", "imageAlt": "", "imageId": 0,
+          "imageUrl": "",
+          "imageAlt": "",
+          "imageId": 0,
           "title": "Engagera dig eller bidra",
           "description": "Lorem ipsum dolor sit amet consectetur. Et ut lacus quisque consequat dolor lectus.",
           "showMoreLabel": "Visa fler",
           "links": [
-            { "label": "Medboende och anhörigstöd", "url": "" },
-            { "label": "Föräldrar tillsammans",      "url": "" },
-            { "label": "Föräldrastöd",               "url": "" }
+            {
+              "label": "Medboende och anhörigstöd",
+              "url": ""
+            },
+            {
+              "label": "Föräldrar tillsammans",
+              "url": ""
+            },
+            {
+              "label": "Föräldrastöd",
+              "url": ""
+            }
           ]
         }
       ]
+    },
+    "sectionTitleStyle": {
+      "type": "object",
+      "default": {}
+    },
+    "sectionDescriptionStyle": {
+      "type": "object",
+      "default": {}
+    },
+    "cardTitleStyle": {
+      "type": "object",
+      "default": {}
+    },
+    "cardDescriptionStyle": {
+      "type": "object",
+      "default": {}
+    },
+    "linkLabelStyle": {
+      "type": "object",
+      "default": {}
     }
   }
 }

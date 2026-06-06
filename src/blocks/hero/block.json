@@ -2,15 +2,27 @@
   "$schema": "https://schemas.wp.org/trunk/block.json",
   "apiVersion": 3,
   "name": "block-forge/hero",
-  "title": "Hero",
+  "title": "Hero block",
+  "icon": "cover-image",
+  "example": { "viewportWidth": 1200 },
   "category": "block-forge",
   "description": "Full-width hero section with video or image background, heading, description and CTA buttons",
-  "keywords": ["hero", "banner", "cta", "video"],
+  "keywords": [
+    "hero",
+    "banner",
+    "cta",
+    "video"
+  ],
   "textdomain": "block-forge",
   "editorScript": "file:./index.js",
   "editorStyle": "file:./editor.css",
   "style": "block-forge-style",
   "render": "file:./render.php",
+  "supports": {
+    "align": [
+      "full"
+    ]
+  },
   "attributes": {
     "bgType": {
       "type": "string",
@@ -44,15 +56,37 @@
     },
     "primaryButton": {
       "type": "object",
-      "default": { "label": "Bli medlem", "url": "" }
+      "default": {
+        "label": "Bli medlem",
+        "url": ""
+      }
     },
     "secondaryButton": {
       "type": "object",
-      "default": { "label": "Uppträck Movendi", "url": "" }
+      "default": {
+        "label": "Uppträck Movendi",
+        "url": ""
+      }
     },
     "anchorId": {
       "type": "string",
       "default": ""
+    },
+    "titleStyle": {
+      "type": "object",
+      "default": {}
+    },
+    "descriptionStyle": {
+      "type": "object",
+      "default": {}
+    },
+    "primaryButtonStyle": {
+      "type": "object",
+      "default": {}
+    },
+    "secondaryButtonStyle": {
+      "type": "object",
+      "default": {}
     }
   }
 }

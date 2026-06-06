@@ -1,6 +1,9 @@
 import { InspectorControls, MediaUpload, MediaUploadCheck, RichText, useBlockProps } from '@wordpress/block-editor';
 import { Button, PanelBody, SelectControl, TextControl } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
+import ElementStylePanel from '../../components/ElementStylePanel';
+import LinkPicker from '../../components/LinkPicker';
+import { toInlineStyle } from '../../components/typeStyles';
 
 const BG_CLASSES = {
     white: 'bg-white',
@@ -15,6 +18,7 @@ export default function Edit({ attributes, setAttributes }) {
         imageUrl, imageAlt, imageId,
         imageType, imagePosition, backgroundColor,
         anchorId,
+        titleStyle, descriptionStyle, linkStyle,
     } = attributes;
 
     const blockProps = useBlockProps();
@@ -69,29 +73,43 @@ export default function Edit({ attributes, setAttributes }) {
                 <RichText
                     tagName="h2"
                     className={`font-semibold text-banner-heading mb-4 ${isFull ? 'text-[22px] leading-snug' : 'text-[26px] leading-tight'}`}
+                    style={toInlineStyle(titleStyle)}
                     value={title}
                     onChange={(value) => setAttributes({ title: value })}
                     placeholder={__('Title…', 'block-forge')}
                 />
                 <RichText
                     tagName="p"
-                    className="type-body text-banner-text leading-relaxed mb-5"
+                    className="type-body-sm text-banner-text leading-relaxed mb-5"
+                    style={toInlineStyle(descriptionStyle)}
                     value={description}
                     onChange={(value) => setAttributes({ description: value })}
                     placeholder={__('Description…', 'block-forge')}
                 />
-                {linkLabel && isFull && (
-                    <a href={linkUrl} className="inline-flex items-center gap-1 type-regular-link hover:underline">
-                        {linkLabel}
+                {isFull ? (
+                    <span className="inline-flex items-center gap-1 type-regular-link" style={toInlineStyle(linkStyle)}>
+                        <RichText
+                            tagName="span"
+                            value={linkLabel}
+                            onChange={(value) => setAttributes({ linkLabel: value })}
+                            placeholder={__('Link label…', 'block-forge')}
+                            allowedFormats={[]}
+                        />
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M4 12.375L19.25 12.375" stroke="#27348B" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
                             <path d="M12.5 19.125L19.25 12.375L12.5 5.625" stroke="#27348B" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
                         </svg>
-                    </a>
-                )}
-                {linkLabel && !isFull && (
-                    <span className="inline-flex items-center gap-1 type-body font-semibold text-banner-heading">
-                        {linkLabel} →
+                    </span>
+                ) : (
+                    <span className="inline-flex items-center gap-1 type-body-sm font-semibold text-banner-heading" style={toInlineStyle(linkStyle)}>
+                        <RichText
+                            tagName="span"
+                            value={linkLabel}
+                            onChange={(value) => setAttributes({ linkLabel: value })}
+                            placeholder={__('Link label…', 'block-forge')}
+                            allowedFormats={[]}
+                        />
+                        {linkLabel && <span>→</span>}
                     </span>
                 )}
             </div>
@@ -133,14 +151,9 @@ export default function Edit({ attributes, setAttributes }) {
                     />
                 </PanelBody>
                 <PanelBody title={__('Link', 'block-forge')} initialOpen={false}>
-                    <TextControl
-                        label={__('Link Label', 'block-forge')}
-                        value={linkLabel}
-                        onChange={(value) => setAttributes({ linkLabel: value })}
-                    />
-                    <TextControl
+                    <LinkPicker
                         label={__('Link URL', 'block-forge')}
-                        value={linkUrl}
+                        url={linkUrl}
                         onChange={(value) => setAttributes({ linkUrl: value })}
                     />
                 </PanelBody>
@@ -155,6 +168,22 @@ export default function Edit({ attributes, setAttributes }) {
                         </Button>
                     )}
                 </PanelBody>
+                <ElementStylePanel
+                    title={__('Title style', 'block-forge')}
+                    value={titleStyle}
+                    onChange={(v) => setAttributes({ titleStyle: v })}
+                />
+                <ElementStylePanel
+                    title={__('Description style', 'block-forge')}
+                    value={descriptionStyle}
+                    onChange={(v) => setAttributes({ descriptionStyle: v })}
+                />
+                <ElementStylePanel
+                    title={__('Link style', 'block-forge')}
+                    value={linkStyle}
+                    onChange={(v) => setAttributes({ linkStyle: v })}
+                />
+
                 <PanelBody title={__('Anchor', 'block-forge')} initialOpen={false}>
                     <TextControl
                         label={__('Section ID', 'block-forge')}

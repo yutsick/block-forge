@@ -1,9 +1,16 @@
 import { InspectorControls, MediaUpload, MediaUploadCheck, RichText, useBlockProps } from '@wordpress/block-editor';
 import { Button, PanelBody, RadioControl, TextControl } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
+import ElementStylePanel from '../../components/ElementStylePanel';
+import LinkPicker from '../../components/LinkPicker';
+import { toInlineStyle } from '../../components/typeStyles';
 
 export default function Edit({ attributes, setAttributes }) {
-    const { bgType, imageUrl, imageAlt, imageId, videoUrl, videoId, title, description, primaryButton, secondaryButton, anchorId } = attributes;
+    const {
+        bgType, imageUrl, imageAlt, imageId, videoUrl, videoId,
+        title, description, primaryButton, secondaryButton, anchorId,
+        titleStyle, descriptionStyle, primaryButtonStyle, secondaryButtonStyle,
+    } = attributes;
 
     const blockProps = useBlockProps();
     const isVideo = bgType === 'video';
@@ -74,30 +81,45 @@ export default function Edit({ attributes, setAttributes }) {
                 </PanelBody>
 
                 <PanelBody title={__('Primary Button', 'block-forge')}>
-                    <TextControl
-                        label={__('Label', 'block-forge')}
-                        value={primaryButton.label}
-                        onChange={(value) => setAttributes({ primaryButton: { ...primaryButton, label: value } })}
-                    />
-                    <TextControl
+                    <LinkPicker
                         label={__('URL', 'block-forge')}
-                        value={primaryButton.url}
+                        url={primaryButton.url}
                         onChange={(value) => setAttributes({ primaryButton: { ...primaryButton, url: value } })}
                     />
                 </PanelBody>
 
                 <PanelBody title={__('Secondary Button', 'block-forge')}>
-                    <TextControl
-                        label={__('Label', 'block-forge')}
-                        value={secondaryButton.label}
-                        onChange={(value) => setAttributes({ secondaryButton: { ...secondaryButton, label: value } })}
-                    />
-                    <TextControl
+                    <LinkPicker
                         label={__('URL', 'block-forge')}
-                        value={secondaryButton.url}
+                        url={secondaryButton.url}
                         onChange={(value) => setAttributes({ secondaryButton: { ...secondaryButton, url: value } })}
                     />
                 </PanelBody>
+                <ElementStylePanel
+                    title={__('Title style', 'block-forge')}
+                    value={titleStyle}
+                    onChange={(v) => setAttributes({ titleStyle: v })}
+                />
+                <ElementStylePanel
+                    title={__('Description style', 'block-forge')}
+                    value={descriptionStyle}
+                    onChange={(v) => setAttributes({ descriptionStyle: v })}
+                />
+                <ElementStylePanel
+                    title={__('Primary button style', 'block-forge')}
+                    value={primaryButtonStyle}
+                    onChange={(v) => setAttributes({ primaryButtonStyle: v })}
+                    includeBackground
+                    includeBorder
+                />
+                <ElementStylePanel
+                    title={__('Secondary button style', 'block-forge')}
+                    value={secondaryButtonStyle}
+                    onChange={(v) => setAttributes({ secondaryButtonStyle: v })}
+                    includeBackground
+                    includeBorder
+                />
+
                 <PanelBody title={__('Anchor', 'block-forge')} initialOpen={false}>
                     <TextControl
                         label={__('Section ID', 'block-forge')}
@@ -117,7 +139,7 @@ export default function Edit({ attributes, setAttributes }) {
                     {isVideo && videoUrl && (
                         <video
                             src={videoUrl}
-                            className="absolute inset-0 w-full h-full object-cover"
+                            className="absolute inset-0 w-full h-full object-cover !m-0"
                             autoPlay muted loop playsInline
                             style={{ pointerEvents: 'none' }}
                         />
@@ -127,7 +149,7 @@ export default function Edit({ attributes, setAttributes }) {
                         <img
                             src={imageUrl}
                             alt={imageAlt}
-                            className="absolute inset-0 w-full h-full object-cover"
+                            className="absolute inset-0 w-full h-full object-cover !m-0"
                         />
                     )}
 
@@ -142,29 +164,39 @@ export default function Edit({ attributes, setAttributes }) {
                     <div className="relative z-10 w-full max-w-[1120px] mx-auto px-8 py-16 text-center flex flex-col items-center">
                         <RichText
                             tagName="h1"
-                            className={`font-semibold mb-6 max-w-2xl ${isVideo ? '!text-[#AED9E9] text-[48px] leading-[54px]' : '!text-white text-[36px] leading-[42px]'}`}
+                            className={`hero__title font-semibold mb-6 max-w-2xl ${isVideo ? '!text-[#AED9E9] text-[48px] leading-[54px]' : '!text-white text-[36px] leading-[42px]'}`}
+                            style={toInlineStyle(titleStyle)}
                             value={title}
                             onChange={(value) => setAttributes({ title: value })}
                             placeholder={__('Hero heading…', 'block-forge')}
                         />
                         <RichText
                             tagName="p"
-                            className="!text-white text-[16px] leading-[24px] mb-8 max-w-lg"
+                            className="hero__description !text-white text-[16px] leading-[24px] mb-8 max-w-lg"
+                            style={toInlineStyle(descriptionStyle)}
                             value={description}
                             onChange={(value) => setAttributes({ description: value })}
                             placeholder={__('Description…', 'block-forge')}
                         />
                         <div className="flex flex-wrap gap-4 justify-center">
-                            {primaryButton.label && (
-                                <span className="inline-flex items-center justify-center px-8 py-3 bg-banner-pink !text-black rounded-full text-sm font-semibold font-barlow-semicondensed">
-                                    {primaryButton.label}
-                                </span>
-                            )}
-                            {secondaryButton.label && (
-                                <span className="inline-flex items-center justify-center px-8 py-3 border border-white text-white rounded-full text-sm font-semibold font-barlow-semicondensed">
-                                    {secondaryButton.label}
-                                </span>
-                            )}
+                            <RichText
+                                tagName="span"
+                                className="hero__btn inline-flex items-center justify-center px-8 py-3 bg-banner-pink !text-black rounded-full text-sm font-semibold font-barlow-semicondensed"
+                                style={toInlineStyle(primaryButtonStyle)}
+                                value={primaryButton.label}
+                                onChange={(value) => setAttributes({ primaryButton: { ...primaryButton, label: value } })}
+                                placeholder={__('Primary button…', 'block-forge')}
+                                allowedFormats={[]}
+                            />
+                            <RichText
+                                tagName="span"
+                                className="hero__btn inline-flex items-center justify-center px-8 py-3 border border-white text-white rounded-full text-sm font-semibold font-barlow-semicondensed"
+                                style={toInlineStyle(secondaryButtonStyle)}
+                                value={secondaryButton.label}
+                                onChange={(value) => setAttributes({ secondaryButton: { ...secondaryButton, label: value } })}
+                                placeholder={__('Secondary button…', 'block-forge')}
+                                allowedFormats={[]}
+                            />
                         </div>
                     </div>
 

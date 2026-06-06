@@ -1,9 +1,11 @@
-import { InspectorControls, MediaUpload, MediaUploadCheck, useBlockProps } from '@wordpress/block-editor';
-import { Button, PanelBody, TextControl, TextareaControl, ToggleControl } from '@wordpress/components';
+import { InspectorControls, MediaUpload, MediaUploadCheck, RichText, useBlockProps } from '@wordpress/block-editor';
+import { Button, PanelBody, TextControl, ToggleControl } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
+import ElementStylePanel from '../../components/ElementStylePanel';
+import { toInlineStyle } from '../../components/typeStyles';
 
 export default function Edit({ attributes, setAttributes }) {
-    const { sectionTitle, stats, anchorId } = attributes;
+    const { sectionTitle, sectionDescription, stats, anchorId, sectionTitleStyle, sectionDescriptionStyle, statLabelStyle, statDescriptionStyle } = attributes;
     const blockProps = useBlockProps();
 
 
@@ -15,14 +17,6 @@ export default function Edit({ attributes, setAttributes }) {
     return (
         <>
             <InspectorControls>
-                <PanelBody title={__('Section', 'block-forge')}>
-                    <TextControl
-                        label={__('Section Title', 'block-forge')}
-                        value={sectionTitle}
-                        onChange={(value) => setAttributes({ sectionTitle: value })}
-                    />
-                </PanelBody>
-
                 {stats.map((stat, i) => (
                     <PanelBody key={i} title={`${__('Stat', 'block-forge')} ${i + 1}`} initialOpen={i === 0}>
                         <ToggleControl
@@ -67,18 +61,29 @@ export default function Edit({ attributes, setAttributes }) {
                             )}
                         </div>
 
-                        <TextControl
-                            label={__('Label', 'block-forge')}
-                            value={stat.label}
-                            onChange={(value) => updateStat(i, { label: value })}
-                        />
-                        <TextareaControl
-                            label={__('Description', 'block-forge')}
-                            value={stat.description}
-                            onChange={(value) => updateStat(i, { description: value })}
-                        />
                     </PanelBody>
                 ))}
+                <ElementStylePanel
+                    title={__('Section title style', 'block-forge')}
+                    value={sectionTitleStyle}
+                    onChange={(v) => setAttributes({ sectionTitleStyle: v })}
+                />
+                <ElementStylePanel
+                    title={__('Section description style', 'block-forge')}
+                    value={sectionDescriptionStyle}
+                    onChange={(v) => setAttributes({ sectionDescriptionStyle: v })}
+                />
+                <ElementStylePanel
+                    title={__('Stat label style', 'block-forge')}
+                    value={statLabelStyle}
+                    onChange={(v) => setAttributes({ statLabelStyle: v })}
+                />
+                <ElementStylePanel
+                    title={__('Stat description style', 'block-forge')}
+                    value={statDescriptionStyle}
+                    onChange={(v) => setAttributes({ statDescriptionStyle: v })}
+                />
+
                 <PanelBody title={__('Anchor', 'block-forge')} initialOpen={false}>
                     <TextControl
                         label={__('Section ID', 'block-forge')}
@@ -93,9 +98,24 @@ export default function Edit({ attributes, setAttributes }) {
             <div {...blockProps}>
                 <section id={anchorId || undefined} className="w-full py-14 px-8 bg-[#F8F8F8]">
                     <div className="max-w-[1120px] mx-auto">
-                        {sectionTitle && (
-                            <h2 className="type-label text-banner-text mb-10">{sectionTitle}</h2>
-                        )}
+                        <RichText
+                            tagName="h2"
+                            className="type-label text-banner-text mb-4"
+                            style={toInlineStyle(sectionTitleStyle)}
+                            value={sectionTitle}
+                            onChange={(value) => setAttributes({ sectionTitle: value })}
+                            placeholder={__('Section title…', 'block-forge')}
+                            allowedFormats={[]}
+                        />
+                        <RichText
+                            tagName="p"
+                            className="type-body font-ancizar-serif text-grey max-w-[760px] mb-10"
+                            style={toInlineStyle(sectionDescriptionStyle)}
+                            value={sectionDescription}
+                            onChange={(value) => setAttributes({ sectionDescription: value })}
+                            placeholder={__('Section description…', 'block-forge')}
+                            allowedFormats={['core/bold', 'core/italic']}
+                        />
                         <div className="flex justify-center gap-5">
                             {stats.map((stat, i) => (
                                 stat.isEnabled === false ? null :
@@ -109,8 +129,24 @@ export default function Edit({ attributes, setAttributes }) {
                                         ) : (
                                             <div className="w-14 h-14 bg-gray-100 rounded-md" />
                                         )}
-                                        <span className="type-h3 font-semibold !text-black leading-snug">{stat.label}</span>
-                                        <p className="type-body-lg text-grey">{stat.description}</p>
+                                        <RichText
+                                            tagName="span"
+                                            className="type-h3 font-semibold !text-black leading-snug"
+                                            style={toInlineStyle(statLabelStyle)}
+                                            value={stat.label}
+                                            onChange={(value) => updateStat(i, { label: value })}
+                                            placeholder={__('Label…', 'block-forge')}
+                                            allowedFormats={[]}
+                                        />
+                                        <RichText
+                                            tagName="p"
+                                            className="type-body text-grey"
+                                            style={toInlineStyle(statDescriptionStyle)}
+                                            value={stat.description}
+                                            onChange={(value) => updateStat(i, { description: value })}
+                                            placeholder={__('Description…', 'block-forge')}
+                                            allowedFormats={['core/bold', 'core/italic']}
+                                        />
                                     </div>
                             ))}
                         </div>

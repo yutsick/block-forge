@@ -2,10 +2,17 @@
   "$schema": "https://schemas.wp.org/trunk/block.json",
   "apiVersion": 3,
   "name": "block-forge/stats-row",
-  "title": "Stats Row",
+  "title": "USP / Ikonpuffar",
+  "icon": "chart-pie",
+  "example": { "viewportWidth": 1200 },
   "category": "block-forge",
   "description": "4-column row of statistics with icon, large number, label and description",
-  "keywords": ["stats", "numbers", "statistics", "folkrörelse"],
+  "keywords": [
+    "stats",
+    "numbers",
+    "statistics",
+    "folkrörelse"
+  ],
   "textdomain": "block-forge",
   "editorScript": "file:./index.js",
   "editorStyle": "file:./editor.css",
@@ -16,16 +23,30 @@
       "type": "string",
       "default": "En folkrörelse över hela landet"
     },
+    "sectionDescription": {
+      "type": "string",
+      "default": ""
+    },
     "stats": {
       "type": "array",
       "items": {
         "type": "object",
         "properties": {
-          "iconId":      { "type": "integer" },
-          "iconUrl":     { "type": "string" },
-          "label":       { "type": "string" },
-          "description": { "type": "string" },
-          "isEnabled":   { "type": "boolean" }
+          "iconId": {
+            "type": "integer"
+          },
+          "iconUrl": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "isEnabled": {
+            "type": "boolean"
+          }
         }
       },
       "default": [
@@ -62,6 +83,22 @@
     "anchorId": {
       "type": "string",
       "default": ""
+    },
+    "sectionTitleStyle": {
+      "type": "object",
+      "default": {}
+    },
+    "sectionDescriptionStyle": {
+      "type": "object",
+      "default": {}
+    },
+    "statLabelStyle": {
+      "type": "object",
+      "default": {}
+    },
+    "statDescriptionStyle": {
+      "type": "object",
+      "default": {}
     }
   }
 }

@@ -1,0 +1,37 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "block-forge/section",
+  "title": "Section",
+  "icon": "align-center",
+  "example": { "viewportWidth": 1200 },
+  "category": "block-forge",
+  "description": "Centered 1120px boxed container. Drop any blocks inside. Optional background color and vertical padding.",
+  "keywords": ["section", "container", "box", "wrapper", "1120"],
+  "textdomain": "block-forge",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./editor.css",
+  "style": "block-forge-style",
+  "render": "file:./render.php",
+  "supports": {
+    "align": ["full"],
+    "anchor": false
+  },
+  "attributes": {
+    "align": {
+      "type": "string"
+    },
+    "bgColor": {
+      "type": "string",
+      "default": "none"
+    },
+    "padY": {
+      "type": "string",
+      "default": "lg"
+    },
+    "anchorId": {
+      "type": "string",
+      "default": ""
+    }
+  }
+}

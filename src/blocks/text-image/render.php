@@ -10,6 +10,10 @@ $image_position = $attributes['imagePosition'] ?? 'right'; // left | right
 $bg_color       = $attributes['backgroundColor'] ?? 'white';
 $anchor_id      = $attributes['anchorId'] ?? '';
 
+$title_style       = block_forge_inline_style( $attributes['titleStyle'] ?? [] );
+$description_style = block_forge_inline_style( $attributes['descriptionStyle'] ?? [] );
+$link_style        = block_forge_inline_style( $attributes['linkStyle'] ?? [] );
+
 $bg_classes = [
     'white' => 'bg-white',
     'peach' => 'bg-banner-peach',
@@ -45,15 +49,22 @@ $is_image_left = $image_position === 'left';
             class="flex-[2] <?php echo $bg_class; ?> <?php echo $is_image_left ? 'md:mr-auto' : 'md:ml-auto';?> flex items-center px-14 py-14">
             <div class="max-w-sm">
                 <?php if ( $title ) : ?>
-                <h2 class="type-h1 text-banner-heading mb-5"><?php echo wp_kses_post( $title ); ?></h2>
+                <h2 class="type-h1 text-banner-heading mb-5"
+                    <?php if ( $title_style ) echo 'style="' . esc_attr( $title_style ) . '"'; ?>>
+                    <?php echo wp_kses_post( $title ); ?>
+                </h2>
                 <?php endif; ?>
                 <?php if ( $description ) : ?>
-                <p class="type-body text-banner-text mb-6"><?php echo wp_kses_post( $description ); ?></p>
+                <p class="type-body-sm text-banner-text mb-6"
+                    <?php if ( $description_style ) echo 'style="' . esc_attr( $description_style ) . '"'; ?>>
+                    <?php echo wp_kses_post( $description ); ?>
+                </p>
                 <?php endif; ?>
                 <?php if ( $link_label && $link_url ) : ?>
                 <a href="<?php echo esc_url( $link_url ); ?>"
-                    class="inline-flex items-center gap-1 type-regular-link hover:underline">
-                    <?php echo esc_html( $link_label ); ?>
+                    class="inline-flex items-center gap-1 type-regular-link hover:underline"
+                    <?php if ( $link_style ) echo 'style="' . esc_attr( $link_style ) . '"'; ?>>
+                    <?php echo wp_kses( $link_label, [] ); ?>
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M4 12.375L19.25 12.375" stroke="#27348B" stroke-width="1.8" stroke-linecap="round"
                             stroke-linejoin="round" />
@@ -86,15 +97,22 @@ $is_image_left = $image_position === 'left';
             <!-- Text column -->
             <div class="w-full md:flex-1 flex flex-col justify-center">
                 <?php if ( $title ) : ?>
-                <h2 class="type-h1 text-banner-heading mb-5"><?php echo wp_kses_post( $title ); ?></h2>
+                <h2 class="type-h1 text-banner-heading mb-5"
+                    <?php if ( $title_style ) echo 'style="' . esc_attr( $title_style ) . '"'; ?>>
+                    <?php echo wp_kses_post( $title ); ?>
+                </h2>
                 <?php endif; ?>
                 <?php if ( $description ) : ?>
-                <p class="type-body-lg text-banner-text mb-6"><?php echo wp_kses_post( $description ); ?></p>
+                <p class="type-body text-banner-text mb-6"
+                    <?php if ( $description_style ) echo 'style="' . esc_attr( $description_style ) . '"'; ?>>
+                    <?php echo wp_kses_post( $description ); ?>
+                </p>
                 <?php endif; ?>
                 <?php if ( $link_label && $link_url ) : ?>
                 <a href="<?php echo esc_url( $link_url ); ?>"
-                    class="inline-flex items-center gap-1 type-body font-semibold text-banner-heading hover:underline">
-                    <?php echo esc_html( $link_label ); ?> →
+                    class="inline-flex items-center gap-1 type-body-sm font-semibold text-banner-heading hover:underline"
+                    <?php if ( $link_style ) echo 'style="' . esc_attr( $link_style ) . '"'; ?>>
+                    <?php echo wp_kses( $link_label, [] ); ?> →
                 </a>
                 <?php endif; ?>
             </div>

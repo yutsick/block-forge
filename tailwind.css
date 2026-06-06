@@ -5,37 +5,275 @@
 @theme {
     --font-ancizar-serif: "Ancizar Serif", serif;
     --font-barlow-semicondensed: "Barlow Semi Condensed", sans-serif;
+
+    /* ─── Brand colors (source of truth: theme.json) ───────────── */
+    --color-blue: var(--wp--preset--color--blue);
+    --color-yellow: var(--wp--preset--color--yellow);
+    --color-light-blue: var(--wp--preset--color--light-blue);
+    --color-coral: var(--wp--preset--color--coral);
+    --color-purple: var(--wp--preset--color--purple);
+
+    --color-yellow-60: var(--wp--preset--color--yellow-60);
+    --color-light-blue-60: var(--wp--preset--color--light-blue-60);
+    --color-coral-60: var(--wp--preset--color--coral-60);
+
+    --color-black: var(--wp--preset--color--black);
+    --color-text-grey: var(--wp--preset--color--text-grey);
+    --color-lines: var(--wp--preset--color--lines);
+    --color-bg-grey: var(--wp--preset--color--bg-grey);
+    --color-white: var(--wp--preset--color--white);
+
+    /* ─── Validation / state ───────────────────────────────────── */
+    --color-state-error: var(--wp--preset--color--state-error);
+    --color-state-success: var(--wp--preset--color--state-success);
+    --color-state-warning: var(--wp--preset--color--state-warning);
+
+    /* ─── Semantic aliases ─────────────────────────────────────── */
     --color-background: var(--wp--preset--color--background);
     --color-foreground: var(--wp--preset--color--foreground);
     --color-primary: var(--wp--preset--color--primary);
     --color-secondary: var(--wp--preset--color--secondary);
     --color-tertiary: var(--wp--preset--color--tertiary);
 
-    --color-banner-blue: #d9ecf4;
-    --color-banner-peach: #fee4cb;
-    --color-banner-pink: #F49F92;
-    --color-black: #2f2f2f;
-    --color-grey: #4E4E4E;
-    --color-banner-heading: #27348b;
-    --color-banner-text: #4e4e4e;
-
-    --color-movendi-navy: #162042;
-    --color-movendi-card-peach: #fee4cb;
-    --color-movendi-card-blue: #d9ecf4;
-    --color-movendi-district-blue: #27348b;
-
+    /* ─── Legacy aliases (backward compatibility) ──────────────── */
+    --color-banner-blue: var(--color-light-blue-60);
+    --color-banner-peach: var(--color-yellow-60);
+    --color-banner-pink: var(--color-coral);
+    --color-banner-heading: var(--color-blue);
+    --color-banner-text: var(--color-text-grey);
+    --color-grey: var(--color-text-grey);
 }
 
 @import "tailwindcss/utilities";
 
-/* ─── Typography utilities ─────────────────────────────────── */
-@utility type-regular-link {
-    font-size: 19px;
-    color: var(--color-banner-heading);
-    text-decoration: none;
+/* ─── Typography utilities ──────────────────────────────────
+ * Design tokens — source: design system. Mobile values apply
+ * below 768px via @media (max-width: 768px).
+ * ─────────────────────────────────────────────────────────── */
+
+/* Hero — used for huge display titles (e.g. video hero) */
+@utility type-display {
     font-family: var(--font-barlow-semicondensed);
+    font-size: 120px;
+    font-weight: 700;
+    line-height: 120px;
+    letter-spacing: -0.02em;
+
+    @media (max-width: 768px) {
+        font-size: 70px;
+        line-height: 0.9;
+    }
+}
+
+@utility type-h1 {
+    font-family: var(--font-barlow-semicondensed);
+    font-size: 58px;
     font-weight: 600;
+    line-height: 64px;
+    letter-spacing: -0.01em;
+
+    @media (max-width: 768px) {
+        font-size: 44px;
+        line-height: 48px;
+        letter-spacing: -0.02em;
+    }
+}
+
+@utility type-h2 {
+    font-family: var(--font-barlow-semicondensed);
+    font-size: 46px;
+    font-weight: 600;
+    line-height: 60px;
+    letter-spacing: 0;
+
+    @media (max-width: 768px) {
+        font-size: 38px;
+        line-height: 48px;
+    }
+}
+
+@utility type-h3 {
+    font-family: var(--font-barlow-semicondensed);
+    font-size: 38px;
+    font-weight: 600;
+    line-height: 42px;
+    letter-spacing: -0.02em;
+
+    @media (max-width: 768px) {
+        font-size: 34px;
+        line-height: 1.1;
+    }
+}
+
+@utility type-h4 {
+    font-family: var(--font-barlow-semicondensed);
+    font-size: 32px;
+    font-weight: 600;
+    line-height: 40px;
+    letter-spacing: -0.01em;
+
+    @media (max-width: 768px) {
+        font-size: 28px;
+        line-height: 36px;
+    }
+}
+
+@utility type-h5 {
+    font-family: var(--font-barlow-semicondensed);
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 30px;
+    letter-spacing: -0.01em;
+
+    @media (max-width: 768px) {
+        font-size: 22px;
+        line-height: 28px;
+        letter-spacing: 0;
+    }
+}
+
+@utility type-h6 {
+    font-family: var(--font-barlow-semicondensed);
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: 0.02em;
+
+    @media (max-width: 768px) {
+        font-size: 18px;
+    }
+}
+
+/* Blockrubrik — uppercase section/block heading */
+@utility type-label {
+    font-family: var(--font-barlow-semicondensed);
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+
+    @media (max-width: 768px) {
+        font-size: 24px;
+        line-height: 34px;
+        letter-spacing: 0.06em;
+    }
+}
+
+/* Label — small uppercase-free meta label (e.g. document item names) */
+@utility type-label-sm {
+    font-family: var(--font-barlow-semicondensed);
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.2;
     letter-spacing: 0.01em;
+}
+
+/* Alias for clarity — same as type-label */
+@utility type-block-heading {
+    font-family: var(--font-barlow-semicondensed);
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+
+    @media (max-width: 768px) {
+        font-size: 24px;
+        line-height: 34px;
+        letter-spacing: 0.06em;
+    }
+}
+
+/* Ingress — lead / intro paragraph */
+@utility type-ingress {
+    font-family: var(--font-ancizar-serif);
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 32px;
+    letter-spacing: 0;
+
+    @media (max-width: 768px) {
+        font-size: 18px;
+        line-height: 24px;
+    }
+}
+
+/* Body — default content paragraph (20px) */
+@utility type-body {
+    font-family: var(--font-ancizar-serif);
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 28px;
+    letter-spacing: -0.3px;
+
+    @media (max-width: 768px) {
+        font-size: 18px;
+        font-weight: 500;
+        line-height: 24px;
+        letter-spacing: 0;
+    }
+}
+
+/* Small body */
+@utility type-body-sm {
+    font-family: var(--font-ancizar-serif);
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0;
+
+    @media (max-width: 768px) {
+        font-size: 16px;
+    }
+}
+
+/* Mini text */
+@utility type-mini {
+    font-family: var(--font-ancizar-serif);
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 22px;
+    letter-spacing: 0;
+
+    @media (max-width: 768px) {
+        font-size: 14px;
+    }
+}
+
+/* Tag text — uppercase pill / category label */
+@utility type-tag {
+    font-family: var(--font-barlow-semicondensed);
+    font-size: 14px;
+    font-weight: 600;
+    line-height: normal;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+
+    @media (max-width: 768px) {
+        font-size: 12px;
+        letter-spacing: 0.10em;
+    }
+}
+
+/* Bildtext — image caption */
+@utility type-caption {
+    font-family: var(--font-ancizar-serif);
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 1.2;
+    letter-spacing: 0;
+}
+
+/* Regular link */
+@utility type-regular-link {
+    font-family: var(--font-barlow-semicondensed);
+    font-size: 19px;
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: 0.01em;
+    color: var(--color-blue);
+    text-decoration: none;
 
     @media (max-width: 768px) {
         font-size: 16px;
@@ -45,143 +283,45 @@
             height: 22px;
         }
     }
-
 }
 
-@utility type-display {
-    font-size: 120px;
-    font-weight: 700;
-    line-height: 120px;
-    letter-spacing: -0.02em;
+/* Big button */
+@utility type-button {
     font-family: var(--font-barlow-semicondensed);
-
-    @media (max-width: 768px) {
-        font-size: 70px;
-        line-height: 90px;
-
-    }
-}
-
-@utility type-h1 {
-    font-size: 48px;
-    font-weight: 600;
-    line-height: 54px;
-    letter-spacing: -0.48px;
-    font-family: var(--font-barlow-semicondensed);
-}
-
-@utility type-h2 {
-    font-size: 36px;
-    font-weight: 600;
-    line-height: 42px;
-    letter-spacing: -0.36px;
-    font-family: var(--font-barlow-semicondensed);
-}
-
-@utility type-h3 {
-    font-size: 24px;
-    font-weight: 600;
-    line-height: 30px;
-    letter-spacing: -0.24px;
-    font-family: var(--font-barlow-semicondensed);
-
-    @media (max-width: 768px) {
-        font-size: 22px;
-        line-height: 28px;
-
-    }
-}
-
-@utility type-block-heading {
-    font-size: 28px;
-    line-height: 1.2em;
-    font-family: var(--font-barlow-semicondensed);
-}
-
-@utility type-body-lg {
     font-size: 20px;
-    line-height: 28px;
-    letter-spacing: -0.3px;
-    font-family: var(--font-ancizar-serif);
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: 0;
 
-    @media (max-width:768px) {
+    @media (max-width: 768px) {
         font-size: 18px;
     }
 }
 
-@utility type-body {
-    font-size: 16px;
-    line-height: 24px;
-    font-family: var(--font-ancizar-serif);
-}
-
-@utility type-label {
-    font-size: 28px;
-    font-weight: 700;
-    letter-spacing: 1.96px;
-    text-transform: uppercase;
+/* Small button */
+@utility type-button-sm {
     font-family: var(--font-barlow-semicondensed);
+    font-size: 18px;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: 0;
 
-    @media (max-width:768px) {
-        font-size: 24px;
+    @media (max-width: 768px) {
+        font-size: 16px;
     }
 }
 
-@utility type-caption {
-    font-size: 12px;
-    line-height: 18px;
+/* Input text */
+@utility type-input {
     font-family: var(--font-ancizar-serif);
-}
-
-/* ─── Classic Gutenberg block typography ───────────────────── */
-
-.entry-content h1,
-.wp-block-post-content h1 {
-    font-family: var(--font-barlow-semicondensed);
-    font-size: 48px;
+    font-size: 18px;
     font-weight: 600;
-    line-height: 54px;
-    letter-spacing: -0.48px;
-    color: #27348b;
-}
+    line-height: normal;
+    letter-spacing: 0.5px;
 
-.entry-content h2,
-.wp-block-post-content h2 {
-    font-family: var(--font-barlow-semicondensed);
-    font-size: 36px;
-    font-weight: 600;
-    line-height: 42px;
-    letter-spacing: -0.36px;
-    color: #27348b;
-}
-
-.entry-content h3,
-.wp-block-post-content h3 {
-    font-family: var(--font-barlow-semicondensed);
-    font-size: 24px;
-    font-weight: 600;
-    line-height: 30px;
-    letter-spacing: -0.24px;
-    color: #27348b;
-}
-
-.entry-content h4,
-.entry-content h5,
-.entry-content h6,
-.wp-block-post-content h4,
-.wp-block-post-content h5,
-.wp-block-post-content h6 {
-    font-family: var(--font-barlow-semicondensed);
-    font-weight: 600;
-    color: #27348b;
-}
-
-.entry-content p,
-.wp-block-paragraph {
-    font-family: var(--font-ancizar-serif);
-    font-size: 16px;
-    line-height: 24px;
-    color: #4e4e4e;
+    @media (max-width: 768px) {
+        font-size: 16px;
+    }
 }
 
 .entry-content ul,
@@ -190,7 +330,6 @@
     font-size: 16px;
     line-height: 24px;
     color: #4e4e4e;
-    padding-left: 1.5rem;
     list-style: disc;
 }
 
@@ -205,4 +344,120 @@
 .entry-content a:hover,
 .wp-block-post-content a:hover {
     opacity: 0.7;
+}
+
+/* ─── List reset for layout-primitive ULs ──────────────────────────
+ * Custom blocks frequently use <ul> as a layout container (services
+ * links, mobile nav, social icons, etc.) — NOT as a content list.
+ * The theme's gutenberg-content.css adds blue-dot bullets to any
+ * <ul> inside .prose / .entry-content / .wp-block-post-content,
+ * which leaks into these layout lists. Apply `block-forge-list` on
+ * any such <ul> to cancel the bullet styling.
+ * ────────────────────────────────────────────────────────────────── */
+.block-forge-list,
+.block-forge-list>li {
+    list-style: none;
+    padding-left: 0;
+}
+
+.block-forge-list>li::before {
+    content: none !important;
+    display: none !important;
+}
+
+/* ─── contacts block — body content ─────────────────────────── */
+.contacts-card__body>*+* {
+    margin-top: 0.25rem;
+}
+
+.contacts-card__body strong,
+.contacts-card__body b {
+    font-weight: 600;
+}
+
+.contacts-card__body a {
+    color: var(--color-blue);
+    text-decoration: none;
+}
+
+.contacts-card__body a:hover {
+    text-decoration: underline;
+}
+
+/* ─── accordion block ───────────────────────────────────────── */
+.accordion-item__summary {
+    list-style: none;
+}
+
+.accordion-item__summary::-webkit-details-marker {
+    display: none;
+}
+
+.accordion-item__content>*+* {
+    margin-top: 0.5rem;
+}
+
+.accordion-item__content strong,
+.accordion-item__content b {
+    font-weight: 600;
+}
+
+.accordion-item__content a {
+    color: var(--color-blue);
+    text-decoration: underline;
+}
+
+.accordion-item__content ul {
+    list-style: disc;
+    padding-left: 1.25rem;
+}
+
+.accordion-item__content ol {
+    list-style: decimal;
+    padding-left: 1.25rem;
+}
+
+/* ─── services-grid link hover ──────────────────────────────────
+ * Whole link slides 3px right, arrow slides 3px more (6px total),
+ * text gets a 1px underline that expands left → right.
+ * ──────────────────────────────────────────────────────────────── */
+.services-card__link {
+    transition: transform 200ms ease;
+}
+
+.services-card__link:hover,
+.services-card__link:focus-visible {
+    transform: translateX(3px);
+}
+
+.services-card__link-arrow {
+    transition: transform 200ms ease;
+}
+
+.services-card__link:hover .services-card__link-arrow,
+.services-card__link:focus-visible .services-card__link-arrow {
+    transform: translateX(3px);
+}
+
+.services-card__link-text {
+    position: relative;
+    display: inline-block;
+}
+
+.services-card__link-text::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    width: 100%;
+    height: 1px;
+    background-color: currentColor;
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 220ms ease;
+}
+
+.services-card__link:hover .services-card__link-text::after,
+.services-card__link:focus-visible .services-card__link-text::after {
+    transform: scaleX(1);
 }

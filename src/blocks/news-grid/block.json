@@ -2,10 +2,17 @@
   "$schema": "https://schemas.wp.org/trunk/block.json",
   "apiVersion": 3,
   "name": "block-forge/news-grid",
-  "title": "News Grid",
+  "title": "Image block",
+  "icon": "excerpt-view",
+  "example": { "viewportWidth": 1200 },
   "category": "block-forge",
   "description": "3-column news article cards pulled from WordPress posts.",
-  "keywords": ["news", "articles", "grid", "aktuellt"],
+  "keywords": [
+    "news",
+    "articles",
+    "grid",
+    "aktuellt"
+  ],
   "textdomain": "block-forge",
   "editorScript": "file:./index.js",
   "editorStyle": "file:./editor.css",
@@ -15,6 +22,10 @@
     "sectionTitle": {
       "type": "string",
       "default": "Aktuellt i Movendi"
+    },
+    "sectionDescription": {
+      "type": "string",
+      "default": ""
     },
     "moreLinkLabel": {
       "type": "string",
@@ -38,12 +49,26 @@
     },
     "selectedPostIds": {
       "type": "array",
-      "items": { "type": "number" },
+      "items": {
+        "type": "number"
+      },
       "default": []
     },
     "anchorId": {
       "type": "string",
       "default": ""
+    },
+    "sectionTitleStyle": {
+      "type": "object",
+      "default": {}
+    },
+    "sectionDescriptionStyle": {
+      "type": "object",
+      "default": {}
+    },
+    "moreLinkStyle": {
+      "type": "object",
+      "default": {}
     }
   }
 }

@@ -1,6 +1,9 @@
-import { InspectorControls, MediaUpload, MediaUploadCheck, useBlockProps } from '@wordpress/block-editor';
-import { Button, PanelBody, SelectControl, TextControl, TextareaControl } from '@wordpress/components';
+import { InspectorControls, MediaUpload, MediaUploadCheck, RichText, useBlockProps } from '@wordpress/block-editor';
+import { Button, PanelBody, SelectControl, TextControl } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
+import ElementStylePanel from '../../components/ElementStylePanel';
+import LinkPicker from '../../components/LinkPicker';
+import { toInlineStyle } from '../../components/typeStyles';
 
 const OVERLAY_CLASSES = {
     peach: 'bg-banner-peach',
@@ -8,7 +11,10 @@ const OVERLAY_CLASSES = {
 };
 
 export default function Edit({ attributes, setAttributes }) {
-    const { sectionTitle, sectionDescription, cards, anchorId } = attributes;
+    const {
+        sectionTitle, sectionDescription, cards, anchorId,
+        sectionTitleStyle, sectionDescriptionStyle, cardTitleStyle, cardDescriptionStyle,
+    } = attributes;
 
     const blockProps = useBlockProps();
 
@@ -17,21 +23,26 @@ export default function Edit({ attributes, setAttributes }) {
         setAttributes({ cards: updated });
     };
 
+    const addCard = () => {
+        const newCard = {
+            imageId: 0,
+            imageUrl: '',
+            imageAlt: '',
+            colorVariant: 'peach',
+            title: '',
+            description: '',
+            linkUrl: '',
+        };
+        setAttributes({ cards: [...cards, newCard] });
+    };
+
+    const removeCard = (index) => {
+        setAttributes({ cards: cards.filter((_, i) => i !== index) });
+    };
+
     return (
         <>
             <InspectorControls>
-                <PanelBody title={__('Section', 'block-forge')}>
-                    <TextControl
-                        label={__('Section Title', 'block-forge')}
-                        value={sectionTitle}
-                        onChange={(value) => setAttributes({ sectionTitle: value })}
-                    />
-                    <TextareaControl
-                        label={__('Section Description', 'block-forge')}
-                        value={sectionDescription}
-                        onChange={(value) => setAttributes({ sectionDescription: value })}
-                    />
-                </PanelBody>
 
                 {cards.map((card, i) => (
                     <PanelBody key={i} title={`${__('Card', 'block-forge')} ${i + 1}`} initialOpen={i === 0}>
@@ -61,23 +72,49 @@ export default function Edit({ attributes, setAttributes }) {
                             ]}
                             onChange={(value) => updateCard(i, 'colorVariant', value)}
                         />
-                        <TextControl
-                            label={__('Title', 'block-forge')}
-                            value={card.title}
-                            onChange={(value) => updateCard(i, 'title', value)}
-                        />
-                        <TextareaControl
-                            label={__('Description', 'block-forge')}
-                            value={card.description}
-                            onChange={(value) => updateCard(i, 'description', value)}
-                        />
-                        <TextControl
+                        <LinkPicker
                             label={__('Link URL', 'block-forge')}
-                            value={card.linkUrl}
+                            url={card.linkUrl}
                             onChange={(value) => updateCard(i, 'linkUrl', value)}
                         />
+                        <Button
+                            variant="link"
+                            isDestructive
+                            onClick={() => removeCard(i)}
+                            style={{ marginTop: '8px' }}
+                        >
+                            {__('Remove this card', 'block-forge')}
+                        </Button>
                     </PanelBody>
                 ))}
+
+                <PanelBody title={__('Add card', 'block-forge')} initialOpen={false}>
+                    <Button variant="primary" onClick={addCard}>
+                        {__('+ Add new card', 'block-forge')}
+                    </Button>
+                </PanelBody>
+
+                <ElementStylePanel
+                    title={__('Section title style', 'block-forge')}
+                    value={sectionTitleStyle}
+                    onChange={(v) => setAttributes({ sectionTitleStyle: v })}
+                />
+                <ElementStylePanel
+                    title={__('Section description style', 'block-forge')}
+                    value={sectionDescriptionStyle}
+                    onChange={(v) => setAttributes({ sectionDescriptionStyle: v })}
+                />
+                <ElementStylePanel
+                    title={__('Card title style', 'block-forge')}
+                    value={cardTitleStyle}
+                    onChange={(v) => setAttributes({ cardTitleStyle: v })}
+                />
+                <ElementStylePanel
+                    title={__('Card description style', 'block-forge')}
+                    value={cardDescriptionStyle}
+                    onChange={(v) => setAttributes({ cardDescriptionStyle: v })}
+                />
+
                 <PanelBody title={__('Anchor', 'block-forge')} initialOpen={false}>
                     <TextControl
                         label={__('Section ID', 'block-forge')}
@@ -93,8 +130,24 @@ export default function Edit({ attributes, setAttributes }) {
                 <section id={anchorId || undefined} className="w-full py-16 px-8 bg-[#F8F8F8]">
                     <div className="max-w-[1120px] mx-auto">
                         <div className="mb-8">
-                            <h2 className="type-label !text-black mb-4">{sectionTitle}</h2>
-                            <p className="type-body-lg !text-black max-w-2xl">{sectionDescription}</p>
+                            <RichText
+                                tagName="h2"
+                                className="type-label !text-black mb-4"
+                                style={toInlineStyle(sectionTitleStyle)}
+                                value={sectionTitle}
+                                onChange={(value) => setAttributes({ sectionTitle: value })}
+                                placeholder={__('Section title…', 'block-forge')}
+                                allowedFormats={[]}
+                            />
+                            <RichText
+                                tagName="p"
+                                className="type-body !text-black max-w-2xl"
+                                style={toInlineStyle(sectionDescriptionStyle)}
+                                value={sectionDescription}
+                                onChange={(value) => setAttributes({ sectionDescription: value })}
+                                placeholder={__('Section description…', 'block-forge')}
+                                allowedFormats={['core/bold', 'core/italic']}
+                            />
                         </div>
                         <div className="grid grid-cols-2 gap-x-6 gap-y-12">
                             {cards.map((card, i) => (
@@ -108,8 +161,24 @@ export default function Edit({ attributes, setAttributes }) {
                                     </div>
                                     <div className={`relative ${OVERLAY_CLASSES[card.colorVariant] ?? 'bg-banner-peach'} mx-[50px] px-8 pt-6 pb-8 flex flex-col items-start gap-4 -mt-[36px] rounded-[8px]`}>
                                         <div>
-                                            <h3 className="font-barlow-semicondensed text-[28px] tracking-[-0.02em] !text-black mb-1 font-semibold leading-snug">{card.title}</h3>
-                                            <p className="type-body-lg text-[#212121]">{card.description}</p>
+                                            <RichText
+                                                tagName="h3"
+                                                className="font-barlow-semicondensed text-[28px] tracking-[-0.02em] !text-black mb-1 font-semibold leading-snug"
+                                                style={toInlineStyle(cardTitleStyle)}
+                                                value={card.title}
+                                                onChange={(value) => updateCard(i, 'title', value)}
+                                                placeholder={__('Card title…', 'block-forge')}
+                                                allowedFormats={[]}
+                                            />
+                                            <RichText
+                                                tagName="p"
+                                                className="type-body text-[#212121]"
+                                                style={toInlineStyle(cardDescriptionStyle)}
+                                                value={card.description}
+                                                onChange={(value) => updateCard(i, 'description', value)}
+                                                placeholder={__('Card description…', 'block-forge')}
+                                                allowedFormats={['core/bold', 'core/italic']}
+                                            />
                                         </div>
                                         <div className="shrink-0 mt-1">
                                             <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">

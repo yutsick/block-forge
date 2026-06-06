@@ -11,6 +11,11 @@ $secondary_btn = $attributes['secondaryButton'] ?? [ 'label' => '', 'url' => '' 
 $is_video  = $bg_type === 'video';
 $video_id  = 'hero-video-' . wp_unique_id();
 $anchor_id = $attributes['anchorId'] ?? '';
+
+$title_style       = block_forge_inline_style( $attributes['titleStyle'] ?? [] );
+$description_style = block_forge_inline_style( $attributes['descriptionStyle'] ?? [] );
+$primary_btn_style = block_forge_inline_style( $attributes['primaryButtonStyle'] ?? [] );
+$secondary_btn_style = block_forge_inline_style( $attributes['secondaryButtonStyle'] ?? [] );
 ?>
 
 <div <?php echo get_block_wrapper_attributes(); ?>>
@@ -40,35 +45,37 @@ $anchor_id = $attributes['anchorId'] ?? '';
         </div>
         <?php endif; ?>
 
-
-
-
-        <div class="relative z-10 w-full max-w-[1120px] mx-auto px-8 pt-16 text-center flex flex-col items-center">
+        <div class="relative z-10 w-full max-w-[1120px] mx-auto px-4 md:px-8 pt-16 text-center flex flex-col items-center">
 
             <?php if ( $title ) : ?>
-            <h1 class="<?php echo $is_video ? 'type-display text-[#AED9E9]' : 'type-h1 text-white'; ?> mb-8 max-w-2xl">
+            <h1
+                class="hero__title <?php echo $is_video ? 'type-display text-[#AED9E9] md:mt-[52px]' : 'type-h1 text-white'; ?> mb-8 max-w-2xl"
+                <?php if ( $title_style ) echo 'style="' . esc_attr( $title_style ) . '"'; ?>>
                 <?php echo wp_kses_post( $title ); ?>
             </h1>
             <?php endif; ?>
 
             <?php if ( $description ) : ?>
-            <p class="type-body-lg text-[18px] md:text-[22px] text-white/90 mb-8 max-w-lg ">
+            <p class="hero__description type-body text-[18px] md:text-[22px] text-white/90 mb-8 max-w-lg "
+                <?php if ( $description_style ) echo 'style="' . esc_attr( $description_style ) . '"'; ?>>
                 <?php echo wp_kses_post( $description ); ?>
             </p>
             <?php endif; ?>
 
             <?php if ( $primary_btn['label'] || $secondary_btn['label'] ) : ?>
-            <div class="flex flex-wrap gap-4 mx-auto font-barlow-semicondensed text-body-lg my-8 md:mt-14 md:mb-23">
+            <div class="flex flex-wrap justify-center gap-2 md:gap-4 mx-auto font-barlow-semicondensed text-body-lg my-8 md:mt-14 md:mb-23">
                 <?php if ( $primary_btn['label'] ) : ?>
                 <a href="<?php echo esc_url( $primary_btn['url'] ); ?>"
-                    class="  no-underline flex  items-center w-[155px] h-[45px] md:w-[185px] md:h-[54px] bg-banner-pink text-black rounded-full font-medium hover:opacity-90 transition-opacity md:text-[20px] text-[18px] justify-center">
-                    <?php echo esc_html( $primary_btn['label'] ); ?>
+                    class="hero__btn !no-underline flex  items-center min-w-[155px] px-4 h-[45px] md:min-w-[185px] md:h-[54px] bg-banner-pink !text-black rounded-full font-medium hover:opacity-90 transition-opacity md:text-[20px] text-[18px] justify-center"
+                    <?php if ( $primary_btn_style ) echo 'style="' . esc_attr( $primary_btn_style ) . '"'; ?>>
+                    <?php echo wp_kses( $primary_btn['label'], [] ); ?>
                 </a>
                 <?php endif; ?>
                 <?php if ( $secondary_btn['label'] ) : ?>
                 <a href="<?php echo esc_url( $secondary_btn['url'] ); ?>"
-                    class="no-underline flex items-center w-[155px] h-[45px] md:w-[185px] md:h-[54px] border-white text-white rounded-full font-medium hover:bg-white/10 transition-colors md:text-[20px] text-[18px] border justify-center">
-                    <?php echo esc_html( $secondary_btn['label'] ); ?>
+                    class="hero__btn !no-underline flex items-center min-w-[155px] px-4 h-[45px] md:min-w-[185px] md:h-[54px] border-white !text-white rounded-full font-medium hover:bg-white/10 transition-colors md:text-[20px] text-[18px] border justify-center"
+                    <?php if ( $secondary_btn_style ) echo 'style="' . esc_attr( $secondary_btn_style ) . '"'; ?>>
+                    <?php echo wp_kses( $secondary_btn['label'], [] ); ?>
                 </a>
                 <?php endif; ?>
             </div>
@@ -78,8 +85,8 @@ $anchor_id = $attributes['anchorId'] ?? '';
 
         <?php if ( $is_video ) : ?>
         <!-- Rounded clip -->
-        <div class="absolute bottom-0 left-0 w-full overflow-hidden leading-none pointer-events-none h-5 md:h-auto"
-            style="line-height:0; margin-bottom:-1px; width: calc(100% + 10px); margin-left: -5px;">
+        <div class="absolute bottom-0 left-0 w-full overflow-hidden leading-none pointer-events-none"
+            style="line-height:0">
             <svg viewBox="0 0 1440 72" fill="white" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"
                 class="w-full block">
                 <path d="M0,72 Q720,-72 1440,72 L1440,72 L0,72 Z" />
@@ -89,7 +96,7 @@ $anchor_id = $attributes['anchorId'] ?? '';
         <!-- Pause / Play button -->
         <?php if ( $video_url ) : ?>
         <button type="button" aria-label="<?php esc_attr_e( 'Pause video', 'block-forge' ); ?>"
-            class="absolute bottom-4 right-4 w-7 h-7 md:bottom-8 md:right-8 z-20 md:w-12 md:h-12 rounded-full border-2 border-white/80 flex items-center justify-center text-white bg-black/20 hover:bg-black/40 transition"
+            class="absolute bottom-8 right-8 z-20 w-12 h-12 rounded-full border-2 border-white/80 flex items-center justify-center text-white bg-black/20 hover:bg-black/40 transition"
             onclick="(function(btn){
                 var v = document.getElementById('<?php echo esc_js( $video_id ); ?>');
                 if (!v) return;

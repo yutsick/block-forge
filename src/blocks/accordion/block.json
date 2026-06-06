@@ -1,0 +1,88 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "block-forge/accordion",
+  "title": "Expanderbart innehåll (FAQ / informationslista)",
+  "icon": "menu-alt",
+  "example": { "viewportWidth": 1200 },
+  "category": "block-forge",
+  "description": "Vertical list of collapsible items with a plus icon. Designed to be dropped into any column or container.",
+  "keywords": [
+    "accordion",
+    "faq",
+    "expand",
+    "collapse",
+    "details"
+  ],
+  "textdomain": "block-forge",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./editor.css",
+  "style": "block-forge-style",
+  "render": "file:./render.php",
+  "attributes": {
+    "sectionTitle": {
+      "type": "string",
+      "default": ""
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "string"
+          },
+          "content": {
+            "type": "string"
+          }
+        }
+      },
+      "default": [
+        {
+          "label": "Besökadress",
+          "content": ""
+        },
+        {
+          "label": "Postadress",
+          "content": ""
+        },
+        {
+          "label": "Leveransadress",
+          "content": ""
+        },
+        {
+          "label": "Faktureringsadress Movendi Sverige",
+          "content": ""
+        },
+        {
+          "label": "Faktureringsadress INFAB",
+          "content": ""
+        },
+        {
+          "label": "Organisationsnummer",
+          "content": ""
+        },
+        {
+          "label": "Visselblåsartjänst",
+          "content": ""
+        }
+      ]
+    },
+    "anchorId": {
+      "type": "string",
+      "default": ""
+    },
+    "sectionTitleStyle": {
+      "type": "object",
+      "default": {}
+    },
+    "itemLabelStyle": {
+      "type": "object",
+      "default": {}
+    },
+    "itemContentStyle": {
+      "type": "object",
+      "default": {}
+    }
+  }
+}

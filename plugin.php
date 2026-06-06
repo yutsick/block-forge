@@ -71,6 +71,41 @@ add_action( 'enqueue_block_assets', function() {
     );
 } );
 
+/**
+ * Convert a block-forge style attribute object into a CSS `style` string.
+ *
+ * Style attributes have shape:
+ *   [
+ *     'fontFamily' => '...', 'fontSize' => '...', 'fontWeight' => '...',
+ *     'lineHeight' => '...', 'letterSpacing' => '...', 'textTransform' => '...',
+ *     'color' => '...', 'backgroundColor' => '...', 'borderColor' => '...',
+ *   ]
+ * Empty properties are omitted — branded defaults keep showing through.
+ */
+function block_forge_inline_style( $style ) {
+    if ( ! is_array( $style ) ) {
+        return '';
+    }
+    $map = [
+        'fontFamily'      => 'font-family',
+        'fontSize'        => 'font-size',
+        'fontWeight'      => 'font-weight',
+        'lineHeight'      => 'line-height',
+        'letterSpacing'   => 'letter-spacing',
+        'textTransform'   => 'text-transform',
+        'color'           => 'color',
+        'backgroundColor' => 'background-color',
+        'borderColor'     => 'border-color',
+    ];
+    $parts = [];
+    foreach ( $map as $js_key => $css_key ) {
+        if ( ! empty( $style[ $js_key ] ) ) {
+            $parts[] = $css_key . ': ' . esc_attr( $style[ $js_key ] );
+        }
+    }
+    return implode( '; ', $parts );
+}
+
 add_action( 'after_setup_theme', function() {
     register_nav_menus( [
         'block-forge-primary' => __( 'Block Forge – Primary Navigation', 'block-forge' ),

@@ -2,7 +2,9 @@
   "$schema": "https://schemas.wp.org/trunk/block.json",
   "apiVersion": 3,
   "name": "block-forge/banner",
-  "title": "Banner",
+  "title": "Banner / Distriktspuff",
+  "icon": "format-image",
+  "example": { "viewportWidth": 1200 },
   "category": "block-forge",
   "description": "Fullsize banner with image, text and optional CTA",
   "keywords": [
@@ -16,7 +18,9 @@
   "style": "block-forge-style",
   "render": "file:./render.php",
   "supports": {
-    "align": ["full"]
+    "align": [
+      "full"
+    ]
   },
   "attributes": {
     "align": {
@@ -56,6 +60,10 @@
     },
     "decorationMobileId": {
       "type": "number"
+    },
+    "decorationPosition": {
+      "type": "string",
+      "default": "left"
     },
     "imageUrl": {
       "type": "string",
@@ -109,6 +117,26 @@
     "anchorId": {
       "type": "string",
       "default": ""
+    },
+    "titleStyle": {
+      "type": "object",
+      "default": {}
+    },
+    "descriptionStyle": {
+      "type": "object",
+      "default": {}
+    },
+    "primaryButtonStyle": {
+      "type": "object",
+      "default": {}
+    },
+    "secondaryButtonStyle": {
+      "type": "object",
+      "default": {}
+    },
+    "linkStyle": {
+      "type": "object",
+      "default": {}
     }
   }
 }

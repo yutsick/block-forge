@@ -1,45 +1,102 @@
 <?php
-$section_title    = $attributes['sectionTitle'] ?? '';
-$more_label       = $attributes['moreLinkLabel'] ?? '';
-$more_url         = $attributes['moreLinkUrl'] ?? '';
-$anchor_id        = $attributes['anchorId'] ?? '';
-$number_of_posts  = intval( $attributes['numberOfPosts'] ?? 3 );
-$post_type        = sanitize_key( $attributes['postType'] ?? 'post' );
-$offset           = intval( $attributes['offset'] ?? 0 );
-$selected_post_ids = array_map( 'intval', (array) ( $attributes['selectedPostIds'] ?? [] ) );
+$section_title       = $attributes['sectionTitle'] ?? '';
+$section_description = $attributes['sectionDescription'] ?? '';
+$more_label          = $attributes['moreLinkLabel'] ?? '';
+$more_url            = $attributes['moreLinkUrl'] ?? '';
+$anchor_id           = $attributes['anchorId'] ?? '';
+$number_of_posts     = intval( $attributes['numberOfPosts'] ?? 3 );
+$post_type           = sanitize_key( $attributes['postType'] ?? 'post' );
+$offset              = intval( $attributes['offset'] ?? 0 );
+$selected_post_ids   = array_map( 'intval', (array) ( $attributes['selectedPostIds'] ?? [] ) );
 
-$query_args = [
-    'post_type'      => $post_type,
-    'posts_per_page' => $number_of_posts,
-    'post_status'    => 'publish',
-    'orderby'        => 'date',
-    'order'          => 'DESC',
-];
+$section_title_style       = block_forge_inline_style( $attributes['sectionTitleStyle'] ?? [] );
+$section_description_style = block_forge_inline_style( $attributes['sectionDescriptionStyle'] ?? [] );
+$more_link_style           = block_forge_inline_style( $attributes['moreLinkStyle'] ?? [] );
+$is_review                 = ( 'review' === $post_type );
 
-if ( ! empty( $selected_post_ids ) ) {
-    $query_args['post__in'] = $selected_post_ids;
-    $query_args['orderby']  = 'post__in';
-    $query_args['posts_per_page'] = count( $selected_post_ids );
+/**
+ * Build the list of post IDs to display.
+ *
+ *  - No selected posts → straight date-DESC query with offset.
+ *  - Selected posts only, count ≥ numberOfPosts → show the first
+ *    `numberOfPosts` of the selection (manual order preserved).
+ *  - Selected posts, count < numberOfPosts → show the selection FIRST
+ *    in manual order, then fill the remainder (numberOfPosts − selected)
+ *    with the latest posts by date DESC, excluding the already-selected
+ *    IDs, honouring the offset.
+ */
+if ( empty( $selected_post_ids ) ) {
+    $query_args = [
+        'post_type'      => $post_type,
+        'posts_per_page' => $number_of_posts,
+        'post_status'    => 'publish',
+        'orderby'        => 'date',
+        'order'          => 'DESC',
+        'offset'         => $offset,
+    ];
+    $query = new WP_Query( $query_args );
 } else {
-    $query_args['offset'] = $offset;
-}
+    // Cap the manual selection to the requested grid size.
+    $manual_ids = array_slice( $selected_post_ids, 0, $number_of_posts );
+    $remaining  = $number_of_posts - count( $manual_ids );
 
-$query = new WP_Query( $query_args );
+    $final_ids = $manual_ids;
+
+    if ( $remaining > 0 ) {
+        $fill_query = new WP_Query(
+            [
+                'post_type'      => $post_type,
+                'posts_per_page' => $remaining,
+                'post_status'    => 'publish',
+                'orderby'        => 'date',
+                'order'          => 'DESC',
+                'offset'         => $offset,
+                'post__not_in'   => $manual_ids,
+                'fields'         => 'ids',
+                'no_found_rows'  => true,
+            ]
+        );
+        $final_ids = array_merge( $manual_ids, $fill_query->posts );
+    }
+
+    $query = new WP_Query(
+        [
+            'post_type'      => $post_type,
+            'post_status'    => 'publish',
+            'post__in'       => $final_ids,
+            'orderby'        => 'post__in',
+            'posts_per_page' => count( $final_ids ),
+            'ignore_sticky_posts' => true,
+            'no_found_rows'  => true,
+        ]
+    );
+}
 ?>
 
 <div <?php echo get_block_wrapper_attributes(); ?>>
-    <section <?php if ( $anchor_id ) echo 'id="' . esc_attr( $anchor_id ) . '"'; ?> class="w-full py-14 px-8" data-aos="fade-up">
+    <section <?php if ( $anchor_id ) echo 'id="' . esc_attr( $anchor_id ) . '"'; ?> class="w-full py-14 px-8"
+        data-aos="fade-up">
         <div class="max-w-[1120px] mx-auto">
 
             <!-- Section header -->
-            <div class="flex  justify-between mb-8">
+            <?php
+            // Tighter bottom margin on the header row when a description follows.
+            $header_mb_class = $section_description
+                ? 'mb-4'
+                : ( $is_review ? 'mb-6' : 'mb-[47px]' );
+            ?>
+            <div class="flex  justify-between <?php echo esc_attr( $header_mb_class ); ?>">
                 <?php if ( $section_title ) : ?>
-                <h2 class="type-label text-black"><?php echo esc_html( $section_title ); ?></h2>
+                <h2 class="type-label text-black"
+                    <?php if ( $section_title_style ) echo 'style="' . esc_attr( $section_title_style ) . '"'; ?>>
+                    <?php echo wp_kses( $section_title, [] ); ?>
+                </h2>
                 <?php endif; ?>
                 <?php if ( $more_label && $more_url ) : ?>
                 <a href="<?php echo esc_url( $more_url ); ?>"
-                    class="hidden lg:flex type-regular-link hover:underline items-center gap-1 md:mt-2.5">
-                    <?php echo esc_html( $more_label ); ?>
+                    class="hidden lg:flex type-regular-link hover:underline items-center gap-1 md:mt-2.5"
+                    <?php if ( $more_link_style ) echo 'style="' . esc_attr( $more_link_style ) . '"'; ?>>
+                    <?php echo wp_kses( $more_label, [] ); ?>
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M4 12.375L19.25 12.375" stroke="#27348B" stroke-width="1.8" stroke-linecap="round"
                             stroke-linejoin="round" />
@@ -50,6 +107,13 @@ $query = new WP_Query( $query_args );
                 </a>
                 <?php endif; ?>
             </div>
+
+            <?php if ( $section_description ) : ?>
+            <p class="type-body font-ancizar-serif text-grey max-w-[760px] mb-8"
+                <?php if ( $section_description_style ) echo 'style="' . esc_attr( $section_description_style ) . '"'; ?>>
+                <?php echo wp_kses( $section_description, [ 'strong' => [], 'em' => [], 'b' => [], 'i' => [] ] ); ?>
+            </p>
+            <?php endif; ?>
 
             <!-- Articles grid -->
             <?php if ( $query->have_posts() ) : ?>
@@ -68,10 +132,10 @@ $query = new WP_Query( $query_args );
                     $reviewer_name     = $is_review ? (string) get_post_meta( $post_id, '_movendi_reviewer_name', true ) : '';
                     $reviewer_position = $is_review ? (string) get_post_meta( $post_id, '_movendi_reviewer_position', true ) : '';
                 ?>
-                <article class="flex flex-col gap-3">
+                <article class="group flex flex-col gap-3">
                     <?php if ( $thumbnail_url ) : ?>
                     <a href="<?php echo esc_url( $permalink ); ?>"
-                        class="block overflow-hidden rounded-xl aspect-[4/3]">
+                        class="block overflow-hidden rounded-xl <?php echo $is_review ? 'aspect-[352/264]' : 'aspect-[352/254]'; ?>">
                         <img src="<?php echo esc_url( $thumbnail_url ); ?>"
                             alt="<?php echo esc_attr( $thumbnail_alt ?: get_the_title() ); ?>"
                             class="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
@@ -104,7 +168,7 @@ $query = new WP_Query( $query_args );
                             class="uppercase font-barlow-semicondensed text-sm font-semibold tracking-[0.03em] text-black"><?php echo esc_html( strtoupper( $reviewer_name ) ); ?></span>
                         <?php endif; ?>
                         <?php if ( $reviewer_position ) : ?>
-                        <span class="type-caption text-sm text-banner-text">
+                        <span class="type-caption text-base text-banner-text">
                             <?php echo esc_html( strtoupper( $reviewer_position ) ); ?></span>
                         <?php endif; ?>
                     </div>
@@ -115,34 +179,34 @@ $query = new WP_Query( $query_args );
                             class="uppercase font-semibold text-sm text-grey font-barlow-semicondensed tracking-[0.11em]"><?php echo esc_html( $category_name ); ?></span>
                         <?php endif; ?>
                         <?php if ( $date_display ) : ?>
-                        <span class="type-body text-grey ">|
-                            <?php echo esc_html( $date_display ); ?></span>
+                        <span class="type-body-sm text-grey "><?php echo $category_name ? '| ' : ''; ?><?php echo esc_html( $date_display ); ?></span>
                         <?php endif; ?>
                     </div>
                     <?php endif; ?>
 
                     <h3
-                        class="font-barlow-semicondensed text-[32px] text-black font-semibold leading-snug tracking-[-0.01em]">
-                        <a href="<?php echo esc_url( $permalink ); ?>" class="no-underline hover:underline">
+                        class="font-barlow-semicondensed text-[32px] md:-mt-[10px] text-black group-hover:text-[#27348B] transition-colors font-semibold leading-snug tracking-[-0.01em]">
+                        <a href="<?php echo esc_url( $permalink ); ?>" class="no-underline">
                             <?php the_title(); ?>
                         </a>
                     </h3>
 
                     <?php if ( $excerpt ) : ?>
-                    <p class="type-body-lg text-banner-text"><?php echo esc_html( $excerpt ); ?></p>
+                    <p class="type-body text-banner-text"><?php echo wp_kses_post( $excerpt ); ?></p>
                     <?php endif; ?>
                 </article>
                 <?php endwhile; ?>
             </div>
             <?php if ( $more_label && $more_url ) : ?>
             <a href="<?php echo esc_url( $more_url ); ?>"
-                class="lg:hidden flex type-regular-link w-full justify-center rounded-full h-10 border border-main items-center gap-1 mt-6">
-                <?php echo esc_html( $more_label ); ?>
+                class="lg:hidden flex type-regular-link w-full justify-center rounded-full h-10 border border-main items-center gap-1 mt-6"
+                <?php if ( $more_link_style ) echo 'style="' . esc_attr( $more_link_style ) . '"'; ?>>
+                <?php echo wp_kses( $more_label, [] ); ?>
 
             </a>
             <?php endif; ?>
             <?php else : ?>
-            <p class="type-body text-banner-text"><?php esc_html_e( 'No posts found.', 'block-forge' ); ?></p>
+            <p class="type-body-sm text-banner-text"><?php esc_html_e( 'No posts found.', 'block-forge' ); ?></p>
             <?php endif; ?>
 
             <?php wp_reset_postdata(); ?>
