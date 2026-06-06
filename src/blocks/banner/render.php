@@ -65,7 +65,7 @@ ob_start();
 <?php endif; ?>
 
 <?php if ( $cta_type === 'buttons' || $cta_type === 'both' ) : ?>
-<div class="flex gap-4">
+<div class="flex gap-8">
 	<a href="<?php echo esc_url( $primary_button['url'] ); ?>"
 		class="inline-flex items-center px-6 py-3 bg-banner-heading text-white rounded-full text-sm font-semibold no-underline"
 		<?php if ( $primary_btn_style ) echo 'style="' . esc_attr( $primary_btn_style ) . '"'; ?>>

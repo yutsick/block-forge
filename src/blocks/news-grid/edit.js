@@ -207,16 +207,6 @@ export default function Edit({ attributes, setAttributes }) {
                         min={1}
                         max={12}
                     />
-                    <RangeControl
-                        label={__('Offset (skip first N posts)', 'block-forge')}
-                        value={offset}
-                        onChange={(value) => setAttributes({ offset: value })}
-                        min={0}
-                        max={50}
-                        help={usingManualSelection
-                            ? __('Applies to the auto-filled posts when the manual selection has fewer items than the grid.', 'block-forge')
-                            : undefined}
-                    />
                     {usingManualSelection && selectedPostIds.length < numberOfPosts && (
                         <p style={{ fontSize: '12px', color: '#757575', marginTop: '4px' }}>
                             {__('Manual selection is shorter than the grid — the remaining slots will be filled with the latest posts (excluding the picked ones).', 'block-forge')}

@@ -74,7 +74,7 @@ if ( empty( $selected_post_ids ) ) {
 ?>
 
 <div <?php echo get_block_wrapper_attributes(); ?>>
-    <section <?php if ( $anchor_id ) echo 'id="' . esc_attr( $anchor_id ) . '"'; ?> class="w-full py-14 px-8"
+    <section <?php if ( $anchor_id ) echo 'id="' . esc_attr( $anchor_id ) . '"'; ?> class="w-full py-14 px-4 md:px-8"
         data-aos="fade-up">
         <div class="max-w-[1120px] mx-auto">
 
@@ -117,7 +117,7 @@ if ( empty( $selected_post_ids ) ) {
 
             <!-- Articles grid -->
             <?php if ( $query->have_posts() ) : ?>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-x-6 gap-y-10">
                 <?php while ( $query->have_posts() ) : $query->the_post(); ?>
                 <?php
                     $post_id           = get_the_ID();
@@ -169,7 +169,7 @@ if ( empty( $selected_post_ids ) ) {
                         <?php endif; ?>
                         <?php if ( $reviewer_position ) : ?>
                         <span class="type-caption text-base text-banner-text">
-                            <?php echo esc_html( strtoupper( $reviewer_position ) ); ?></span>
+                            <?php echo esc_html(  $reviewer_position  ); ?></span>
                         <?php endif; ?>
                     </div>
                     <?php else : ?>

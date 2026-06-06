@@ -29,6 +29,7 @@ md:w-7/12
 md:text-
 md:block
 md:w-[calc(25%-15px)]
+md:mr-0
 
 sm:inline-flex
 sm:text-base
@@ -51,3 +52,4 @@ my-8
 mb-4
 !border-b-1
 mt-12
+p-4

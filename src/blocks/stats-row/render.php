@@ -35,13 +35,13 @@ $stat_description_style    = block_forge_inline_style( $attributes['statDescript
                     $icon_url = $stat['iconUrl'] ?? '';
                 ?>
                 <div
-                    class="w-full md:w-[calc(25%-15px)] bg-white rounded-[16px] p-6 flex flex-col items-center text-center gap-3 min-h-[260px] md:min-h-[317px] shadow-[0_4px_4px_rgb(0_0_0_/_0.25)]">
+                    class="w-full md:w-[calc(25%-15px)] bg-white rounded-[16px] pt-6 pb-2 px-6 flex flex-col items-center text-center gap-4 min-h-[260px] md:min-h-[300px] shadow-[0_4px_4px_rgb(0_0_0_/_0.25)]">
                     <?php if ( $icon_url ) : ?>
                     <img src="<?php echo esc_url( $icon_url ); ?>" alt="" class="w-20 h-20 mx-auto object-contain"
                         aria-hidden="true" />
                     <?php endif; ?>
                     <span
-                        class="type-h3 font-semibold text-black leading-snug"
+                        class="type-h5 font-semibold text-black leading-snug"
                         <?php if ( $stat_label_style ) echo 'style="' . esc_attr( $stat_label_style ) . '"'; ?>>
                         <?php echo wp_kses( $stat['label'] ?? '', [] ); ?>
                     </span>

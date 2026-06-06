@@ -81,7 +81,7 @@ $is_image_left = $image_position === 'left';
 
     <?php else : ?>
     <!-- ── BOXED layout ──────────────────────────────────── -->
-    <section <?php if ( $anchor_id ) echo 'id="' . esc_attr( $anchor_id ) . '"'; ?> class="w-full <?php echo $bg_class; ?> py-14 px-8">
+    <section <?php if ( $anchor_id ) echo 'id="' . esc_attr( $anchor_id ) . '"'; ?> class="w-full <?php echo $bg_class; ?> py-14 px-4 md:px-8">
         <div class="max-w-[1120px] mx-auto flex flex-col <?php echo $row_class; ?> items-center gap-10 md:gap-16">
 
             <!-- Image column (boxed, rounded) -->

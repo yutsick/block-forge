@@ -37,7 +37,7 @@ $btn_class         = $is_dark
 ?>
 
 <div <?php echo get_block_wrapper_attributes(); ?>>
-    <section class="w-full <?php echo esc_attr( $bg_class . ' ' . $spacing_class ); ?> px-8">
+    <section class="w-full <?php echo esc_attr( $bg_class . ' ' . $spacing_class ); ?> px-4 md:px-8">
         <div class="max-w-[1120px] mx-auto">
 
             <!-- Section header -->
