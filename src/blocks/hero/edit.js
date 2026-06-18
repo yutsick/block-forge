@@ -164,7 +164,7 @@ export default function Edit({ attributes, setAttributes }) {
                     <div className="relative z-10 w-full max-w-[1120px] mx-auto px-8 py-16 text-center flex flex-col items-center">
                         <RichText
                             tagName="h1"
-                            className={`hero__title font-semibold mb-6 max-w-2xl ${isVideo ? '!text-[#AED9E9] text-[48px] leading-[54px]' : '!text-white text-[36px] leading-[42px]'}`}
+                            className={`hero__title font-semibold mb-8 max-w-2xl ${isVideo ? 'type-display !text-[#AED9E9] md:mt-[52px]' : 'type-h1 !text-white'}`}
                             style={toInlineStyle(titleStyle)}
                             value={title}
                             onChange={(value) => setAttributes({ title: value })}
@@ -172,16 +172,16 @@ export default function Edit({ attributes, setAttributes }) {
                         />
                         <RichText
                             tagName="p"
-                            className="hero__description !text-white text-[16px] leading-[24px] mb-8 max-w-lg"
+                            className="hero__description type-body text-[18px] md:text-[22px] !text-white/90 mb-8 max-w-lg"
                             style={toInlineStyle(descriptionStyle)}
                             value={description}
                             onChange={(value) => setAttributes({ description: value })}
                             placeholder={__('Description…', 'block-forge')}
                         />
-                        <div className="flex flex-wrap gap-4 justify-center">
+                        <div className="flex flex-wrap gap-2 md:gap-4 justify-center mt-8 md:mt-14">
                             <RichText
                                 tagName="span"
-                                className="hero__btn inline-flex items-center justify-center px-8 py-3 bg-banner-pink !text-black rounded-full text-sm font-semibold font-barlow-semicondensed"
+                                className="hero__btn !no-underline inline-flex items-center justify-center min-w-[155px] px-4 h-[45px] md:min-w-[185px] md:h-[54px] bg-banner-pink !text-black rounded-full text-[18px] md:text-[20px] font-medium font-barlow-semicondensed"
                                 style={toInlineStyle(primaryButtonStyle)}
                                 value={primaryButton.label}
                                 onChange={(value) => setAttributes({ primaryButton: { ...primaryButton, label: value } })}
@@ -190,7 +190,7 @@ export default function Edit({ attributes, setAttributes }) {
                             />
                             <RichText
                                 tagName="span"
-                                className="hero__btn inline-flex items-center justify-center px-8 py-3 border border-white text-white rounded-full text-sm font-semibold font-barlow-semicondensed"
+                                className="hero__btn !no-underline inline-flex items-center justify-center min-w-[155px] px-4 h-[45px] md:min-w-[185px] md:h-[54px] border border-white !text-white rounded-full text-[18px] md:text-[20px] font-medium font-barlow-semicondensed"
                                 style={toInlineStyle(secondaryButtonStyle)}
                                 value={secondaryButton.label}
                                 onChange={(value) => setAttributes({ secondaryButton: { ...secondaryButton, label: value } })}

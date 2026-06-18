@@ -207,7 +207,7 @@ export default function Edit({ attributes, setAttributes }) {
                         min={1}
                         max={12}
                     />
-                    {usingManualSelection && selectedPostIds.length < numberOfPosts && (
+                    nm                    {usingManualSelection && selectedPostIds.length < numberOfPosts && (
                         <p style={{ fontSize: '12px', color: '#757575', marginTop: '4px' }}>
                             {__('Manual selection is shorter than the grid — the remaining slots will be filled with the latest posts (excluding the picked ones).', 'block-forge')}
                         </p>
@@ -349,7 +349,7 @@ export default function Edit({ attributes, setAttributes }) {
                                                 </div>
                                             )}
                                             <h3
-                                                className="font-barlow-semicondensed text-[24px] !text-black font-semibold leading-snug tracking-[-0.01em]"
+                                                className="font-barlow-semicondensed text-[32px] !text-black font-semibold leading-snug tracking-[-0.01em]"
                                                 dangerouslySetInnerHTML={{ __html: post.title?.rendered ?? '' }}
                                             />
                                             <p

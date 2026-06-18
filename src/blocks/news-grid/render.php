@@ -192,7 +192,7 @@ if ( empty( $selected_post_ids ) ) {
                     </h3>
 
                     <?php if ( $excerpt ) : ?>
-                    <p class="type-body text-banner-text"><?php echo wp_kses_post( $excerpt ); ?></p>
+                    <p class="type-body text-banner-text wrap-break-word"><?php echo wp_kses_post( $excerpt ); ?></p>
                     <?php endif; ?>
                 </article>
                 <?php endwhile; ?>

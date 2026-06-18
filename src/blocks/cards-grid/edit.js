@@ -8,6 +8,7 @@ import { toInlineStyle } from '../../components/typeStyles';
 const OVERLAY_CLASSES = {
     peach: 'bg-banner-peach',
     blue: 'bg-banner-blue',
+    koral: 'bg-coral',
 };
 
 export default function Edit({ attributes, setAttributes }) {
@@ -67,8 +68,9 @@ export default function Edit({ attributes, setAttributes }) {
                             label={__('Label Color', 'block-forge')}
                             value={card.colorVariant}
                             options={[
-                                { label: __('Peach', 'block-forge'), value: 'peach' },
-                                { label: __('Blue', 'block-forge'), value: 'blue' },
+                                { label: __('Gul 60%', 'block-forge'), value: 'peach' },
+                                { label: __('Ljusblå 60%', 'block-forge'), value: 'blue' },
+                                { label: __('Korall', 'block-forge'), value: 'koral' },
                             ]}
                             onChange={(value) => updateCard(i, 'colorVariant', value)}
                         />
@@ -132,7 +134,7 @@ export default function Edit({ attributes, setAttributes }) {
                         <div className="mb-8">
                             <RichText
                                 tagName="h2"
-                                className="type-label !text-black mb-4"
+                                className="type-label !text-black mb-6"
                                 style={toInlineStyle(sectionTitleStyle)}
                                 value={sectionTitle}
                                 onChange={(value) => setAttributes({ sectionTitle: value })}
@@ -163,7 +165,7 @@ export default function Edit({ attributes, setAttributes }) {
                                         <div>
                                             <RichText
                                                 tagName="h3"
-                                                className="font-barlow-semicondensed text-[28px] tracking-[-0.02em] !text-black mb-1 font-semibold leading-snug"
+                                                className="font-barlow-semicondensed text-[34px] md:text-[38px] -tracking-[0.02em] !text-black mb-1 font-semibold leading-snug"
                                                 style={toInlineStyle(cardTitleStyle)}
                                                 value={card.title}
                                                 onChange={(value) => updateCard(i, 'title', value)}

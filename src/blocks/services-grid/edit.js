@@ -102,10 +102,10 @@ export default function Edit({ attributes, setAttributes }) {
                         label={__('Background Color', 'block-forge')}
                         value={backgroundColor}
                         options={[
-                            { label: __('White', 'block-forge'), value: 'white' },
+                            { label: __('Vit', 'block-forge'), value: 'white' },
                             { label: __('Dark', 'block-forge'), value: 'dark' },
-                            { label: __('Blue', 'block-forge'), value: 'blue' },
-                            { label: __('Peach', 'block-forge'), value: 'peach' },
+                            { label: __('Ljusblå 60%', 'block-forge'), value: 'blue' },
+                            { label: __('Gul 60%', 'block-forge'), value: 'peach' },
                         ]}
                         onChange={(v) => setAttributes({ backgroundColor: v })}
                     />

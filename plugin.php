@@ -106,6 +106,41 @@ function block_forge_inline_style( $style ) {
     return implode( '; ', $parts );
 }
 
+/**
+ * Register the "Checklist" style variation for the core List block.
+ * Editor-only script — the actual marker styling lives in build/style.css
+ * (.is-style-checklist), which already loads on both editor and front end.
+ */
+add_action( 'enqueue_block_editor_assets', function() {
+    $rel  = 'assets/list-block-styles.js';
+    $path = plugin_dir_path( __FILE__ ) . $rel;
+
+    if ( ! file_exists( $path ) ) {
+        return;
+    }
+
+    wp_enqueue_script(
+        'block-forge-list-styles',
+        plugins_url( $rel, __FILE__ ),
+        [ 'wp-blocks', 'wp-dom-ready' ],
+        (string) filemtime( $path ),
+        true
+    );
+
+    $fmt_rel  = 'assets/arrow-link-format.js';
+    $fmt_path = plugin_dir_path( __FILE__ ) . $fmt_rel;
+
+    if ( file_exists( $fmt_path ) ) {
+        wp_enqueue_script(
+            'block-forge-arrow-link-format',
+            plugins_url( $fmt_rel, __FILE__ ),
+            [ 'wp-rich-text', 'wp-block-editor', 'wp-element', 'wp-i18n', 'wp-dom-ready' ],
+            (string) filemtime( $fmt_path ),
+            true
+        );
+    }
+} );
+
 add_action( 'after_setup_theme', function() {
     register_nav_menus( [
         'block-forge-primary' => __( 'Block Forge – Primary Navigation', 'block-forge' ),

@@ -12,6 +12,7 @@ $card_description_style    = block_forge_inline_style( $attributes['cardDescript
 $overlay_classes = [
     'peach' => 'bg-banner-peach',
     'blue'  => 'bg-banner-blue',
+    'koral' => 'bg-coral',
 ];
 ?>
 

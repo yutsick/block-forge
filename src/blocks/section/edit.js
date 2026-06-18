@@ -21,11 +21,17 @@ const PAD_Y_CLASSES = {
     xl:   'py-20',
 };
 
-export default function Edit({ attributes, setAttributes }) {
-    const { bgColor, padY, anchorId } = attributes;
+const WIDTH_CLASSES = {
+    container: 'max-w-[1120px]',
+    tall:      'max-w-[736px]',
+};
 
-    const bgClass   = BG_CLASSES[bgColor || 'none'] ?? '';
-    const padYClass = PAD_Y_CLASSES[padY || 'lg'] ?? 'py-14';
+export default function Edit({ attributes, setAttributes }) {
+    const { bgColor, padY, width, anchorId } = attributes;
+
+    const bgClass    = BG_CLASSES[bgColor || 'none'] ?? '';
+    const padYClass  = PAD_Y_CLASSES[padY || 'lg'] ?? 'py-14';
+    const widthClass = WIDTH_CLASSES[width || 'container'] ?? 'max-w-[1120px]';
 
     const blockProps = useBlockProps({
         className: `block-forge-section w-full ${bgClass} ${padYClass}`,
@@ -33,7 +39,7 @@ export default function Edit({ attributes, setAttributes }) {
 
     const innerBlocksProps = useInnerBlocksProps(
         {
-            className: 'max-w-[1120px] mx-auto px-4 md:px-8',
+            className: `${widthClass} mx-auto px-4 md:px-8`,
         },
         {
             renderAppender: useInnerBlocksProps.ButtonBlockAppender,
@@ -48,14 +54,14 @@ export default function Edit({ attributes, setAttributes }) {
                         label={__('Background', 'block-forge')}
                         value={bgColor || 'none'}
                         options={[
-                            { label: __('None / transparent', 'block-forge'), value: 'none' },
-                            { label: __('White',              'block-forge'), value: 'white' },
+                            { label: __('Ingen / transparent', 'block-forge'), value: 'none' },
+                            { label: __('Vit',                'block-forge'), value: 'white' },
                             { label: __('Background grey',    'block-forge'), value: 'bg-grey' },
-                            { label: __('Coral 60%',          'block-forge'), value: 'coral-60' },
-                            { label: __('Yellow 60%',         'block-forge'), value: 'yellow-60' },
-                            { label: __('Light blue 60%',     'block-forge'), value: 'light-blue-60' },
-                            { label: __('Blue (dark)',        'block-forge'), value: 'blue' },
-                            { label: __('Purple (dark)',      'block-forge'), value: 'purple' },
+                            { label: __('Korall 60%',         'block-forge'), value: 'coral-60' },
+                            { label: __('Gul 60%',            'block-forge'), value: 'yellow-60' },
+                            { label: __('Ljusblå 60%',        'block-forge'), value: 'light-blue-60' },
+                            { label: __('Blå',                'block-forge'), value: 'blue' },
+                            { label: __('Lila',               'block-forge'), value: 'purple' },
                         ]}
                         onChange={(v) => setAttributes({ bgColor: v })}
                     />
@@ -70,6 +76,15 @@ export default function Edit({ attributes, setAttributes }) {
                             { label: __('X-Large (80px)','block-forge'), value: 'xl' },
                         ]}
                         onChange={(v) => setAttributes({ padY: v })}
+                    />
+                    <SelectControl
+                        label={__('Width', 'block-forge')}
+                        value={width || 'container'}
+                        options={[
+                            { label: __('Container width (1120px)', 'block-forge'), value: 'container' },
+                            { label: __('Tall content width (736px)', 'block-forge'), value: 'tall' },
+                        ]}
+                        onChange={(v) => setAttributes({ width: v })}
                     />
                 </PanelBody>
 

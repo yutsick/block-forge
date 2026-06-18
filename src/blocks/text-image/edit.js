@@ -72,7 +72,7 @@ export default function Edit({ attributes, setAttributes }) {
             <div className={isFull ? 'max-w-sm' : ''}>
                 <RichText
                     tagName="h2"
-                    className={`font-semibold text-banner-heading mb-4 ${isFull ? 'text-[22px] leading-snug' : 'text-[26px] leading-tight'}`}
+                    className="type-h1 text-banner-heading mb-5"
                     style={toInlineStyle(titleStyle)}
                     value={title}
                     onChange={(value) => setAttributes({ title: value })}
@@ -80,7 +80,7 @@ export default function Edit({ attributes, setAttributes }) {
                 />
                 <RichText
                     tagName="p"
-                    className="type-body-sm text-banner-text leading-relaxed mb-5"
+                    className={`${isFull ? 'type-body-sm' : 'type-body'} text-banner-text mb-6`}
                     style={toInlineStyle(descriptionStyle)}
                     value={description}
                     onChange={(value) => setAttributes({ description: value })}
@@ -142,10 +142,10 @@ export default function Edit({ attributes, setAttributes }) {
                         label={__('Background Color', 'block-forge')}
                         value={backgroundColor}
                         options={[
-                            { label: __('White', 'block-forge'), value: 'white' },
-                            { label: __('Peach', 'block-forge'), value: 'peach' },
-                            { label: __('Blue', 'block-forge'), value: 'blue' },
-                            { label: __('Pink', 'block-forge'), value: 'pink' },
+                            { label: __('Vit', 'block-forge'), value: 'white' },
+                            { label: __('Gul 60%', 'block-forge'), value: 'peach' },
+                            { label: __('Ljusblå 60%', 'block-forge'), value: 'blue' },
+                            { label: __('Korall', 'block-forge'), value: 'pink' },
                         ]}
                         onChange={(value) => setAttributes({ backgroundColor: value })}
                     />

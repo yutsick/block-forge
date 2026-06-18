@@ -57,9 +57,9 @@ export default function Edit({ attributes, setAttributes }) {
                         label={__('Background Color', 'block-forge')}
                         value={backgroundColor}
                         options={[
-                            { label: 'Blue', value: 'blue' },
-                            { label: 'Peach', value: 'peach' },
-                            { label: 'Pink', value: 'pink' },
+                            { label: __('Ljusblå 60%', 'block-forge'), value: 'blue' },
+                            { label: __('Gul 60%', 'block-forge'), value: 'peach' },
+                            { label: __('Korall', 'block-forge'), value: 'pink' },
                         ]}
                         onChange={(value) => setAttributes({ backgroundColor: value })}
                     />
@@ -302,7 +302,7 @@ export default function Edit({ attributes, setAttributes }) {
                     <div className="flex-[2] flex flex-col justify-center gap-6 min-w-0 px-8 py-8 max-w-xl relative z-10">
                         <RichText
                             tagName="h2"
-                            className="banner__title font-barlow-semicondensed text-banner-heading text-[28px] font-semibold leading-[34px] tracking-[-0.01em]"
+                            className="banner__title font-barlow-semicondensed -tracking-[0.01em] text-banner-heading text-[44px] md:text-[58px] font-semibold md:leading-[64px]"
                             style={toInlineStyle(titleStyle)}
                             value={title}
                             onChange={(value) => setAttributes({ title: value })}

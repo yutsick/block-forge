@@ -461,3 +461,101 @@
 .services-card__link:focus-visible .services-card__link-text::after {
     transform: scaleX(1);
 }
+
+/* ─── core/list — "Checklist" style variation ───────────────────────
+ * Registered via assets/list-block-styles.js (registerBlockStyle).
+ * Replaces bullets/numbers with the Movendi ring-check marker (Blå).
+ * Loads in editor + front end through build/style.css.
+ * To recolor: change the two stroke="#27348B" values in the data URI.
+ * !important mirrors the .block-forge-list reset above — the content
+ * theme injects ::before bullets on any <ul>/<li>, which must be beaten.
+ * ──────────────────────────────────────────────────────────────────── */
+.wp-block-list.is-style-checklist,
+.wp-block-list.is-style-checklist ul,
+.wp-block-list.is-style-checklist ol {
+    list-style: none !important;
+    padding-left: 0;
+}
+
+.wp-block-list.is-style-checklist li {
+    position: relative;
+    padding-left: 2.25rem;
+    margin-top: 0.5rem;
+}
+
+.wp-block-list.is-style-checklist li::before {
+    content: "" !important;
+    display: block !important;
+    position: absolute;
+    left: 0;
+    top: 0.05em;
+    width: 1.4em;
+    height: 1.4em;
+    background: url("data:image/svg+xml,%3Csvg%20width%3D%2228%22%20height%3D%2228%22%20viewBox%3D%220%200%2028%2028%22%20fill%3D%22none%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cpath%20d%3D%22M9.625%2014.875L12.25%2017.5L18.375%2011.375%22%20stroke%3D%22%2327348B%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22/%3E%3Cpath%20d%3D%22M14%2024.5C19.799%2024.5%2024.5%2019.799%2024.5%2014C24.5%208.20101%2019.799%203.5%2014%203.5C8.20101%203.5%203.5%208.20101%203.5%2014C3.5%2019.799%208.20101%2024.5%2014%2024.5Z%22%20stroke%3D%22%2327348B%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22/%3E%3C/svg%3E") no-repeat center / contain !important;
+}
+
+/* ─── Inline "Arrow link" rich-text format ──────────────────────────
+ * Registered via assets/arrow-link-format.js (registerFormatType).
+ * Reproduces the services-card__link behaviour for an inline link:
+ * the whole link nudges 3px right on hover, the arrow nudges further,
+ * and an underline wipes in left→right. The arrow is a CSS ::after
+ * (an inline format can't carry a real SVG node); underline is ::before.
+ * Color = Blå (#27348B). To recolor, change stroke="#27348B" below.
+ * ──────────────────────────────────────────────────────────────────── */
+.bf-arrow-link {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    color: var(--color-blue);
+    font-family: var(--font-barlow-semicondensed);
+    font-weight: 600;
+    text-decoration: none;
+    transition: transform 200ms ease;
+}
+
+/* Neutralise the theme's default link underline, whether our span sits
+ * inside the <a> or wraps it. */
+.bf-arrow-link a,
+a:has(> .bf-arrow-link),
+a:has(.bf-arrow-link) {
+    text-decoration: none;
+    color: inherit;
+}
+
+.bf-arrow-link::after {
+    content: "";
+    flex: none;
+    width: 1.1em;
+    height: 1.1em;
+    background: url("data:image/svg+xml,%3Csvg%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cpath%20d%3D%22M4%2012.375L19.25%2012.375%22%20stroke%3D%22%2327348B%22%20stroke-width%3D%221.8%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22/%3E%3Cpath%20d%3D%22M12.5%2019.125L19.25%2012.375L12.5%205.625%22%20stroke%3D%22%2327348B%22%20stroke-width%3D%221.8%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22/%3E%3C/svg%3E") no-repeat center / contain;
+    transition: transform 200ms ease;
+}
+
+.bf-arrow-link::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    width: calc(100% - 1.35em);
+    height: 1px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 220ms ease;
+}
+
+.bf-arrow-link:hover,
+.bf-arrow-link:focus-visible {
+    transform: translateX(3px);
+}
+
+.bf-arrow-link:hover::after,
+.bf-arrow-link:focus-visible::after {
+    transform: translateX(3px);
+}
+
+.bf-arrow-link:hover::before,
+.bf-arrow-link:focus-visible::before {
+    transform: scaleX(1);
+}

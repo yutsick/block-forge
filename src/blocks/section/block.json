@@ -29,6 +29,10 @@
       "type": "string",
       "default": "lg"
     },
+    "width": {
+      "type": "string",
+      "default": "container"
+    },
     "anchorId": {
       "type": "string",
       "default": ""

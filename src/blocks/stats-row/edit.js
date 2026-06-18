@@ -100,7 +100,7 @@ export default function Edit({ attributes, setAttributes }) {
                     <div className="max-w-[1120px] mx-auto">
                         <RichText
                             tagName="h2"
-                            className="type-label text-banner-text mb-4"
+                            className="type-label !text-black mb-4"
                             style={toInlineStyle(sectionTitleStyle)}
                             value={sectionTitle}
                             onChange={(value) => setAttributes({ sectionTitle: value })}
@@ -131,7 +131,7 @@ export default function Edit({ attributes, setAttributes }) {
                                         )}
                                         <RichText
                                             tagName="span"
-                                            className="type-h3 font-semibold !text-black leading-snug"
+                                            className="type-h5 font-semibold !text-black leading-snug"
                                             style={toInlineStyle(statLabelStyle)}
                                             value={stat.label}
                                             onChange={(value) => updateStat(i, { label: value })}

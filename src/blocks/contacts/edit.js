@@ -94,14 +94,14 @@ export default function Edit({ attributes, setAttributes }) {
                             label={__('Background color', 'block-forge')}
                             value={card.bgColor || 'coral-60'}
                             options={[
-                                { label: __('Coral 60% (peach pink)', 'block-forge'), value: 'coral-60' },
-                                { label: __('Yellow 60%', 'block-forge'), value: 'yellow-60' },
-                                { label: __('Light blue 60%', 'block-forge'), value: 'light-blue-60' },
-                                { label: __('Coral', 'block-forge'), value: 'coral' },
-                                { label: __('Yellow', 'block-forge'), value: 'yellow' },
-                                { label: __('Light blue', 'block-forge'), value: 'light-blue' },
-                                { label: __('Blue', 'block-forge'), value: 'blue' },
-                                { label: __('Purple', 'block-forge'), value: 'purple' },
+                                { label: __('Korall 60%', 'block-forge'), value: 'coral-60' },
+                                { label: __('Gul 60%', 'block-forge'), value: 'yellow-60' },
+                                { label: __('Ljusblå 60%', 'block-forge'), value: 'light-blue-60' },
+                                { label: __('Korall', 'block-forge'), value: 'coral' },
+                                { label: __('Gul', 'block-forge'), value: 'yellow' },
+                                { label: __('Ljusblå', 'block-forge'), value: 'light-blue' },
+                                { label: __('Blå', 'block-forge'), value: 'blue' },
+                                { label: __('Lila', 'block-forge'), value: 'purple' },
                             ]}
                             onChange={(v) => updateCard(i, 'bgColor', v)}
                         />

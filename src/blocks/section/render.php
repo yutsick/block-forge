@@ -1,6 +1,7 @@
 <?php
 $bg_color = $attributes['bgColor'] ?? 'none';
 $pad_y    = $attributes['padY']    ?? 'lg';
+$width    = $attributes['width']   ?? 'container';
 $anchor   = $attributes['anchorId'] ?? '';
 
 $bg_classes = [
@@ -20,16 +21,21 @@ $pad_y_classes = [
     'lg'   => 'py-14',
     'xl'   => 'py-20',
 ];
+$width_classes = [
+    'container' => 'max-w-[1120px]',
+    'tall'      => 'max-w-[736px]',
+];
 
 $bg_class    = $bg_classes[ $bg_color ]    ?? '';
 $pad_y_class = $pad_y_classes[ $pad_y ]    ?? 'py-14';
+$width_class = $width_classes[ $width ]    ?? 'max-w-[1120px]';
 
 $wrapper_classes = trim( "block-forge-section w-full $bg_class $pad_y_class" );
 ?>
 
 <section <?php echo get_block_wrapper_attributes( [ 'class' => $wrapper_classes ] ); ?>
     <?php if ( $anchor ) echo 'id="' . esc_attr( $anchor ) . '"'; ?>>
-    <div class="max-w-[1120px] mx-auto px-4 md:px-0">
+    <div class="<?php echo esc_attr( $width_class ); ?> mx-auto px-4 md:px-0">
         <?php echo $content; ?>
     </div>
 </section>
