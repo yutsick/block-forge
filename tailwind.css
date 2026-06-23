@@ -559,3 +559,14 @@ a:has(.bf-arrow-link) {
 .bf-arrow-link:focus-visible::before {
     transform: scaleX(1);
 }
+
+/* ─── Section block — inner block spacing ───────────────────────────
+ * The Section's inner container is a plain <div>, not a WP layout
+ * container, so core blocks dropped inside get no block-gap and
+ * collapse together. Re-create the vertical rhythm between direct
+ * children — matching the theme's block gap when it's defined.
+ * Adjust the fallback (1.5rem) to taste.
+ * ──────────────────────────────────────────────────────────────────── */
+.block-forge-section > div > div > * + * {
+    margin-block-start: var(--wp--style--block-gap, 1.5rem);
+}

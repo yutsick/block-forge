@@ -21,8 +21,10 @@ const PAD_Y_CLASSES = {
     xl:   'py-20',
 };
 
+// Inner content width. The outer container is always 1120px (centered);
+// these constrain the content inside it and stay LEFT-aligned (no mx-auto).
 const WIDTH_CLASSES = {
-    container: 'max-w-[1120px]',
+    container: 'max-w-full',
     tall:      'max-w-[736px]',
 };
 
@@ -31,7 +33,7 @@ export default function Edit({ attributes, setAttributes }) {
 
     const bgClass    = BG_CLASSES[bgColor || 'none'] ?? '';
     const padYClass  = PAD_Y_CLASSES[padY || 'lg'] ?? 'py-14';
-    const widthClass = WIDTH_CLASSES[width || 'container'] ?? 'max-w-[1120px]';
+    const widthClass = WIDTH_CLASSES[width || 'container'] ?? 'max-w-full';
 
     const blockProps = useBlockProps({
         className: `block-forge-section w-full ${bgClass} ${padYClass}`,
@@ -39,7 +41,7 @@ export default function Edit({ attributes, setAttributes }) {
 
     const innerBlocksProps = useInnerBlocksProps(
         {
-            className: `${widthClass} mx-auto px-4 md:px-8`,
+            className: widthClass,
         },
         {
             renderAppender: useInnerBlocksProps.ButtonBlockAppender,
@@ -100,7 +102,9 @@ export default function Edit({ attributes, setAttributes }) {
             </InspectorControls>
 
             <div {...blockProps} id={anchorId || undefined}>
-                <div {...innerBlocksProps} />
+                <div className="max-w-[1120px] mx-auto px-4 md:px-8">
+                    <div {...innerBlocksProps} />
+                </div>
             </div>
         </>
     );

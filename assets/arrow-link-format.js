@@ -25,31 +25,40 @@
 
 	wp.domReady( function () {
 		// Guard against double-registration on editor re-mounts.
-		if ( wp.richText.getFormatType( NAME ) ) {
+		// getFormatType isn't exposed on the global in every build, so
+		// only call it when it exists — otherwise just (re)register.
+		if (
+			typeof wp.richText.getFormatType === 'function' &&
+			wp.richText.getFormatType( NAME )
+		) {
 			return;
 		}
 
-		wp.richText.registerFormatType( NAME, {
-			title: __( 'Arrow link', 'block-forge' ),
-			tagName: 'span',
-			className: 'bf-arrow-link',
-			edit: function ( props ) {
-				return wp.element.createElement(
-					wp.blockEditor.RichTextToolbarButton,
-					{
-						icon: 'arrow-right-alt',
-						title: __( 'Arrow link', 'block-forge' ),
-						isActive: props.isActive,
-						onClick: function () {
-							props.onChange(
-								wp.richText.toggleFormat( props.value, {
-									type: NAME,
-								} )
-							);
-						},
-					}
-				);
-			},
-		} );
+		try {
+			wp.richText.registerFormatType( NAME, {
+				title: __( 'Arrow link', 'block-forge' ),
+				tagName: 'span',
+				className: 'bf-arrow-link',
+				edit: function ( props ) {
+					return wp.element.createElement(
+						wp.blockEditor.RichTextToolbarButton,
+						{
+							icon: 'arrow-right-alt',
+							title: __( 'Arrow link', 'block-forge' ),
+							isActive: props.isActive,
+							onClick: function () {
+								props.onChange(
+									wp.richText.toggleFormat( props.value, {
+										type: NAME,
+									} )
+								);
+							},
+						}
+					);
+				},
+			} );
+		} catch ( e ) {
+			// Already registered (editor re-mount) or API mismatch — ignore.
+		}
 	} );
 } )( window.wp );
