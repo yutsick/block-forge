@@ -2,7 +2,9 @@
   "$schema": "https://schemas.wp.org/trunk/block.json",
   "apiVersion": 3,
   "name": "block-forge/banner",
-  "title": "Banner",
+  "title": "Banner / Distriktspuff",
+  "icon": "format-image",
+  "example": { "viewportWidth": 1200 },
   "category": "block-forge",
   "description": "Fullsize banner with image, text and optional CTA",
   "keywords": [
@@ -15,7 +17,16 @@
   "editorStyle": "file:./editor.css",
   "style": "block-forge-style",
   "render": "file:./render.php",
+  "supports": {
+    "align": [
+      "full"
+    ]
+  },
   "attributes": {
+    "align": {
+      "type": "string",
+      "default": "full"
+    },
     "title": {
       "type": "string",
       "default": "Häng med i Movendi"
@@ -32,6 +43,28 @@
       "type": "boolean",
       "default": false
     },
+    "showDecorationMobile": {
+      "type": "boolean",
+      "default": false
+    },
+    "decorationUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "decorationId": {
+      "type": "number"
+    },
+    "decorationMobileUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "decorationMobileId": {
+      "type": "number"
+    },
+    "decorationPosition": {
+      "type": "string",
+      "default": "left"
+    },
     "imageUrl": {
       "type": "string",
       "default": ""
@@ -46,6 +79,10 @@
     "imageType": {
       "type": "string",
       "default": "full"
+    },
+    "imageTypeMobile": {
+      "type": "string",
+      "default": "boxed"
     },
     "imagePosition": {
       "type": "string",
@@ -76,6 +113,30 @@
     "linkUrl": {
       "type": "string",
       "default": ""
+    },
+    "anchorId": {
+      "type": "string",
+      "default": ""
+    },
+    "titleStyle": {
+      "type": "object",
+      "default": {}
+    },
+    "descriptionStyle": {
+      "type": "object",
+      "default": {}
+    },
+    "primaryButtonStyle": {
+      "type": "object",
+      "default": {}
+    },
+    "secondaryButtonStyle": {
+      "type": "object",
+      "default": {}
+    },
+    "linkStyle": {
+      "type": "object",
+      "default": {}
     }
   }
 }

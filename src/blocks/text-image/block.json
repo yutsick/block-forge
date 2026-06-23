@@ -3,6 +3,8 @@
   "apiVersion": 3,
   "name": "block-forge/text-image",
   "title": "Text + Image",
+  "icon": "align-pull-right",
+  "example": { "viewportWidth": 1200 },
   "category": "block-forge",
   "description": "Two-column block with text on one side and an image on the other. Image can be full-bleed or boxed. Configurable position, background color and image style.",
   "keywords": ["text", "image", "two column", "split", "om oss"],
@@ -50,6 +52,13 @@
     "backgroundColor": {
       "type": "string",
       "default": "white"
-    }
+    },
+    "anchorId": {
+      "type": "string",
+      "default": ""
+    },
+    "titleStyle":       { "type": "object", "default": {} },
+    "descriptionStyle": { "type": "object", "default": {} },
+    "linkStyle":        { "type": "object", "default": {} }
   }
 }

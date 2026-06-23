@@ -3,120 +3,570 @@
 @source "./src";
 
 @theme {
+    --font-ancizar-serif: "Ancizar Serif", serif;
+    --font-barlow-semicondensed: "Barlow Semi Condensed", sans-serif;
+
+    /* ─── Brand colors (source of truth: theme.json) ───────────── */
+    --color-blue: var(--wp--preset--color--blue);
+    --color-yellow: var(--wp--preset--color--yellow);
+    --color-light-blue: var(--wp--preset--color--light-blue);
+    --color-coral: var(--wp--preset--color--coral);
+    --color-purple: var(--wp--preset--color--purple);
+
+    --color-yellow-60: var(--wp--preset--color--yellow-60);
+    --color-light-blue-60: var(--wp--preset--color--light-blue-60);
+    --color-coral-60: var(--wp--preset--color--coral-60);
+
+    --color-black: var(--wp--preset--color--black);
+    --color-text-grey: var(--wp--preset--color--text-grey);
+    --color-lines: var(--wp--preset--color--lines);
+    --color-bg-grey: var(--wp--preset--color--bg-grey);
+    --color-white: var(--wp--preset--color--white);
+
+    /* ─── Validation / state ───────────────────────────────────── */
+    --color-state-error: var(--wp--preset--color--state-error);
+    --color-state-success: var(--wp--preset--color--state-success);
+    --color-state-warning: var(--wp--preset--color--state-warning);
+
+    /* ─── Semantic aliases ─────────────────────────────────────── */
     --color-background: var(--wp--preset--color--background);
     --color-foreground: var(--wp--preset--color--foreground);
     --color-primary: var(--wp--preset--color--primary);
     --color-secondary: var(--wp--preset--color--secondary);
     --color-tertiary: var(--wp--preset--color--tertiary);
 
-    --color-banner-blue: #d9ecf4;
-    --color-banner-peach: #fee4cb;
-    --color-banner-pink: #fad2c9;
-    --color-banner-heading: #27348b;
-    --color-banner-text: #4e4e4e;
-
-    --color-movendi-navy: #162042;
-    --color-movendi-card-peach: #fee4cb;
-    --color-movendi-card-blue: #d9ecf4;
-    --color-movendi-district-blue: #27348b;
+    /* ─── Legacy aliases (backward compatibility) ──────────────── */
+    --color-banner-blue: var(--color-light-blue-60);
+    --color-banner-peach: var(--color-yellow-60);
+    --color-banner-pink: var(--color-coral);
+    --color-banner-heading: var(--color-blue);
+    --color-banner-text: var(--color-text-grey);
+    --color-grey: var(--color-text-grey);
 }
 
 @import "tailwindcss/utilities";
 
-/* ─── Typography utilities ─────────────────────────────────── */
+/* ─── Typography utilities ──────────────────────────────────
+ * Design tokens — source: design system. Mobile values apply
+ * below 768px via @media (max-width: 768px).
+ * ─────────────────────────────────────────────────────────── */
 
+/* Hero — used for huge display titles (e.g. video hero) */
 @utility type-display {
-    font-size: 68px;
-    font-weight: 600;
-    line-height: 74px;
-    letter-spacing: -0.68px;
+    font-family: var(--font-barlow-semicondensed);
+    font-size: 120px;
+    font-weight: 700;
+    line-height: 120px;
+    letter-spacing: -0.02em;
+
+    @media (max-width: 768px) {
+        font-size: 70px;
+        line-height: 0.9;
+    }
 }
 
 @utility type-h1 {
-    font-size: 48px;
+    font-family: var(--font-barlow-semicondensed);
+    font-size: 58px;
     font-weight: 600;
-    line-height: 54px;
-    letter-spacing: -0.48px;
+    line-height: 64px;
+    letter-spacing: -0.01em;
+
+    @media (max-width: 768px) {
+        font-size: 44px;
+        line-height: 48px;
+        letter-spacing: -0.02em;
+    }
 }
 
 @utility type-h2 {
-    font-size: 36px;
+    font-family: var(--font-barlow-semicondensed);
+    font-size: 46px;
     font-weight: 600;
-    line-height: 42px;
-    letter-spacing: -0.36px;
+    line-height: 60px;
+    letter-spacing: 0;
+
+    @media (max-width: 768px) {
+        font-size: 38px;
+        line-height: 48px;
+    }
 }
 
 @utility type-h3 {
-    font-size: 24px;
-    font-weight: 600;
-    line-height: 30px;
-    letter-spacing: -0.24px;
-}
-
-@utility type-body-lg {
-    font-size: 20px;
-    line-height: 28px;
-    letter-spacing: -0.3px;
-}
-
-@utility type-body {
-    font-size: 16px;
-    line-height: 24px;
-}
-
-@utility type-label {
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 0.6px;
-    text-transform: uppercase;
-}
-
-@utility type-caption {
-    font-size: 12px;
-    line-height: 18px;
-}
-
-/* ─── Classic Gutenberg block typography ───────────────────── */
-
-.entry-content h1,
-.wp-block-post-content h1 {
-    font-size: 48px;
-    font-weight: 600;
-    line-height: 54px;
-    letter-spacing: -0.48px;
-    color: #27348b;
-}
-
-.entry-content h2,
-.wp-block-post-content h2 {
-    font-size: 36px;
+    font-family: var(--font-barlow-semicondensed);
+    font-size: 38px;
     font-weight: 600;
     line-height: 42px;
-    letter-spacing: -0.36px;
-    color: #27348b;
+    letter-spacing: -0.02em;
+
+    @media (max-width: 768px) {
+        font-size: 34px;
+        line-height: 1.1;
+    }
 }
 
-.entry-content h3,
-.wp-block-post-content h3 {
+@utility type-h4 {
+    font-family: var(--font-barlow-semicondensed);
+    font-size: 32px;
+    font-weight: 600;
+    line-height: 40px;
+    letter-spacing: -0.01em;
+
+    @media (max-width: 768px) {
+        font-size: 28px;
+        line-height: 36px;
+    }
+}
+
+@utility type-h5 {
+    font-family: var(--font-barlow-semicondensed);
     font-size: 24px;
     font-weight: 600;
     line-height: 30px;
-    letter-spacing: -0.24px;
-    color: #27348b;
+    letter-spacing: -0.01em;
+
+    @media (max-width: 768px) {
+        font-size: 22px;
+        line-height: 28px;
+        letter-spacing: 0;
+    }
 }
 
-.entry-content p,
-.wp-block-paragraph {
+@utility type-h6 {
+    font-family: var(--font-barlow-semicondensed);
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: 0.02em;
+
+    @media (max-width: 768px) {
+        font-size: 18px;
+    }
+}
+
+/* Blockrubrik — uppercase section/block heading */
+@utility type-label {
+    font-family: var(--font-barlow-semicondensed);
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+
+    @media (max-width: 768px) {
+        font-size: 24px;
+        line-height: 34px;
+        letter-spacing: 0.06em;
+    }
+}
+
+/* Label — small uppercase-free meta label (e.g. document item names) */
+@utility type-label-sm {
+    font-family: var(--font-barlow-semicondensed);
     font-size: 16px;
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: 0.01em;
+}
+
+/* Alias for clarity — same as type-label */
+@utility type-block-heading {
+    font-family: var(--font-barlow-semicondensed);
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+
+    @media (max-width: 768px) {
+        font-size: 24px;
+        line-height: 34px;
+        letter-spacing: 0.06em;
+    }
+}
+
+/* Ingress — lead / intro paragraph */
+@utility type-ingress {
+    font-family: var(--font-ancizar-serif);
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 32px;
+    letter-spacing: 0;
+
+    @media (max-width: 768px) {
+        font-size: 18px;
+        line-height: 24px;
+    }
+}
+
+/* Body — default content paragraph (20px) */
+@utility type-body {
+    font-family: var(--font-ancizar-serif);
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 28px;
+    letter-spacing: -0.3px;
+
+    @media (max-width: 768px) {
+        font-size: 18px;
+        font-weight: 500;
+        line-height: 24px;
+        letter-spacing: 0;
+    }
+}
+
+/* Small body */
+@utility type-body-sm {
+    font-family: var(--font-ancizar-serif);
+    font-size: 18px;
+    font-weight: 400;
     line-height: 24px;
-    color: #4e4e4e;
+    letter-spacing: 0;
+
+    @media (max-width: 768px) {
+        font-size: 16px;
+    }
+}
+
+/* Mini text */
+@utility type-mini {
+    font-family: var(--font-ancizar-serif);
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 22px;
+    letter-spacing: 0;
+
+    @media (max-width: 768px) {
+        font-size: 14px;
+    }
+}
+
+/* Tag text — uppercase pill / category label */
+@utility type-tag {
+    font-family: var(--font-barlow-semicondensed);
+    font-size: 14px;
+    font-weight: 600;
+    line-height: normal;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+
+    @media (max-width: 768px) {
+        font-size: 12px;
+        letter-spacing: 0.10em;
+    }
+}
+
+/* Bildtext — image caption */
+@utility type-caption {
+    font-family: var(--font-ancizar-serif);
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 1.2;
+    letter-spacing: 0;
+}
+
+/* Regular link */
+@utility type-regular-link {
+    font-family: var(--font-barlow-semicondensed);
+    font-size: 19px;
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: 0.01em;
+    color: var(--color-blue);
+    text-decoration: none;
+
+    @media (max-width: 768px) {
+        font-size: 16px;
+
+        svg {
+            width: 22px;
+            height: 22px;
+        }
+    }
+}
+
+/* Big button */
+@utility type-button {
+    font-family: var(--font-barlow-semicondensed);
+    font-size: 20px;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: 0;
+
+    @media (max-width: 768px) {
+        font-size: 18px;
+    }
+}
+
+/* Small button */
+@utility type-button-sm {
+    font-family: var(--font-barlow-semicondensed);
+    font-size: 18px;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: 0;
+
+    @media (max-width: 768px) {
+        font-size: 16px;
+    }
+}
+
+/* Input text */
+@utility type-input {
+    font-family: var(--font-ancizar-serif);
+    font-size: 18px;
+    font-weight: 600;
+    line-height: normal;
+    letter-spacing: 0.5px;
+
+    @media (max-width: 768px) {
+        font-size: 16px;
+    }
 }
 
 .entry-content ul,
 .wp-block-list {
+    font-family: var(--font-ancizar-serif);
     font-size: 16px;
     line-height: 24px;
     color: #4e4e4e;
-    padding-left: 1.5rem;
     list-style: disc;
+}
+
+.entry-content a,
+.wp-block-post-content a {
+    color: #27348b;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    transition: opacity 0.15s ease;
+}
+
+.entry-content a:hover,
+.wp-block-post-content a:hover {
+    opacity: 0.7;
+}
+
+/* ─── List reset for layout-primitive ULs ──────────────────────────
+ * Custom blocks frequently use <ul> as a layout container (services
+ * links, mobile nav, social icons, etc.) — NOT as a content list.
+ * The theme's gutenberg-content.css adds blue-dot bullets to any
+ * <ul> inside .prose / .entry-content / .wp-block-post-content,
+ * which leaks into these layout lists. Apply `block-forge-list` on
+ * any such <ul> to cancel the bullet styling.
+ * ────────────────────────────────────────────────────────────────── */
+.block-forge-list,
+.block-forge-list>li {
+    list-style: none;
+    padding-left: 0;
+}
+
+.block-forge-list>li::before {
+    content: none !important;
+    display: none !important;
+}
+
+/* ─── contacts block — body content ─────────────────────────── */
+.contacts-card__body>*+* {
+    margin-top: 0.25rem;
+}
+
+.contacts-card__body strong,
+.contacts-card__body b {
+    font-weight: 600;
+}
+
+.contacts-card__body a {
+    color: var(--color-blue);
+    text-decoration: none;
+}
+
+.contacts-card__body a:hover {
+    text-decoration: underline;
+}
+
+/* ─── accordion block ───────────────────────────────────────── */
+.accordion-item__summary {
+    list-style: none;
+}
+
+.accordion-item__summary::-webkit-details-marker {
+    display: none;
+}
+
+.accordion-item__content>*+* {
+    margin-top: 0.5rem;
+}
+
+.accordion-item__content strong,
+.accordion-item__content b {
+    font-weight: 600;
+}
+
+.accordion-item__content a {
+    color: var(--color-blue);
+    text-decoration: underline;
+}
+
+.accordion-item__content ul {
+    list-style: disc;
+    padding-left: 1.25rem;
+}
+
+.accordion-item__content ol {
+    list-style: decimal;
+    padding-left: 1.25rem;
+}
+
+/* ─── services-grid link hover ──────────────────────────────────
+ * Whole link slides 3px right, arrow slides 3px more (6px total),
+ * text gets a 1px underline that expands left → right.
+ * ──────────────────────────────────────────────────────────────── */
+.services-card__link {
+    transition: transform 200ms ease;
+}
+
+.services-card__link:hover,
+.services-card__link:focus-visible {
+    transform: translateX(3px);
+}
+
+.services-card__link-arrow {
+    transition: transform 200ms ease;
+}
+
+.services-card__link:hover .services-card__link-arrow,
+.services-card__link:focus-visible .services-card__link-arrow {
+    transform: translateX(3px);
+}
+
+.services-card__link-text {
+    position: relative;
+    display: inline-block;
+}
+
+.services-card__link-text::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    width: 100%;
+    height: 1px;
+    background-color: currentColor;
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 220ms ease;
+}
+
+.services-card__link:hover .services-card__link-text::after,
+.services-card__link:focus-visible .services-card__link-text::after {
+    transform: scaleX(1);
+}
+
+/* ─── core/list — "Checklist" style variation ───────────────────────
+ * Registered via assets/list-block-styles.js (registerBlockStyle).
+ * Replaces bullets/numbers with the Movendi ring-check marker (Blå).
+ * Loads in editor + front end through build/style.css.
+ * To recolor: change the two stroke="#27348B" values in the data URI.
+ * !important mirrors the .block-forge-list reset above — the content
+ * theme injects ::before bullets on any <ul>/<li>, which must be beaten.
+ * ──────────────────────────────────────────────────────────────────── */
+.wp-block-list.is-style-checklist,
+.wp-block-list.is-style-checklist ul,
+.wp-block-list.is-style-checklist ol {
+    list-style: none !important;
+    padding-left: 0;
+}
+
+.wp-block-list.is-style-checklist li {
+    position: relative;
+    padding-left: 2.25rem;
+    margin-top: 0.5rem;
+}
+
+.wp-block-list.is-style-checklist li::before {
+    content: "" !important;
+    display: block !important;
+    position: absolute;
+    left: 0;
+    top: 0.05em;
+    width: 1.4em;
+    height: 1.4em;
+    background: url("data:image/svg+xml,%3Csvg%20width%3D%2228%22%20height%3D%2228%22%20viewBox%3D%220%200%2028%2028%22%20fill%3D%22none%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cpath%20d%3D%22M9.625%2014.875L12.25%2017.5L18.375%2011.375%22%20stroke%3D%22%2327348B%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22/%3E%3Cpath%20d%3D%22M14%2024.5C19.799%2024.5%2024.5%2019.799%2024.5%2014C24.5%208.20101%2019.799%203.5%2014%203.5C8.20101%203.5%203.5%208.20101%203.5%2014C3.5%2019.799%208.20101%2024.5%2014%2024.5Z%22%20stroke%3D%22%2327348B%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22/%3E%3C/svg%3E") no-repeat center / contain !important;
+}
+
+/* ─── Inline "Arrow link" rich-text format ──────────────────────────
+ * Registered via assets/arrow-link-format.js (registerFormatType).
+ * Reproduces the services-card__link behaviour for an inline link:
+ * the whole link nudges 3px right on hover, the arrow nudges further,
+ * and an underline wipes in left→right. The arrow is a CSS ::after
+ * (an inline format can't carry a real SVG node); underline is ::before.
+ * Color = Blå (#27348B). To recolor, change stroke="#27348B" below.
+ * ──────────────────────────────────────────────────────────────────── */
+.bf-arrow-link {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    color: var(--color-blue);
+    font-family: var(--font-barlow-semicondensed);
+    font-weight: 600;
+    text-decoration: none;
+    transition: transform 200ms ease;
+}
+
+/* Neutralise the theme's default link underline, whether our span sits
+ * inside the <a> or wraps it. */
+.bf-arrow-link a,
+a:has(> .bf-arrow-link),
+a:has(.bf-arrow-link) {
+    text-decoration: none;
+    color: inherit;
+}
+
+.bf-arrow-link::after {
+    content: "";
+    flex: none;
+    width: 1.1em;
+    height: 1.1em;
+    background: url("data:image/svg+xml,%3Csvg%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cpath%20d%3D%22M4%2012.375L19.25%2012.375%22%20stroke%3D%22%2327348B%22%20stroke-width%3D%221.8%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22/%3E%3Cpath%20d%3D%22M12.5%2019.125L19.25%2012.375L12.5%205.625%22%20stroke%3D%22%2327348B%22%20stroke-width%3D%221.8%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22/%3E%3C/svg%3E") no-repeat center / contain;
+    transition: transform 200ms ease;
+}
+
+.bf-arrow-link::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    width: calc(100% - 1.35em);
+    height: 1px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 220ms ease;
+}
+
+.bf-arrow-link:hover,
+.bf-arrow-link:focus-visible {
+    transform: translateX(3px);
+}
+
+.bf-arrow-link:hover::after,
+.bf-arrow-link:focus-visible::after {
+    transform: translateX(3px);
+}
+
+.bf-arrow-link:hover::before,
+.bf-arrow-link:focus-visible::before {
+    transform: scaleX(1);
+}
+
+/* ─── Section block — inner block spacing ───────────────────────────
+ * The Section's inner container is a plain <div>, not a WP layout
+ * container, so core blocks dropped inside get no block-gap and
+ * collapse together. Re-create the vertical rhythm between direct
+ * children — matching the theme's block gap when it's defined.
+ * Adjust the fallback (1.5rem) to taste.
+ * ──────────────────────────────────────────────────────────────────── */
+.block-forge-section > div > div > * + * {
+    margin-block-start: var(--wp--style--block-gap, 1.5rem);
 }

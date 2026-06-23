@@ -1,0 +1,95 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "block-forge/contacts",
+  "title": "Kontaktblock / Informationsblock",
+  "icon": "phone",
+  "example": { "viewportWidth": 1200 },
+  "category": "block-forge",
+  "description": "Row of contact cards with icon, heading and details (phone, member service, email).",
+  "keywords": [
+    "contacts",
+    "kontakt",
+    "phone",
+    "email"
+  ],
+  "textdomain": "block-forge",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./editor.css",
+  "style": "block-forge-style",
+  "render": "file:./render.php",
+  "attributes": {
+    "sectionTitle": {
+      "type": "string",
+      "default": ""
+    },
+    "cards": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "iconUrl": {
+            "type": "string"
+          },
+          "iconAlt": {
+            "type": "string"
+          },
+          "iconId": {
+            "type": "number"
+          },
+          "bgColor": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "body": {
+            "type": "string"
+          }
+        }
+      },
+      "default": [
+        {
+          "iconUrl": "",
+          "iconAlt": "",
+          "iconId": 0,
+          "bgColor": "coral-60",
+          "title": "Telefonväxel",
+          "body": "<strong>Telefon:</strong> 08-672 60 00<br><strong>Måndag - Torsdag:</strong> 09:00 - 16:30<br><strong>Fredag:</strong> 09:00 - 15:30"
+        },
+        {
+          "iconUrl": "",
+          "iconAlt": "",
+          "iconId": 0,
+          "bgColor": "coral-60",
+          "title": "Medlemsservice",
+          "body": "Lämna gärna ett meddelande på vår telefonsvarare så ringer vi upp så snart vi kan.<br><br><strong>Telefon:</strong> 08-672 60 00"
+        },
+        {
+          "iconUrl": "",
+          "iconAlt": "",
+          "iconId": 0,
+          "bgColor": "coral-60",
+          "title": "E-post",
+          "body": "Mejlen besvaras varje vardag.<br><br><strong>E-post för allmänna frågor:</strong><br><a href=\"mailto:info@movendi.se\">info@movendi.se</a><br><br><strong>E-post för faktura/övriga:</strong><br><a href=\"mailto:ekonomi@movendi.se\">ekonomi@movendi.se</a>"
+        }
+      ]
+    },
+    "anchorId": {
+      "type": "string",
+      "default": ""
+    },
+    "sectionTitleStyle": {
+      "type": "object",
+      "default": {}
+    },
+    "cardTitleStyle": {
+      "type": "object",
+      "default": {}
+    },
+    "cardBodyStyle": {
+      "type": "object",
+      "default": {}
+    }
+  }
+}
