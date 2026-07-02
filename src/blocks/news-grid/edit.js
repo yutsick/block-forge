@@ -349,11 +349,11 @@ export default function Edit({ attributes, setAttributes }) {
                                                 </div>
                                             )}
                                             <h3
-                                                className="font-barlow-semicondensed text-[32px] !text-black font-semibold leading-snug tracking-[-0.01em]"
+                                                className="font-barlow-semicondensed text-[32px] !text-black font-semibold leading-snug tracking-[-0.01em] min-h-[2lh]"
                                                 dangerouslySetInnerHTML={{ __html: post.title?.rendered ?? '' }}
                                             />
                                             <p
-                                                className="type-body text-banner-text"
+                                                className="type-body text-banner-text min-h-[3lh]"
                                                 dangerouslySetInnerHTML={{ __html: post.excerpt?.rendered ?? '' }}
                                             />
                                         </article>

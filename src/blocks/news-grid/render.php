@@ -185,14 +185,14 @@ if ( empty( $selected_post_ids ) ) {
                     <?php endif; ?>
 
                     <h3
-                        class="font-barlow-semicondensed text-[32px] md:-mt-[10px] text-black group-hover:text-[#27348B] transition-colors font-semibold leading-snug tracking-[-0.01em]">
+                        class="font-barlow-semicondensed text-[32px] md:-mt-[10px] text-black group-hover:text-[#27348B] transition-colors font-semibold leading-snug tracking-[-0.01em] min-h-[2lh]">
                         <a href="<?php echo esc_url( $permalink ); ?>" class="no-underline">
                             <?php the_title(); ?>
                         </a>
                     </h3>
 
                     <?php if ( $excerpt ) : ?>
-                    <p class="type-body text-banner-text wrap-break-word"><?php echo wp_kses_post( $excerpt ); ?></p>
+                    <p class="type-body text-banner-text wrap-break-word min-h-[3lh]"><?php echo wp_kses_post( $excerpt ); ?></p>
                     <?php endif; ?>
                 </article>
                 <?php endwhile; ?>

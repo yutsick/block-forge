@@ -87,7 +87,7 @@ $btn_class         = $is_dark
                     <?php if ( $title_url ) : ?>
                     <a href="<?php echo esc_url( $title_url ); ?>"
                         class="services-card__title-link group inline-flex items-center gap-2 no-underline">
-                        <h3 class="type-h4 <?php echo $heading_class; ?> group-hover:underline"
+                        <h3 class="type-h4 min-h-[2lh] <?php echo $heading_class; ?> group-hover:underline"
                             <?php if ( $card_title_style ) echo 'style="' . esc_attr( $card_title_style ) . '"'; ?>>
                             <?php echo wp_kses( $card['title'], [] ); ?>
                         </h3>
@@ -101,7 +101,7 @@ $btn_class         = $is_dark
                         </svg>
                     </a>
                     <?php else : ?>
-                    <h3 class="type-h4 <?php echo $heading_class; ?>"
+                    <h3 class="type-h4 min-h-[2lh] <?php echo $heading_class; ?>"
                         <?php if ( $card_title_style ) echo 'style="' . esc_attr( $card_title_style ) . '"'; ?>>
                         <?php echo wp_kses( $card['title'], [] ); ?>
                     </h3>
@@ -110,7 +110,7 @@ $btn_class         = $is_dark
 
                     <!-- Description -->
                     <?php if ( ! empty( $card['description'] ) ) : ?>
-                    <p class="type-body <?php echo $body_class; ?>"
+                    <p class="type-body min-h-[3lh] <?php echo $body_class; ?>"
                         <?php if ( $card_description_style ) echo 'style="' . esc_attr( $card_description_style ) . '"'; ?>>
                         <?php echo wp_kses( $card['description'], [ 'strong' => [], 'em' => [], 'b' => [], 'i' => [] ] ); ?>
                     </p>

@@ -165,7 +165,7 @@ export default function Edit({ attributes, setAttributes }) {
                                         <div>
                                             <RichText
                                                 tagName="h3"
-                                                className="font-barlow-semicondensed text-[34px] md:text-[38px] -tracking-[0.02em] !text-black mb-1 font-semibold leading-snug"
+                                                className="font-barlow-semicondensed text-[34px] md:text-[38px] -tracking-[0.02em] !text-black mb-1 font-semibold leading-snug min-h-[2lh]"
                                                 style={toInlineStyle(cardTitleStyle)}
                                                 value={card.title}
                                                 onChange={(value) => updateCard(i, 'title', value)}
@@ -174,7 +174,7 @@ export default function Edit({ attributes, setAttributes }) {
                                             />
                                             <RichText
                                                 tagName="p"
-                                                className="type-body text-[#212121]"
+                                                className="type-body text-[#212121] min-h-[3lh]"
                                                 style={toInlineStyle(cardDescriptionStyle)}
                                                 value={card.description}
                                                 onChange={(value) => updateCard(i, 'description', value)}

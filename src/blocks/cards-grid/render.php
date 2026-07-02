@@ -50,13 +50,13 @@ $overlay_classes = [
                         <div>
                             <?php if ( ! empty( $card['title'] ) ) : ?>
                             <h3
-                                class="font-barlow-semicondensed text-[34px] md:text-[38px] -tracking-[0.02em] text-black mb-1 font-semibold leading-snug group-hover:underline"
+                                class="font-barlow-semicondensed text-[34px] md:text-[38px] -tracking-[0.02em] text-black mb-1 font-semibold leading-snug min-h-[2lh] group-hover:underline"
                                 <?php if ( $card_title_style ) echo 'style="' . esc_attr( $card_title_style ) . '"'; ?>>
                                 <?php echo wp_kses( $card['title'], [] ); ?>
                             </h3>
                             <?php endif; ?>
                             <?php if ( ! empty( $card['description'] ) ) : ?>
-                            <p class="type-body text-[#212121]"
+                            <p class="type-body text-[#212121] min-h-[3lh]"
                                 <?php if ( $card_description_style ) echo 'style="' . esc_attr( $card_description_style ) . '"'; ?>>
                                 <?php echo wp_kses( $card['description'], [ 'strong' => [], 'em' => [], 'b' => [], 'i' => [] ] ); ?>
                             </p>
