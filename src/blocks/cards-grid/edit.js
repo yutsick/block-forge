@@ -161,11 +161,11 @@ export default function Edit({ attributes, setAttributes }) {
                                             <div className="w-full h-full bg-gray-200 rounded-[8px]" />
                                         )}
                                     </div>
-                                    <div className={`relative ${OVERLAY_CLASSES[card.colorVariant] ?? 'bg-banner-peach'} mx-[50px] px-8 pt-6 pb-8 flex flex-col items-start gap-4 -mt-[36px] rounded-[8px]`}>
+                                    <div className={`relative ${OVERLAY_CLASSES[card.colorVariant] ?? 'bg-banner-peach'} mx-[50px] px-8 pt-6 pb-8 flex flex-col items-start gap-4 -mt-[36px] rounded-[8px] min-h-[300px]`}>
                                         <div>
                                             <RichText
                                                 tagName="h3"
-                                                className="font-barlow-semicondensed text-[34px] md:text-[38px] -tracking-[0.02em] !text-black mb-1 font-semibold leading-snug"
+                                                className="font-barlow-semicondensed text-[34px] md:text-[38px] -tracking-[0.02em] !text-black mb-1 font-semibold leading-snug min-h-[104px]"
                                                 style={toInlineStyle(cardTitleStyle)}
                                                 value={card.title}
                                                 onChange={(value) => updateCard(i, 'title', value)}

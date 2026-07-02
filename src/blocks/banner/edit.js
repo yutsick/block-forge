@@ -321,7 +321,7 @@ export default function Edit({ attributes, setAttributes }) {
                             <div className="flex gap-4">
                                 <RichText
                                     tagName="span"
-                                    className="!no-underline inline-flex items-center px-6 py-3 bg-banner-heading !text-white rounded-full text-sm font-semibold"
+                                    className="bf-btn bf-btn--large bf-btn--primary-default"
                                     style={toInlineStyle(primaryButtonStyle)}
                                     value={primaryButton.label}
                                     onChange={(value) => setAttributes({ primaryButton: { ...primaryButton, label: value } })}
@@ -330,7 +330,7 @@ export default function Edit({ attributes, setAttributes }) {
                                 />
                                 <RichText
                                     tagName="span"
-                                    className="!no-underline inline-flex items-center px-6 py-3 border-2 border-banner-heading text-banner-heading rounded-full text-sm font-semibold"
+                                    className="bf-btn bf-btn--large bf-btn--secondary-default"
                                     style={toInlineStyle(secondaryButtonStyle)}
                                     value={secondaryButton.label}
                                     onChange={(value) => setAttributes({ secondaryButton: { ...secondaryButton, label: value } })}

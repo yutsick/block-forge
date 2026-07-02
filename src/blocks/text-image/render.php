@@ -49,10 +49,12 @@ $is_image_left = $image_position === 'left';
             class="flex-[2] <?php echo $bg_class; ?> <?php echo $is_image_left ? 'md:mr-auto' : 'md:ml-auto';?> flex items-center px-14 py-14">
             <div class="max-w-sm">
                 <?php if ( $title ) : ?>
-                <h2 class="type-h1 text-banner-heading mb-5"
+                <h2 class="type-h1 text-banner-heading mb-5 min-h-[74px] md:min-h-[108px]"
                     <?php if ( $title_style ) echo 'style="' . esc_attr( $title_style ) . '"'; ?>>
                     <?php echo wp_kses_post( $title ); ?>
                 </h2>
+                <?php else : ?>
+                <div class="mb-5 min-h-[74px] md:min-h-[108px]"></div>
                 <?php endif; ?>
                 <?php if ( $description ) : ?>
                 <p class="type-body-sm text-banner-text mb-6"
@@ -97,10 +99,12 @@ $is_image_left = $image_position === 'left';
             <!-- Text column -->
             <div class="w-full md:flex-1 flex flex-col justify-center">
                 <?php if ( $title ) : ?>
-                <h2 class="type-h1 text-banner-heading mb-5"
+                <h2 class="type-h1 text-banner-heading mb-5 min-h-[74px] md:min-h-[108px]"
                     <?php if ( $title_style ) echo 'style="' . esc_attr( $title_style ) . '"'; ?>>
                     <?php echo wp_kses_post( $title ); ?>
                 </h2>
+                <?php else : ?>
+                <div class="mb-5 min-h-[74px] md:min-h-[108px]"></div>
                 <?php endif; ?>
                 <?php if ( $description ) : ?>
                 <p class="type-body text-banner-text mb-6"

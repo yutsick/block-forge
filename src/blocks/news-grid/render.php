@@ -117,7 +117,7 @@ if ( empty( $selected_post_ids ) ) {
 
             <!-- Articles grid -->
             <?php if ( $query->have_posts() ) : ?>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-x-6 gap-y-10">
+            <div class="news-grid__posts grid grid-cols-1 md:grid-cols-3 gap-x-6 gap-y-10">
                 <?php while ( $query->have_posts() ) : $query->the_post(); ?>
                 <?php
                     $post_id           = get_the_ID();
@@ -132,7 +132,7 @@ if ( empty( $selected_post_ids ) ) {
                     $reviewer_name     = $is_review ? (string) get_post_meta( $post_id, '_movendi_reviewer_name', true ) : '';
                     $reviewer_position = $is_review ? (string) get_post_meta( $post_id, '_movendi_reviewer_position', true ) : '';
                 ?>
-                <article class="group flex flex-col gap-3">
+                <article class="news-grid__card group flex flex-col gap-3">
                     <?php if ( $thumbnail_url ) : ?>
                     <a href="<?php echo esc_url( $permalink ); ?>"
                         class="block overflow-hidden rounded-xl <?php echo $is_review ? 'aspect-[352/264]' : 'aspect-[352/254]'; ?>">
@@ -185,21 +185,21 @@ if ( empty( $selected_post_ids ) ) {
                     <?php endif; ?>
 
                     <h3
-                        class="font-barlow-semicondensed text-[32px] md:-mt-[10px] text-black group-hover:text-[#27348B] transition-colors font-semibold leading-snug tracking-[-0.01em]">
+                        class="news-grid__card-title font-barlow-semicondensed text-[32px] md:-mt-[10px] text-black group-hover:text-[#27348B] transition-colors font-semibold leading-snug tracking-[-0.01em]">
                         <a href="<?php echo esc_url( $permalink ); ?>" class="no-underline">
                             <?php the_title(); ?>
                         </a>
                     </h3>
 
                     <?php if ( $excerpt ) : ?>
-                    <p class="type-body text-banner-text wrap-break-word"><?php echo wp_kses_post( $excerpt ); ?></p>
+                    <div class="news-grid__excerpt type-body text-banner-text wrap-break-word"><?php echo wp_kses_post( $excerpt ); ?></div>
                     <?php endif; ?>
                 </article>
                 <?php endwhile; ?>
             </div>
             <?php if ( $more_label && $more_url ) : ?>
             <a href="<?php echo esc_url( $more_url ); ?>"
-                class="lg:hidden flex type-regular-link w-full justify-center rounded-full h-10 border border-main items-center gap-1 mt-6"
+                class="bf-btn bf-btn--small bf-btn--secondary-default lg:hidden mx-auto mt-6"
                 <?php if ( $more_link_style ) echo 'style="' . esc_attr( $more_link_style ) . '"'; ?>>
                 <?php echo wp_kses( $more_label, [] ); ?>
 

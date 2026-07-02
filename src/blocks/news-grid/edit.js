@@ -287,7 +287,7 @@ export default function Edit({ attributes, setAttributes }) {
                         )}
 
                         {!isLoading && previewPosts && previewPosts.length > 0 && (
-                            <div className="grid grid-cols-3 gap-6">
+                            <div className="news-grid__posts grid grid-cols-3 gap-x-6 gap-y-10">
                                 {previewPosts.map((post) => {
                                     const featuredMedia = post._embedded?.['wp:featuredmedia']?.[0];
                                     const imgUrl = featuredMedia?.media_details?.sizes?.medium_large?.source_url
@@ -303,7 +303,7 @@ export default function Edit({ attributes, setAttributes }) {
                                     const reviewerPosition = post.position ?? '';
 
                                     return (
-                                        <article key={post.id} className="flex flex-col gap-3">
+                                        <article key={post.id} className="news-grid__card flex flex-col gap-3">
 
                                             <div className="bg-gray-100 rounded-xl aspect-[4/3] overflow-hidden">
                                                 {imgUrl && (
@@ -349,11 +349,11 @@ export default function Edit({ attributes, setAttributes }) {
                                                 </div>
                                             )}
                                             <h3
-                                                className="font-barlow-semicondensed text-[32px] !text-black font-semibold leading-snug tracking-[-0.01em]"
+                                                className="news-grid__card-title font-barlow-semicondensed text-[32px] !text-black font-semibold leading-snug tracking-[-0.01em]"
                                                 dangerouslySetInnerHTML={{ __html: post.title?.rendered ?? '' }}
                                             />
-                                            <p
-                                                className="type-body text-banner-text"
+                                            <div
+                                                className="news-grid__excerpt type-body text-banner-text"
                                                 dangerouslySetInnerHTML={{ __html: post.excerpt?.rendered ?? '' }}
                                             />
                                         </article>

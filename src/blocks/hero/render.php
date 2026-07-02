@@ -66,14 +66,14 @@ $secondary_btn_style = block_forge_inline_style( $attributes['secondaryButtonSty
             <div class="flex flex-wrap justify-center gap-2 md:gap-4 mx-auto font-barlow-semicondensed text-body-lg my-8 md:mt-14 md:mb-23">
                 <?php if ( $primary_btn['label'] ) : ?>
                 <a href="<?php echo esc_url( $primary_btn['url'] ); ?>"
-                    class="hero__btn !no-underline flex  items-center min-w-[155px] px-4 h-[45px] md:min-w-[185px] md:h-[54px] bg-banner-pink !text-black rounded-full font-medium hover:opacity-90 transition-opacity md:text-[20px] text-[18px] justify-center"
+                    class="hero__btn bf-btn bf-btn--large bf-btn--primary-korall min-w-[155px] md:min-w-[185px]"
                     <?php if ( $primary_btn_style ) echo 'style="' . esc_attr( $primary_btn_style ) . '"'; ?>>
                     <?php echo wp_kses( $primary_btn['label'], [] ); ?>
                 </a>
                 <?php endif; ?>
                 <?php if ( $secondary_btn['label'] ) : ?>
                 <a href="<?php echo esc_url( $secondary_btn['url'] ); ?>"
-                    class="hero__btn !no-underline flex items-center min-w-[155px] px-4 h-[45px] md:min-w-[185px] md:h-[54px] border-white !text-white rounded-full font-medium hover:bg-white/10 transition-colors md:text-[20px] text-[18px] border justify-center"
+                    class="hero__btn bf-btn bf-btn--large bf-btn--secondary-vit min-w-[155px] md:min-w-[185px]"
                     <?php if ( $secondary_btn_style ) echo 'style="' . esc_attr( $secondary_btn_style ) . '"'; ?>>
                     <?php echo wp_kses( $secondary_btn['label'], [] ); ?>
                 </a>
@@ -85,7 +85,7 @@ $secondary_btn_style = block_forge_inline_style( $attributes['secondaryButtonSty
 
         <?php if ( $is_video ) : ?>
         <!-- Rounded clip -->
-        <div class="absolute bottom-0 left-0 w-full overflow-hidden leading-none pointer-events-none"
+        <div class="absolute bottom-[-1px] left-0 w-full overflow-hidden leading-none pointer-events-none"
             style="line-height:0">
             <svg viewBox="0 0 1440 72" fill="white" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"
                 class="w-full block">

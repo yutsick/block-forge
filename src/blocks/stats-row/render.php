@@ -41,11 +41,11 @@ $stat_description_style    = block_forge_inline_style( $attributes['statDescript
                         aria-hidden="true" />
                     <?php endif; ?>
                     <span
-                        class="type-h5 font-semibold text-black leading-snug"
+                        class="type-h5 font-semibold text-black leading-snug min-h-[56px] md:min-h-[60px]"
                         <?php if ( $stat_label_style ) echo 'style="' . esc_attr( $stat_label_style ) . '"'; ?>>
                         <?php echo wp_kses( $stat['label'] ?? '', [] ); ?>
                     </span>
-                    <p class="type-body text-grey"
+                    <p class="type-body text-grey min-h-[72px] md:min-h-[84px]"
                         <?php if ( $stat_description_style ) echo 'style="' . esc_attr( $stat_description_style ) . '"'; ?>>
                         <?php echo wp_kses( $stat['description'] ?? '', [ 'strong' => [], 'em' => [], 'b' => [], 'i' => [] ] ); ?>
                     </p>

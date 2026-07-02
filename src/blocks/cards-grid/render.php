@@ -46,14 +46,16 @@ $overlay_classes = [
                     <?php endif; ?>
 
                     <a href="<?php echo esc_url( $card['linkUrl'] ?? '' ); ?>"
-                        class="cards-grid__card group cursor-pointer relative <?php echo esc_attr( $overlay ); ?> mx-7.5 md:mx-[50px] px-8  pt-6 pb-8 flex flex-col items-start  gap-4 -mt-[45px] md:-mt-20 rounded-[8px] no-underline">
+                        class="cards-grid__card group cursor-pointer relative <?php echo esc_attr( $overlay ); ?> mx-7.5 md:mx-[50px] px-8  pt-6 pb-8 flex flex-col items-start  gap-4 -mt-[45px] md:-mt-20 rounded-[8px] no-underline min-h-[300px]">
                         <div>
                             <?php if ( ! empty( $card['title'] ) ) : ?>
                             <h3
-                                class="font-barlow-semicondensed text-[34px] md:text-[38px] -tracking-[0.02em] text-black mb-1 font-semibold leading-snug group-hover:underline"
+                                class="font-barlow-semicondensed text-[34px] md:text-[38px] -tracking-[0.02em] text-black mb-1 font-semibold leading-snug min-h-[94px] md:min-h-[104px] group-hover:underline"
                                 <?php if ( $card_title_style ) echo 'style="' . esc_attr( $card_title_style ) . '"'; ?>>
                                 <?php echo wp_kses( $card['title'], [] ); ?>
                             </h3>
+                            <?php else : ?>
+                            <div class="mb-1 min-h-[94px] md:min-h-[104px]"></div>
                             <?php endif; ?>
                             <?php if ( ! empty( $card['description'] ) ) : ?>
                             <p class="type-body text-[#212121]"
