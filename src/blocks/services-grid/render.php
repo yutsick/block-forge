@@ -31,9 +31,7 @@ $is_dark  = $bg_color === 'dark';
 
 $heading_class     = $is_dark ? 'text-gray-100' : 'text-[#2F2F2F]';
 $body_class        = $is_dark ? 'text-gray-400'  : 'text-banner-text';
-$btn_class         = $is_dark
-    ? 'border-gray-600 text-gray-300 hover:border-gray-400'
-    : 'border-[#27348B] text-[#27348B] hover:bg-[#27348B]/5';
+$btn_class         = $is_dark ? 'bf-btn--secondary-vit' : 'bf-btn--secondary-default';
 ?>
 
 <div <?php echo get_block_wrapper_attributes(); ?>>
@@ -86,8 +84,8 @@ $btn_class         = $is_dark
                     ?>
                     <?php if ( $title_url ) : ?>
                     <a href="<?php echo esc_url( $title_url ); ?>"
-                        class="services-card__title-link group inline-flex items-center gap-2 no-underline">
-                        <h3 class="type-h4 min-h-[2lh] <?php echo $heading_class; ?> group-hover:underline"
+                        class="services-card__title-link group inline-flex items-start gap-2 no-underline min-h-[72px] md:min-h-[80px]">
+                        <h3 class="type-h4 <?php echo $heading_class; ?> group-hover:underline"
                             <?php if ( $card_title_style ) echo 'style="' . esc_attr( $card_title_style ) . '"'; ?>>
                             <?php echo wp_kses( $card['title'], [] ); ?>
                         </h3>
@@ -101,19 +99,23 @@ $btn_class         = $is_dark
                         </svg>
                     </a>
                     <?php else : ?>
-                    <h3 class="type-h4 min-h-[2lh] <?php echo $heading_class; ?>"
+                    <h3 class="type-h4 <?php echo $heading_class; ?> min-h-[72px] md:min-h-[80px]"
                         <?php if ( $card_title_style ) echo 'style="' . esc_attr( $card_title_style ) . '"'; ?>>
                         <?php echo wp_kses( $card['title'], [] ); ?>
                     </h3>
                     <?php endif; ?>
+                    <?php else : ?>
+                    <div class="min-h-[72px] md:min-h-[80px]"></div>
                     <?php endif; ?>
 
                     <!-- Description -->
                     <?php if ( ! empty( $card['description'] ) ) : ?>
-                    <p class="type-body min-h-[3lh] <?php echo $body_class; ?>"
+                    <p class="type-body <?php echo $body_class; ?> min-h-[48px] md:min-h-[56px]"
                         <?php if ( $card_description_style ) echo 'style="' . esc_attr( $card_description_style ) . '"'; ?>>
                         <?php echo wp_kses( $card['description'], [ 'strong' => [], 'em' => [], 'b' => [], 'i' => [] ] ); ?>
                     </p>
+                    <?php else : ?>
+                    <div class="min-h-[48px] md:min-h-[56px]"></div>
                     <?php endif; ?>
 
                     <!-- Visible links -->
@@ -163,7 +165,7 @@ $btn_class         = $is_dark
 
                     <!-- Show more button -->
                     <button type="button"
-                        class="services-card__toggle cursor-pointer self-start inline-flex items-center gap-1.5 h-[30px] pl-[18px] pr-[14px] rounded-full border font-barlow-semicondensed font-medium text-[16px] leading-none transition-colors <?php echo $btn_class; ?>"
+                        class="services-card__toggle bf-btn bf-btn--small self-start <?php echo $btn_class; ?>"
                         aria-expanded="false">
                         <span class="services-card__toggle-label"><?php echo esc_html( $show_label ); ?></span>
                         <svg class="services-card__chevron w-5 h-5 transition-transform" viewBox="0 0 20 20" fill="none"

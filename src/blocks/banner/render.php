@@ -67,12 +67,12 @@ ob_start();
 <?php if ( $cta_type === 'buttons' || $cta_type === 'both' ) : ?>
 <div class="flex gap-8">
 	<a href="<?php echo esc_url( $primary_button['url'] ); ?>"
-		class="inline-flex items-center px-6 py-3 bg-banner-heading text-white rounded-full text-sm font-semibold no-underline"
+		class="bf-btn bf-btn--large bf-btn--primary-default"
 		<?php if ( $primary_btn_style ) echo 'style="' . esc_attr( $primary_btn_style ) . '"'; ?>>
 		<?php echo wp_kses( $primary_button['label'], [] ); ?>
 	</a>
 	<a href="<?php echo esc_url( $secondary_button['url'] ); ?>"
-		class="inline-flex items-center px-6 py-3 border-2 border-banner-heading text-banner-heading rounded-full text-sm font-semibold no-underline"
+		class="bf-btn bf-btn--large bf-btn--secondary-default"
 		<?php if ( $secondary_btn_style ) echo 'style="' . esc_attr( $secondary_btn_style ) . '"'; ?>>
 		<?php echo wp_kses( $secondary_button['label'], [] ); ?>
 	</a>

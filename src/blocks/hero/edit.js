@@ -181,7 +181,7 @@ export default function Edit({ attributes, setAttributes }) {
                         <div className="flex flex-wrap gap-2 md:gap-4 justify-center mt-8 md:mt-14">
                             <RichText
                                 tagName="span"
-                                className="hero__btn !no-underline inline-flex items-center justify-center min-w-[155px] px-4 h-[45px] md:min-w-[185px] md:h-[54px] bg-banner-pink !text-black rounded-full text-[18px] md:text-[20px] font-medium font-barlow-semicondensed"
+                                className="hero__btn bf-btn bf-btn--large bf-btn--primary-korall min-w-[155px] md:min-w-[185px]"
                                 style={toInlineStyle(primaryButtonStyle)}
                                 value={primaryButton.label}
                                 onChange={(value) => setAttributes({ primaryButton: { ...primaryButton, label: value } })}
@@ -190,7 +190,7 @@ export default function Edit({ attributes, setAttributes }) {
                             />
                             <RichText
                                 tagName="span"
-                                className="hero__btn !no-underline inline-flex items-center justify-center min-w-[155px] px-4 h-[45px] md:min-w-[185px] md:h-[54px] border border-white !text-white rounded-full text-[18px] md:text-[20px] font-medium font-barlow-semicondensed"
+                                className="hero__btn bf-btn bf-btn--large bf-btn--secondary-vit min-w-[155px] md:min-w-[185px]"
                                 style={toInlineStyle(secondaryButtonStyle)}
                                 value={secondaryButton.label}
                                 onChange={(value) => setAttributes({ secondaryButton: { ...secondaryButton, label: value } })}
