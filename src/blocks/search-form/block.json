@@ -1,0 +1,34 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "block-forge/search-form",
+  "title": "Sök (search form)",
+  "icon": "search",
+  "example": { "viewportWidth": 928 },
+  "category": "block-forge",
+  "description": "Free-text search form with editable title and subtitle. Submits to the site search; results render via the theme's search.php.",
+  "keywords": [
+    "search",
+    "sök",
+    "form",
+    "fritext"
+  ],
+  "textdomain": "block-forge",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./editor.css",
+  "style": "block-forge-style",
+  "render": "file:./render.php",
+  "supports": {
+    "html": false
+  },
+  "attributes": {
+    "title": {
+      "type": "string",
+      "default": "Sök med fritext"
+    },
+    "subtitle": {
+      "type": "string",
+      "default": "Här kan du söka efter innehåll på vår huvudwebb och medlemsytan."
+    }
+  }
+}
