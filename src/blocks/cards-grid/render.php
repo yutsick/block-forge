@@ -58,7 +58,7 @@ $overlay_classes = [
                             <div class="mb-1 min-h-[94px] md:min-h-[104px]"></div>
                             <?php endif; ?>
                             <?php if ( ! empty( $card['description'] ) ) : ?>
-                            <p class="type-body text-[#212121]"
+                            <p class="type-body text-[#212121] min-h-[3lh]"
                                 <?php if ( $card_description_style ) echo 'style="' . esc_attr( $card_description_style ) . '"'; ?>>
                                 <?php echo wp_kses( $card['description'], [ 'strong' => [], 'em' => [], 'b' => [], 'i' => [] ] ); ?>
                             </p>

@@ -141,6 +141,38 @@ add_action( 'enqueue_block_editor_assets', function() {
     }
 } );
 
+/**
+ * REST: list of published Forminator forms for the form block's dropdown.
+ * GET /wp-json/block-forge/v1/forminator-forms → [ { id, title }, … ]
+ */
+add_action( 'rest_api_init', function() {
+    register_rest_route( 'block-forge/v1', '/forminator-forms', [
+        'methods'             => 'GET',
+        'permission_callback' => function() {
+            return current_user_can( 'edit_posts' );
+        },
+        'callback'            => function() {
+            $forms = get_posts( [
+                'post_type'   => 'forminator_forms',
+                'post_status' => 'publish',
+                'numberposts' => 100,
+                'orderby'     => 'title',
+                'order'       => 'ASC',
+            ] );
+
+            return array_map(
+                function( $form ) {
+                    return [
+                        'id'    => $form->ID,
+                        'title' => $form->post_title ? $form->post_title : ( 'Form #' . $form->ID ),
+                    ];
+                },
+                $forms
+            );
+        },
+    ] );
+} );
+
 add_action( 'after_setup_theme', function() {
     register_nav_menus( [
         'block-forge-primary' => __( 'Block Forge – Primary Navigation', 'block-forge' ),

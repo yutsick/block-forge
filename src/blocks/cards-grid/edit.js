@@ -174,7 +174,7 @@ export default function Edit({ attributes, setAttributes }) {
                                             />
                                             <RichText
                                                 tagName="p"
-                                                className="type-body text-[#212121]"
+                                                className="type-body text-[#212121] min-h-[3lh]"
                                                 style={toInlineStyle(cardDescriptionStyle)}
                                                 value={card.description}
                                                 onChange={(value) => updateCard(i, 'description', value)}

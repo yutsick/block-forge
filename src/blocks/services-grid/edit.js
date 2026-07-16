@@ -239,7 +239,7 @@ export default function Edit({ attributes, setAttributes }) {
                                     <div className="inline-flex items-center gap-2 group">
                                         <RichText
                                             tagName="h3"
-                                            className={`type-h4 ${isDark ? 'text-gray-100' : 'text-[#2F2F2F]'}`}
+                                            className={`type-h4 min-h-[2lh] ${isDark ? 'text-gray-100' : 'text-[#2F2F2F]'}`}
                                             style={toInlineStyle(cardTitleStyle)}
                                             value={card.title}
                                             onChange={(v) => updateCard(ci, 'title', v)}
@@ -264,7 +264,7 @@ export default function Edit({ attributes, setAttributes }) {
                                     </div>
                                     <RichText
                                         tagName="p"
-                                        className={`type-body ${isDark ? 'text-gray-400' : 'text-banner-text'}`}
+                                        className={`type-body min-h-[3lh] ${isDark ? 'text-gray-400' : 'text-banner-text'}`}
                                         style={toInlineStyle(cardDescriptionStyle)}
                                         value={card.description}
                                         onChange={(v) => updateCard(ci, 'description', v)}
