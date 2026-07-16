@@ -1,0 +1,46 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "block-forge/form",
+  "title": "Formulär (Forminator)",
+  "icon": "feedback",
+  "example": { "viewportWidth": 928 },
+  "category": "block-forge",
+  "description": "Embeds a Forminator form with brand color controls: card background, field background, label color and field text color.",
+  "keywords": [
+    "form",
+    "formulär",
+    "forminator",
+    "kontakt"
+  ],
+  "textdomain": "block-forge",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./editor.css",
+  "style": "block-forge-style",
+  "render": "file:./render.php",
+  "supports": {
+    "html": false
+  },
+  "attributes": {
+    "formId": {
+      "type": "number",
+      "default": 0
+    },
+    "bgColor": {
+      "type": "string",
+      "default": "bg-grey"
+    },
+    "fieldBg": {
+      "type": "string",
+      "default": "white"
+    },
+    "labelColor": {
+      "type": "string",
+      "default": "default"
+    },
+    "fieldTextColor": {
+      "type": "string",
+      "default": "black"
+    }
+  }
+}
